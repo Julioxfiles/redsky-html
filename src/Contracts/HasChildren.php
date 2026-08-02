@@ -7,24 +7,19 @@ namespace RedSky\Html\Contracts;
 /**
  * Defines the contract for objects that can contain child nodes.
  *
- * This contract is implemented by HTML elements and components that
- * support hierarchical structures.
+ * This contract is implemented by HTML elements and components
+ * that support hierarchical structures.
  *
  * Child nodes may represent:
  *
- * - Other HTML elements.
+ * - HTML elements.
  * - Components.
  * - Text nodes.
  * - Renderable objects.
+ * - Document fragments.
  *
  * This allows RedSky HTML to build complex document trees while
  * maintaining a consistent rendering architecture.
- *
- * Example:
- *
- * $card->addChild(
- *     new Button()
- * );
  *
  * @package RedSky\Html\Contracts
  */
@@ -55,6 +50,18 @@ interface HasChildren
      */
     public function addChild(
         mixed $child
+    ): static;
+
+
+    /**
+     * Adds multiple child nodes.
+     *
+     * @param array<int, mixed> $children Child nodes.
+     *
+     * @return static
+     */
+    public function addChildren(
+        array $children
     ): static;
 
 
