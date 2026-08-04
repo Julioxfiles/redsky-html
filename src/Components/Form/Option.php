@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace RedSky\Html\Components;
+namespace RedSky\Html\Components\Form;
+
+use RedSky\Html\Components\HtmlComponent;
 
 /**
  * Represents an HTML option component.
@@ -13,7 +15,7 @@ namespace RedSky\Html\Components;
  * This component is UI-library agnostic and does
  * not apply any default classes or styles.
  *
- * @package RedSky\Html\Components
+ * @package RedSky\Html\Components\Form
  */
 class Option extends HtmlComponent
 {
@@ -37,23 +39,6 @@ class Option extends HtmlComponent
             $this->text($text);
         }
     }
-
-
-    /**
-     * Sets option text.
-     *
-     * @param string $text
-     *
-     * @return static
-     */
-    public function text(
-        string $text
-    ): static {
-        $this->setContent($text);
-
-        return $this;
-    }
-
 
     /**
      * Sets option value.
@@ -85,6 +70,39 @@ class Option extends HtmlComponent
         return $this->attribute(
             'selected',
             $selected
+        );
+    }
+
+    /**
+     * Sets disabled state.
+     *
+     * @param bool $disabled
+     *
+     * @return static
+     */
+    public function disabled(
+        bool $disabled = true
+    ): static {
+        return $this->attribute(
+            'disabled',
+            $disabled
+        );
+    }
+
+
+    /**
+     * Sets option label.
+     *
+     * @param string $label
+     *
+     * @return static
+     */
+    public function label(
+        string $label
+    ): static {
+        return $this->attribute(
+            'label',
+            $label
         );
     }
 }

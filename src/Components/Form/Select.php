@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace RedSky\Html\Components;
+namespace RedSky\Html\Components\Form;
+
+use RedSky\Html\Components\HtmlComponent;
 
 /**
  * Represents an HTML select component.
@@ -16,7 +18,7 @@ namespace RedSky\Html\Components;
  * This component is UI-library agnostic and does
  * not apply any default classes or styles.
  *
- * @package RedSky\Html\Components
+ * @package RedSky\Html\Components\Form
  */
 class Select extends HtmlComponent
 {
@@ -120,6 +122,95 @@ class Select extends HtmlComponent
         }
 
         return $this;
+    }
+
+        /**
+     * Sets selected option value.
+     *
+     * @param mixed $value
+     *
+     * @return static
+     */
+    public function selected(
+        mixed $value
+    ): static {
+        return $this->attribute(
+            'value',
+            $value
+        );
+    }
+
+
+    /**
+     * Adds a single option.
+     *
+     * Alias of addOption().
+     *
+     * @param string $text
+     * @param mixed $value
+     *
+     * @return static
+     */
+    public function option(
+        string $text,
+        mixed $value
+    ): static {
+        return $this->addOption(
+            $text,
+            $value
+        );
+    }
+
+
+    /**
+     * Adds multiple options.
+     *
+     * Alias of addOptions().
+     *
+     * @param array<string, mixed> $options
+     *
+     * @return static
+     */
+    public function options(
+        array $options
+    ): static {
+        return $this->addOptions(
+            $options
+        );
+    }
+
+
+    /**
+     * Sets disabled state.
+     *
+     * @param bool $disabled
+     *
+     * @return static
+     */
+    public function disabled(
+        bool $disabled = true
+    ): static {
+        return $this->attribute(
+            'disabled',
+            $disabled
+        );
+    }
+
+
+    /**
+     * Sets visible option count.
+     *
+     * @param int $size
+     *
+     * @return static
+     */
+    public function size(
+        int $size
+    ): static {
+        return $this->attribute(
+            'size',
+            $size
+        );
     }
 
 }

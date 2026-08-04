@@ -63,6 +63,22 @@ abstract class Component implements
         $this->children = new ChildrenCollection();
     }
 
+    /**
+     * Sets input id.
+     *
+     * @param string $id
+     *
+     * @return static
+     */
+    public function id(
+        string $id
+    ): static {
+        return $this->attribute(
+            'id',
+            $id
+        );
+    }
+
 
     /**
      * Returns all attributes.
@@ -314,6 +330,38 @@ abstract class Component implements
         return $this;
     }
 
+    /**
+     * Sets plain text content.
+     *
+     * Alias of setContent() intended for
+     * textual HTML components.
+     *
+     * @param string $text
+     *
+     * @return static
+     */
+    public function text(
+        string $text
+    ): static {
+        return $this->setContent(
+            $text
+        );
+    }
+
+    /**
+     * Sets raw HTML content.
+     *
+     * @param string $html
+     *
+     * @return static
+     */
+    public function html(
+        string $html
+    ): static {
+        return $this->setContent(
+            $html
+        );
+    }
 
     /**
      * Determines whether content exists.
@@ -372,9 +420,106 @@ abstract class Component implements
 
 
     /**
+     * Sets element title.
+     *
+     * @param string $title
+     *
+     * @return static
+     */
+    public function title(
+        string $title
+    ): static {
+        return $this->attribute(
+            'title',
+            $title
+        );
+    }
+
+
+    /**
+     * Sets ARIA role.
+     *
+     * @param string $role
+     *
+     * @return static
+     */
+    public function role(
+        string $role
+    ): static {
+        return $this->attribute(
+            'role',
+            $role
+        );
+    }
+
+
+    /**
+     * Hides the component.
+     *
+     * @param bool $hidden
+     *
+     * @return static
+     */
+    public function hidden(
+        bool $hidden = true
+    ): static {
+        return $this->attribute(
+            'hidden',
+            $hidden
+        );
+    }
+
+
+    /**
+     * Sets a data attribute.
+     *
+     * @param string $name
+     * @param mixed $value
+     *
+     * @return static
+     */
+    public function data(
+        string $name,
+        mixed $value
+    ): static {
+        return $this->attribute(
+            'data-' . $name,
+            $value
+        );
+    }
+
+    /**
+     * Sets an ARIA attribute.
+     *
+     * ARIA attributes improve accessibility
+     * for assistive technologies.
+     *
+     * Example:
+     * aria('label', 'Close button')
+     * generates:
+     * aria-label="Close button"
+     *
+     * @param string $name
+     * @param mixed $value
+     *
+     * @return static
+     */
+    public function aria(
+        string $name,
+        mixed $value
+    ): static {
+        return $this->attribute(
+            'aria-' . $name,
+            $value
+        );
+    }
+
+
+    /**
      * Returns component HTML representation.
      *
      * @return string
      */
     abstract public function render(): string;
+
 }

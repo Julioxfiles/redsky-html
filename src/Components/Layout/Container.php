@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace RedSky\Html\Components;
+namespace RedSky\Html\Components\Container;
+
+use RedSky\Html\Components\HtmlComponent;
 
 /**
  * Represents a generic HTML container component.
@@ -15,7 +17,7 @@ namespace RedSky\Html\Components;
  * classes or styles. UI customization is handled
  * by higher level layers such as redsky-ui.
  *
- * @package RedSky\Html\Components
+ * @package RedSky\Html\Components\Container
  */
 class Container extends HtmlComponent
 {
@@ -26,4 +28,6 @@ class Container extends HtmlComponent
     {
         parent::__construct('div');
     }
+
+
 }
