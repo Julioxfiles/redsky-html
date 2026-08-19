@@ -10,38 +10,11 @@ use ReflectionParameter;
 use ReflectionProperty;
 use ReflectionType;
 use RedSky\Html\Metadata\Component as ComponentMetadata;
+use RedSky\Html\Metadata\Example as ExampleMetadata;
 use RedSky\Html\Metadata\Method as MethodMetadata;
 
-/**
- * Scans HTML component classes and creates documentation metadata.
- *
- * The scanner discovers component classes and inspects their
- * metadata, methods, properties, parameters, return types,
- * inheritance, visibility, and modifiers.
- *
- * The scanner is responsible only for discovering information.
- * It does not render or format the final documentation.
- *
- * Example:
- *
- * ```php
- * $scanner = new Scanner();
- *
- * $registry = $scanner->scan([
- *     Button::class,
- *     TextInput::class,
- * ]);
- * ```
- */
 class Scanner
 {
-    /**
-     * Scans a list of component classes.
-     *
-     * Classes that do not exist or are abstract are ignored.
-     *
-     * @param array<int, string> $classes
-     */
     public function scan(array $classes): ComponentRegistry
     {
         $registry = new ComponentRegistry();
@@ -58,12 +31,6 @@ class Scanner
     }
 
 
-
-    /**
-     * Scans a single component class.
-     *
-     * Returns null when the class does not exist or is abstract.
-     */
     protected function scanClass(string $class): ?Component
     {
         if (!class_exists($class)) {
@@ -98,34 +65,14 @@ class Scanner
             );
         }
 
-        /*
-         * Scan the public API of the component.
-         */
-        $this->scanMethods(
-            $reflection,
-            $component
-        );
-
-        $this->scanProperties(
-            $reflection,
-            $component
-        );
+        $this->scanMethods($reflection, $component);
+        $this->scanProperties($reflection, $component);
+        $this->scanExamples($reflection, $component);
 
         return $component;
     }
 
 
-
-    /**
-     * Scans public methods declared by the component
-     * and inherited from parent classes.
-     *
-     * ReflectionClass::getMethods() returns public methods
-     * declared by the class and inherited from its parents.
-     *
-     * Protected and private methods are intentionally excluded
-     * from the public documentation API.
-     */
     protected function scanMethods(
         ReflectionClass $reflection,
         Component $component
@@ -135,24 +82,16 @@ class Scanner
                 continue;
             }
 
-            $documentation = $this->createMethodDocumentation(
-                $method,
-                $reflection
+            $component->addMethod(
+                $this->createMethodDocumentation(
+                    $method,
+                    $reflection
+                )
             );
-
-            $component->addMethod($documentation);
         }
     }
 
 
-
-    /**
-     * Creates documentation metadata for a reflected method.
-     *
-     * The resulting metadata contains the method's parameters,
-     * return type, declaring class, inheritance state, visibility,
-     * and PHP modifiers.
-     */
     protected function createMethodDocumentation(
         ReflectionMethod $method,
         ReflectionClass $component
@@ -174,129 +113,77 @@ class Scanner
     }
 
 
-
-    /**
-     * Scans all parameters of a method.
-     *
-     * Each parameter is represented by a Parameter metadata object.
-     *
-     * @return array<string, Parameter>
-     */
     protected function scanParameters(
         ReflectionMethod $method
     ): array {
         $parameters = [];
 
         foreach ($method->getParameters() as $parameter) {
-            $documentation = $this->createParameterDocumentation(
-                $parameter
-            );
-
-            $parameters[$parameter->getName()] = $documentation;
+            $parameters[$parameter->getName()] =
+                $this->createParameterDocumentation($parameter);
         }
 
         return $parameters;
     }
 
 
-
-    /**
-     * Creates documentation metadata for a reflected parameter.
-     *
-     * The parameter metadata includes:
-     *
-     * - name
-     * - type
-     * - optional state
-     * - default value
-     * - variadic state
-     */
     protected function createParameterDocumentation(
         ReflectionParameter $parameter
     ): Parameter {
-        $type = $this->resolveType(
-            $parameter->getType()
-        );
-
         $default = null;
+        $hasDefault = false;
 
         if ($parameter->isDefaultValueAvailable()) {
             $default = $parameter->getDefaultValue();
+            $hasDefault = true;
         }
 
         return new Parameter(
             name: $parameter->getName(),
-            type: $type,
+            type: $this->resolveType($parameter->getType()),
             optional: $parameter->isOptional(),
             default: $default,
-            variadic: $parameter->isVariadic()
+            variadic: $parameter->isVariadic(),
+            hasDefault: $hasDefault
         );
     }
 
 
-
-    /**
-     * Scans public properties declared by the component
-     * and inherited from parent classes.
-     *
-     * ReflectionClass::getProperties() returns properties declared
-     * by the class and inherited from parent classes.
-     *
-     * Protected and private properties are intentionally excluded
-     * from the public documentation API.
-     */
     protected function scanProperties(
         ReflectionClass $reflection,
         Component $component
     ): void {
         foreach ($reflection->getProperties() as $property) {
-            /* It will give me all properties,
-              but if I only want public ones. 
-             Then use the commented condition. */
-            /* 
-            if (!$property->isPublic()) {
-                continue;
-            }
-            */
-            $documentation = $this->createPropertyDocumentation(
-                $property,
-                $reflection
+            $component->addProperty(
+                $this->createPropertyDocumentation(
+                    $property,
+                    $reflection
+                )
             );
-
-            $component->addProperty($documentation);
         }
     }
 
 
-
-    /**
-     * Creates documentation metadata for a reflected property.
-     *
-     * The resulting metadata contains the property's type,
-     * description, default value, declaring class, inheritance
-     * state, visibility, static state, and readonly state.
-     */
     protected function createPropertyDocumentation(
         ReflectionProperty $property,
         ReflectionClass $component
     ): Property {
         $declaringClass = $property->getDeclaringClass();
 
-        $type = $this->resolveType(
-            $property->getType()
-        );
-
         $default = null;
+        $hasDefault = false;
 
         if ($property->hasDefaultValue()) {
             $default = $property->getDefaultValue();
+            $hasDefault = true;
         }
 
         return new Property(
             name: $property->getName(),
-            type: $type,
+            type: $this->resolveType($property->getType()),
             description: $this->resolvePropertyDescription($property),
             default: $default,
+            hasDefault: $hasDefault,
             declaringClass: $declaringClass->getName(),
             inherited: $declaringClass->getName() !== $component->getName(),
             visibility: $this->resolvePropertyVisibility($property),
@@ -306,22 +193,39 @@ class Scanner
     }
 
 
+    protected function scanExamples(
+        ReflectionClass $reflection,
+        Component $component
+    ): void {
+        $attributes = $reflection->getAttributes(
+            ExampleMetadata::class
+        );
 
-    /**
-     * Resolves the description of a property.
-     *
-     * The scanner currently uses the property's PHPDoc
-     * when available and falls back to a generic description.
-     */
+        foreach ($attributes as $attribute) {
+            /** @var ExampleMetadata $metadata */
+            $metadata = $attribute->newInstance();
+
+            $example = new \RedSky\Html\Documentation\Example(
+                $metadata->title(),
+                $metadata->code(),
+                $metadata->description(),
+                $metadata->language(),
+                $metadata->isPrimary(),
+                $metadata->output()
+            );
+
+            $component->addExample($example);
+        }
+    }
+
+
     protected function resolvePropertyDescription(
         ReflectionProperty $property
     ): string {
         $docComment = $property->getDocComment();
 
         if ($docComment !== false) {
-            $description = $this->extractDocDescription(
-                $docComment
-            );
+            $description = $this->extractDocDescription($docComment);
 
             if ($description !== '') {
                 return $description;
@@ -335,10 +239,6 @@ class Scanner
     }
 
 
-
-    /**
-     * Resolves property visibility.
-     */
     protected function resolvePropertyVisibility(
         ReflectionProperty $property
     ): string {
@@ -354,20 +254,6 @@ class Scanner
     }
 
 
-
-    /**
-     * Resolves a Reflection type into a readable string.
-     *
-     * Supports:
-     *
-     * - built-in types
-     * - nullable types
-     * - union types
-     * - intersection types
-     * - class types
-     *
-     * Returns "mixed" when no type declaration exists.
-     */
     protected function resolveType(
         ?ReflectionType $type
     ): string {
@@ -379,10 +265,6 @@ class Scanner
     }
 
 
-
-    /**
-     * Resolves the return type of a method.
-     */
     protected function resolveReturnType(
         ReflectionMethod $method
     ): string {
@@ -392,10 +274,6 @@ class Scanner
     }
 
 
-
-    /**
-     * Resolves the method visibility.
-     */
     protected function resolveVisibility(
         ReflectionMethod $method
     ): string {
@@ -411,14 +289,6 @@ class Scanner
     }
 
 
-
-    /**
-     * Resolves the method description.
-     *
-     * The scanner first checks the Method metadata attribute.
-     * If no metadata exists, it checks the method PHPDoc.
-     * If no PHPDoc exists, it generates a generic description.
-     */
     protected function resolveMethodDescription(
         ReflectionMethod $method
     ): string {
@@ -436,9 +306,7 @@ class Scanner
         $docComment = $method->getDocComment();
 
         if ($docComment !== false) {
-            $description = $this->extractDocDescription(
-                $docComment
-            );
+            $description = $this->extractDocDescription($docComment);
 
             if ($description !== '') {
                 return $description;
@@ -452,13 +320,6 @@ class Scanner
     }
 
 
-
-    /**
-     * Resolves the description of a component class.
-     *
-     * Uses the class PHPDoc when no Component metadata
-     * attribute is available.
-     */
     protected function resolveClassDescription(
         ReflectionClass $reflection
     ): ?string {
@@ -478,13 +339,6 @@ class Scanner
     }
 
 
-
-    /**
-     * Extracts the main description from a PHPDoc block.
-     *
-     * Tags such as @param, @return, @var, and @deprecated
-     * are excluded from the description.
-     */
     protected function extractDocDescription(
         string $docComment
     ): string {
@@ -498,10 +352,7 @@ class Scanner
             return '';
         }
 
-        $lines = preg_split(
-            '/\R/',
-            $docComment
-        );
+        $lines = preg_split('/\R/', $docComment);
 
         if ($lines === false) {
             return '';
@@ -543,10 +394,6 @@ class Scanner
     }
 
 
-
-    /**
-     * Returns Component metadata defined on the class.
-     */
     protected function getMetadata(
         ReflectionClass $reflection
     ): ?ComponentMetadata {
@@ -565,18 +412,6 @@ class Scanner
     }
 
 
-
-    /**
-     * Resolves the component category from its namespace.
-     *
-     * Example:
-     *
-     * RedSky\Html\Components\Form\TextInput
-     *
-     * becomes:
-     *
-     * Form
-     */
     protected function resolveCategory(
         ReflectionClass $reflection
     ): ?string {
@@ -597,9 +432,6 @@ class Scanner
             return null;
         }
 
-        return explode(
-            '\\',
-            $relative
-        )[0];
+        return explode('\\', $relative)[0];
     }
 }

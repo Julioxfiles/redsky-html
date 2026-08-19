@@ -4,26 +4,14 @@ declare(strict_types=1);
 
 namespace RedSky\Html\Documentation;
 
-
 /**
- * Represents a component usage example.
+ * Represents documentation metadata for a component usage example.
  *
- * An example contains the source code used to create
- * a component and the expected rendered HTML output.
+ * An example contains source code, an optional description,
+ * a language identifier, an indication of whether the example
+ * is the primary recommended example, and optional rendered output.
  *
- * Examples can be displayed by documentation renderers
- * as executable-looking source code together with the
- * resulting HTML representation.
- *
- * Example:
- *
- * ```php
- * $example = new Example(
- *     'Basic text input',
- *     '$input = new TextInput();',
- *     '<input type="text">'
- * );
- * ```
+ * @package RedSky\Html\Documentation
  */
 class Example
 {
@@ -34,37 +22,57 @@ class Example
 
 
     /**
-     * PHP source code example.
+     * Example source code.
      */
     protected string $code;
 
 
     /**
+     * Additional example description.
+     */
+    protected ?string $description;
+
+
+    /**
+     * Example language identifier.
+     */
+    protected ?string $language;
+
+
+    /**
+     * Indicates whether this is the primary example.
+     */
+    protected bool $primary;
+
+
+    /**
      * Rendered HTML output.
      */
-    protected string $output;
+    protected ?string $output;
 
 
     /**
      * Creates example documentation metadata.
-     *
-     * @param string $title Example title.
-     * @param string $code PHP source code.
-     * @param string $output Rendered HTML output.
      */
     public function __construct(
         string $title,
         string $code,
-        string $output
+        ?string $description = null,
+        ?string $language = null,
+        bool $primary = false,
+        ?string $output = null
     ) {
         $this->title = $title;
         $this->code = $code;
+        $this->description = $description;
+        $this->language = $language;
+        $this->primary = $primary;
         $this->output = $output;
     }
 
 
     /**
-     * Gets the example title.
+     * Returns the example title.
      */
     public function title(): string
     {
@@ -73,7 +81,7 @@ class Example
 
 
     /**
-     * Gets the PHP source code.
+     * Returns the example source code.
      */
     public function code(): string
     {
@@ -82,9 +90,36 @@ class Example
 
 
     /**
-     * Gets the rendered HTML output.
+     * Returns the example description.
      */
-    public function output(): string
+    public function description(): ?string
+    {
+        return $this->description;
+    }
+
+
+    /**
+     * Returns the example language.
+     */
+    public function language(): ?string
+    {
+        return $this->language;
+    }
+
+
+    /**
+     * Determines whether this is the primary example.
+     */
+    public function isPrimary(): bool
+    {
+        return $this->primary;
+    }
+
+
+    /**
+     * Returns the rendered HTML output.
+     */
+    public function output(): ?string
     {
         return $this->output;
     }
@@ -100,16 +135,37 @@ class Example
 
 
     /**
-     * Determines whether the example contains rendered output.
+     * Determines whether the example contains a description.
      */
-    public function hasOutput(): bool
+    public function hasDescription(): bool
     {
-        return $this->output !== '';
+        return $this->description !== null
+            && $this->description !== '';
     }
 
 
     /**
-     * Converts example documentation metadata into an associative array.
+     * Determines whether the example defines a language.
+     */
+    public function hasLanguage(): bool
+    {
+        return $this->language !== null
+            && $this->language !== '';
+    }
+
+
+    /**
+     * Determines whether the example contains rendered output.
+     */
+    public function hasOutput(): bool
+    {
+        return $this->output !== null
+            && $this->output !== '';
+    }
+
+
+    /**
+     * Converts example metadata to an associative array.
      *
      * @return array<string, mixed>
      */
@@ -118,13 +174,16 @@ class Example
         return [
             'title' => $this->title,
             'code' => $this->code,
+            'description' => $this->description,
+            'language' => $this->language,
+            'primary' => $this->primary,
             'output' => $this->output,
         ];
     }
 
 
     /**
-     * Converts example documentation metadata into JSON.
+     * Converts example metadata to JSON.
      *
      * @throws \JsonException
      */

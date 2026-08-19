@@ -21,15 +21,22 @@ use Attribute;
  * #[Example(
  *     title: 'Primary Button',
  *     code: '<Button variant="primary">Save</Button>',
- *     description: 'Creates a primary action button.'
+ *     description: 'Creates a primary action button.',
+ *     language: 'html',
+ *     primary: true,
+ *     output: '<button class="btn btn-primary">Save</button>'
  * )]
  * class Button
  * {
  * }
  *
- * @package RedSky\Html\Attributes
+ * @package RedSky\Html\Metadata
  */
-#[Attribute(Attribute::TARGET_CLASS | Attribute::TARGET_METHOD)]
+#[Attribute(
+    Attribute::TARGET_CLASS
+    | Attribute::TARGET_METHOD
+    | Attribute::IS_REPEATABLE
+)]
 final class Example
 {
     /**
@@ -40,13 +47,15 @@ final class Example
      * @param string|null $description Additional explanation.
      * @param string|null $language    Example language identifier.
      * @param bool        $primary     Indicates the recommended example.
+     * @param string|null $output      Expected rendered HTML output.
      */
     public function __construct(
         private readonly string $title,
         private readonly string $code,
         private readonly ?string $description = null,
         private readonly ?string $language = null,
-        private readonly bool $primary = false
+        private readonly bool $primary = false,
+        private readonly ?string $output = null
     ) {
     }
 
@@ -101,6 +110,16 @@ final class Example
     }
 
     /**
+     * Returns the expected rendered HTML output.
+     *
+     * @return string|null
+     */
+    public function output(): ?string
+    {
+        return $this->output;
+    }
+
+    /**
      * Determines whether the example has a description.
      *
      * @return bool
@@ -123,7 +142,18 @@ final class Example
     }
 
     /**
-     * Returns the example metadata as an array.
+     * Determines whether the example contains rendered output.
+     *
+     * @return bool
+     */
+    public function hasOutput(): bool
+    {
+        return $this->output !== null
+            && $this->output !== '';
+    }
+
+    /**
+     * Returns the example metadata as an associative array.
      *
      * @return array<string, mixed>
      */
@@ -135,6 +165,7 @@ final class Example
             'description' => $this->description,
             'language' => $this->language,
             'primary' => $this->primary,
+            'output' => $this->output,
         ];
     }
 
@@ -142,6 +173,8 @@ final class Example
      * Converts example metadata into JSON format.
      *
      * @return string
+     *
+     * @throws \JsonException
      */
     public function toJson(): string
     {
