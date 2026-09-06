@@ -5,21 +5,83 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Form;
 
 use RedSky\Html\Components\HtmlComponent;
+use RedSky\Html\Metadata\Example;
 
 /**
  * Represents an HTML select component.
  *
- * The select component generates a semantic HTML
- * select element used to provide selectable options.
+ * The Select component generates a semantic HTML
+ * <select> element used to provide one or more
+ * selectable options.
  *
- * Options should be added as child components
- * using Option components.
+ * Options can be added individually using addOption()
+ * or in bulk using addOptions(). The option() and options()
+ * methods provide convenient aliases for these methods.
  *
- * This component is UI-library agnostic and does
- * not apply any default classes or styles.
+ * Select supports both single-selection and multiple-selection
+ * controls, as well as required, disabled, and visible option
+ * count configurations.
+ *
+ * Options are represented by Option components and are added
+ * as child components of the Select element.
+ *
+ * This component is UI-library agnostic and does not apply
+ * any default classes or styles.
+ *
+ * Component methods support fluent method chaining, allowing
+ * multiple configuration methods to be combined before the
+ * component is rendered.
+ *
+ * Calling render() returns the generated HTML as a string.
+ * The component can also be converted directly to a string
+ * through HtmlComponent::__toString().
+ *
+ * Example:
+ *
+ * ```php
+ * echo new Select()
+ *     ->name('country')
+ *     ->required()
+ *     ->addOptions([
+ *         'Mexico' => 'mx',
+ *         'United States' => 'us',
+ *         'Canada' => 'ca',
+ *     ])
+ *     ->render();
+ * ```
+ *
+ * Produces:
+ *
+ * ```html
+ * <select name="country" required>
+ *     <option value="mx">Mexico</option>
+ *     <option value="us">United States</option>
+ *     <option value="ca">Canada</option>
+ * </select>
+ * ```
  *
  * @package RedSky\Html\Components\Form
  */
+#[Example(
+    title: 'Complete select',
+    code: <<<'PHP'
+    echo new Select()
+        ->name('country')
+        ->required()
+        ->addOptions([
+            'Mexico' => 'mx',
+            'United States' => 'us',
+            'Canada' => 'ca',
+        ])
+        ->render();
+    PHP,
+    description: 'The Select component generates a semantic HTML
+                 <select> element with multiple selectable options
+                 and form configuration.',
+    language: 'php',
+    primary: true,
+    output: '<select name="country" required><option value="mx">Mexico</option><option value="us">United States</option><option value="ca">Canada</option></select>'
+)]
 class Select extends HtmlComponent
 {
     /**
@@ -32,9 +94,12 @@ class Select extends HtmlComponent
 
 
     /**
-     * Sets select name.
+     * Sets the select name.
      *
-     * @param string $name
+     * The name identifies the submitted value when the
+     * containing form is submitted.
+     *
+     * @param string $name Select name.
      *
      * @return static
      */
@@ -49,9 +114,12 @@ class Select extends HtmlComponent
 
 
     /**
-     * Enables multiple selection.
+     * Enables or disables multiple selection.
      *
-     * @param bool $multiple
+     * When enabled, the user can select multiple options
+     * from the select control.
+     *
+     * @param bool $multiple Whether multiple selection is enabled.
      *
      * @return static
      */
@@ -66,9 +134,12 @@ class Select extends HtmlComponent
 
 
     /**
-     * Marks select as required.
+     * Marks the select as required.
      *
-     * @param bool $required
+     * A required select must have a valid option selected
+     * before the containing form can be submitted.
+     *
+     * @param bool $required Whether the select is required.
      *
      * @return static
      */
@@ -81,11 +152,15 @@ class Select extends HtmlComponent
         );
     }
 
+
     /**
      * Adds a single option.
      *
-     * @param string $text
-     * @param mixed $value
+     * The option is created as an Option component and
+     * added as a child of the select element.
+     *
+     * @param string $text Visible option text.
+     * @param mixed $value Submitted option value.
      *
      * @return static
      */
@@ -103,18 +178,28 @@ class Select extends HtmlComponent
         return $this;
     }
 
+
     /**
- * Adds multiple options from an associative array.
- *
- * @param array<string, mixed> $options
- *
- * @return static
- */
+     * Adds multiple options from an associative array.
+     *
+     * The array key is used as the visible option text
+     * and the array value is used as the submitted option value.
+     *
+     * Example:
+     *
+     *     [
+     *         'Mexico' => 'mx',
+     *         'Canada' => 'ca',
+     *     ]
+     *
+     * @param array<string, mixed> $options Options indexed by text.
+     *
+     * @return static
+     */
     public function addOptions(
         array $options
     ): static {
         foreach ($options as $text => $value) {
-
             $this->addOption(
                 $text,
                 $value
@@ -124,10 +209,14 @@ class Select extends HtmlComponent
         return $this;
     }
 
-        /**
-     * Sets selected option value.
+
+    /**
+     * Sets the selected option value.
      *
-     * @param mixed $value
+     * This method is intended to define the value that should
+     * be selected when the select is rendered.
+     *
+     * @param mixed $value Selected option value.
      *
      * @return static
      */
@@ -146,8 +235,8 @@ class Select extends HtmlComponent
      *
      * Alias of addOption().
      *
-     * @param string $text
-     * @param mixed $value
+     * @param string $text Visible option text.
+     * @param mixed $value Submitted option value.
      *
      * @return static
      */
@@ -167,7 +256,7 @@ class Select extends HtmlComponent
      *
      * Alias of addOptions().
      *
-     * @param array<string, mixed> $options
+     * @param array<string, mixed> $options Options indexed by text.
      *
      * @return static
      */
@@ -181,9 +270,12 @@ class Select extends HtmlComponent
 
 
     /**
-     * Sets disabled state.
+     * Sets the disabled state.
      *
-     * @param bool $disabled
+     * A disabled select cannot be interacted with by the user
+     * and its value is not submitted with the form.
+     *
+     * @param bool $disabled Whether the select is disabled.
      *
      * @return static
      */
@@ -198,9 +290,11 @@ class Select extends HtmlComponent
 
 
     /**
-     * Sets visible option count.
+     * Sets the number of visible options.
      *
-     * @param int $size
+     * The value is assigned to the native HTML size attribute.
+     *
+     * @param int $size Number of visible options.
      *
      * @return static
      */
@@ -212,5 +306,4 @@ class Select extends HtmlComponent
             $size
         );
     }
-
 }

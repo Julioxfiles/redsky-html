@@ -5,25 +5,60 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Table;
 
 use RedSky\Html\Components\HtmlComponent;
+use RedSky\Html\Metadata\Example;
 
 /**
  * Represents an HTML table row component.
  *
- * The table row component generates a semantic
- * HTML tr element used to group table cells.
+ * The TableRow component generates a semantic HTML
+ * <tr> element used to group table cells within a
+ * table section.
  *
- * Cells should be added using TableCell or
+ * Data cells are represented by TableCell components,
+ * while header cells are represented by
  * TableHeaderCell components.
  *
- * This component is UI-library agnostic and does
- * not apply any default classes or styles.
+ * Cells can be added individually or as collections
+ * using addCell(), addCells(), addHeaderCell(), and
+ * addHeaderCells().
+ *
+ * Common attributes and child-management methods inherited
+ * from HtmlComponent can also be used, including class(),
+ * style(), attribute(), addChild(), render(), and __toString().
+ *
+ * This component is UI-library agnostic and does not apply
+ * any default classes or styles.
  *
  * @package RedSky\Html\Components\Table
  */
+#[Example(
+    title: 'Table Row',
+    code: <<<'PHP'
+    echo (new TableRow())
+        ->addHeaderCell(
+            (new TableHeaderCell('Name'))
+                ->scope('col')
+        )
+        ->addHeaderCell(
+            (new TableHeaderCell('Email'))
+                ->scope('col')
+        )
+        ->render();
+    PHP,
+    description: 'Creates a semantic table row containing
+                 header cells. TableRow can also contain
+                 data cells using TableCell components.',
+    language: 'php',
+    primary: true,
+    output: '<tr><th scope="col">Name</th><th scope="col">Email</th></tr>'
+)]
 class TableRow extends HtmlComponent
 {
     /**
      * Creates a new table row component.
+     *
+     * The component generates an HTML <tr> element
+     * intended to contain table data or header cells.
      */
     public function __construct()
     {
@@ -32,9 +67,12 @@ class TableRow extends HtmlComponent
 
 
     /**
-     * Adds a data cell.
+     * Adds a single data cell.
      *
-     * @param TableCell $cell
+     * The supplied TableCell component is appended
+     * to the row.
+     *
+     * @param TableCell $cell Data cell to add.
      *
      * @return static
      */
@@ -50,7 +88,10 @@ class TableRow extends HtmlComponent
     /**
      * Adds multiple data cells.
      *
-     * @param array<int, TableCell> $cells
+     * Cells are added in the same order in which they
+     * appear in the supplied array.
+     *
+     * @param array<int, TableCell> $cells Data cells to add.
      *
      * @return static
      */
@@ -68,9 +109,12 @@ class TableRow extends HtmlComponent
 
 
     /**
-     * Adds a header cell.
+     * Adds a single header cell.
      *
-     * @param TableHeaderCell $cell
+     * The supplied TableHeaderCell component is appended
+     * to the row.
+     *
+     * @param TableHeaderCell $cell Header cell to add.
      *
      * @return static
      */
@@ -86,7 +130,10 @@ class TableRow extends HtmlComponent
     /**
      * Adds multiple header cells.
      *
-     * @param array<int, TableHeaderCell> $cells
+     * Header cells are added in the same order in which
+     * they appear in the supplied array.
+     *
+     * @param array<int, TableHeaderCell> $cells Header cells to add.
      *
      * @return static
      */

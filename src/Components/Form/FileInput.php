@@ -4,17 +4,88 @@ declare(strict_types=1);
 
 namespace RedSky\Html\Components\Form;
 
+use RedSky\Html\Metadata\Example;
+
 /**
- * Represents an HTML file input component.
+ * The FileInput component generates a native HTML
+ * <input type="file"> element that allows users to
+ * select files for upload.
  *
- * The file input component generates
- * an input element with type="file".
+ * The component is UI-library agnostic and does not apply
+ * any default CSS classes or styles.
  *
- * This component provides helpers for
- * file uploads.
+ * A name can optionally be supplied to identify the uploaded
+ * file when the containing form is submitted.
+ *
+ * FileInput provides convenient methods for configuring
+ * file selection, including:
+ *
+ * - Setting accepted file types.
+ * - Allowing multiple file selection.
+ * - Setting the file capture mode.
+ * - Restricting selection to images.
+ * - Restricting selection to common documents.
+ * - Restricting selection to videos.
+ * - Restricting selection to audio files.
+ *
+ * Because FileInput extends the standard input component,
+ * it also supports the common component methods for setting
+ * HTML attributes, CSS classes, inline styles, and other
+ * component properties.
+ *
+ * Component methods support fluent method chaining, allowing
+ * multiple configuration methods to be combined before the
+ * component is rendered.
+ *
+ * Calling render() returns the generated HTML as a string.
+ * The component can also be converted directly to a string
+ * through HtmlComponent::__toString().
+ *
+ * Example:
+ *
+ * ```php
+ * echo new FileInput('documents')
+ *     ->class('file-input')
+ *     ->style('color:cornflowerblue')
+ *     ->attribute('id', 'documents')
+ *     ->documents()
+ *     ->multiple()
+ *     ->render();
+ * ```
+ *
+ * Produces:
+ *
+ * ```html
+ * <input type="file"
+ *        name="documents"
+ *        class="file-input"
+ *        style="color:cornflowerblue"
+ *        id="documents"
+ *        accept=".pdf,.doc,.docx,.txt"
+ *        multiple />
+ * ```
  *
  * @package RedSky\Html\Components\Form
  */
+#[Example(
+    title: 'Complete file input',
+    code: <<<'PHP'
+echo new FileInput('documents')
+    ->class('file-input')
+    ->style('color:cornflowerblue')
+    ->attribute('id', 'documents')
+    ->documents()
+    ->multiple()
+    ->render();
+PHP,
+    description: 'The FileInput component generates a native HTML
+                 <input type="file"> element for selecting files
+                 and provides convenient methods for configuring
+                 accepted file types and multiple file selection.',
+    language: 'php',
+    primary: true,
+    output: '<input type="file" name="documents" class="file-input" style="color:cornflowerblue" id="documents" accept=".pdf,.doc,.docx,.txt" multiple />'
+)]
 class FileInput extends Input
 {
     /**

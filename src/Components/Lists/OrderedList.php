@@ -5,21 +5,76 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Lists;
 
 use RedSky\Html\Components\HtmlComponent;
+use RedSky\Html\Metadata\Example;
 
 /**
- * Represents an HTML ordered list component.
+ * Represents an HTML <ol> element.
  *
- * The ordered list component generates a semantic
- * HTML ol element.
+ * The OrderedList component generates a semantic HTML <ol>
+ * element used to represent a list of items where the order
+ * of the items is meaningful.
  *
- * List items should be added using ListItem
- * components.
+ * List items are represented by ListItem components and can
+ * be added individually using addItem() or in groups using
+ * addItems().
  *
- * This component is UI-library agnostic and does
- * not apply any default classes or styles.
+ * The component supports configuring the starting number,
+ * reversing the numbering order, and selecting the numbering
+ * style through the start(), reversed(), and type() methods.
+ *
+ * OrderedList extends HtmlComponent and inherits common
+ * functionality for managing attributes, classes, styles,
+ * content, children, rendering, and fluent configuration.
+ *
+ * The component is UI-library agnostic and does not apply
+ * default CSS classes or visual styles.
+ *
+ * The component can be rendered explicitly using render()
+ * or converted automatically to its HTML representation
+ * through __toString().
+ *
+ * Example:
+ *
+ * ```php
+ * echo (new OrderedList())
+ *     ->start(3)
+ *     ->addItems([
+ *         new ListItem('First item'),
+ *         new ListItem('Second item'),
+ *         new ListItem('Third item'),
+ *     ])
+ *     ->render();
+ * ```
+ *
+ * Produces:
+ *
+ * ```html
+ * <ol start="3"><li>First item</li><li>Second item</li><li>Third item</li></ol>
+ * ```
  *
  * @package RedSky\Html\Components\Lists
  */
+#[Example(
+    title: 'Ordered List',
+    code: <<<'PHP'
+    echo (new OrderedList())
+        ->start(3)
+        ->addItems([
+            new ListItem('First item'),
+            new ListItem('Second item'),
+            new ListItem('Third item'),
+        ])
+        ->render();
+    PHP,
+    description: 'The OrderedList component generates a semantic
+                 HTML <ol> element for ordered content. It provides
+                 methods for adding list items and configuring the
+                 starting number, numbering direction, and numbering
+                 style.',
+    language: 'php',
+    primary: true,
+    output: '<ol start="3"><li>First item</li><li>Second item</li><li>Third item</li></ol>'
+)]
 class OrderedList extends HtmlComponent
 {
     /**
@@ -30,11 +85,10 @@ class OrderedList extends HtmlComponent
         parent::__construct('ol');
     }
 
-
     /**
-     * Adds a list item.
+     * Adds a list item to the ordered list.
      *
-     * @param ListItem $item
+     * @param ListItem $item List item component.
      *
      * @return static
      */
@@ -44,11 +98,10 @@ class OrderedList extends HtmlComponent
         return $this->addChild($item);
     }
 
-
     /**
-     * Adds multiple list items.
+     * Adds multiple list items to the ordered list.
      *
-     * @param array<int, ListItem> $items
+     * @param array<int, ListItem> $items List item components.
      *
      * @return static
      */
@@ -62,11 +115,12 @@ class OrderedList extends HtmlComponent
         return $this;
     }
 
-
     /**
-     * Sets the starting number.
+     * Sets the starting number for the ordered list.
      *
-     * @param int $start
+     * Corresponds to the HTML `start` attribute.
+     *
+     * @param int $start Starting number.
      *
      * @return static
      */
@@ -79,11 +133,15 @@ class OrderedList extends HtmlComponent
         );
     }
 
-
     /**
-     * Reverses the numbering order.
+     * Enables or disables reverse numbering.
      *
-     * @param bool $reverse
+     * When enabled, the list numbers decrease rather than
+     * increase as the items progress.
+     *
+     * Corresponds to the HTML `reversed` attribute.
+     *
+     * @param bool $reverse Whether numbering should be reversed.
      *
      * @return static
      */
@@ -96,18 +154,20 @@ class OrderedList extends HtmlComponent
         );
     }
 
-
     /**
-     * Sets numbering style.
+     * Sets the numbering style for the ordered list.
      *
-     * Typical values:
-     * 1
-     * A
-     * a
-     * I
-     * i
+     * Common values include:
      *
-     * @param string $type
+     * - `1` for decimal numbers
+     * - `A` for uppercase letters
+     * - `a` for lowercase letters
+     * - `I` for uppercase Roman numerals
+     * - `i` for lowercase Roman numerals
+     *
+     * Corresponds to the HTML `type` attribute.
+     *
+     * @param string $type Numbering style.
      *
      * @return static
      */

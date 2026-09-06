@@ -7,18 +7,90 @@ namespace RedSky\Html\Components\Form;
 use RedSky\Html\Components\HtmlComponent;
 use RedSky\Html\Components\Interactive\Button;
 
+use RedSky\Html\Metadata\Example;
+
 /**
- * Represents an HTML form component.
+ * The Form component generates a semantic HTML
+ * <form> element used to contain and submit form controls.
  *
- * The form component generates a semantic HTML
- * form element capable of containing any
- * form-related controls.
+ * The component is UI-library agnostic and does not apply
+ * any default CSS classes or styles.
  *
- * This component is UI-library agnostic and
- * does not apply any default classes or styles.
+ * Form provides convenient methods for configuring the
+ * form behavior and its relationship with the server,
+ * including:
+ *
+ * - Setting the form action URL.
+ * - Setting the HTTP submission method.
+ * - Setting the form encoding type.
+ * - Enabling or disabling browser validation.
+ * - Setting the form target.
+ * - Setting the autocomplete behavior.
+ * - Setting the form name.
+ * - Setting the accepted character encoding.
+ * - Adding individual form controls.
+ * - Adding multiple form controls.
+ * - Adding a submit button.
+ * - Adding a reset button.
+ * - Clearing all form controls.
+ *
+ * The addSubmitButton() and addResetButton() methods
+ * automatically create the corresponding Button component
+ * and add it to the form.
+ *
+ * Form supports fluent method chaining, allowing multiple
+ * configuration methods and controls to be combined before
+ * the form is rendered.
+ *
+ * Calling render() returns the generated HTML as a string.
+ * The component can also be converted directly to a string
+ * through HtmlComponent::__toString().
+ *
+ * Example:
+ *
+ * ```php
+ * echo (new Form())
+ *     ->action('/users')
+ *     ->method('post')
+ *     ->class('user-form')
+ *     ->attribute('id', 'user-form')
+ *     ->addSubmitButton('Save User')
+ *     ->render();
+ * ```
+ *
+ * Produces:
+ *
+ * ```html
+ * <form action="/users"
+ *       method="POST"
+ *       class="user-form"
+ *       id="user-form">
+ *     <button type="submit">Save User</button>
+ * </form>
+ * ```
  *
  * @package RedSky\Html\Components\Form
  */
+#[Example(
+    title: 'Complete form',
+    code: <<<'PHP'
+echo (new Form())
+    ->action('/users')
+    ->method('post')
+    ->class('user-form')
+    ->attribute('id', 'user-form')
+    ->addSubmitButton('Save User')
+    ->render();
+PHP,
+    description: 'The Form component generates a semantic HTML
+                 <form> element and provides convenient methods
+                 for configuring submission behavior and adding
+                 form controls and buttons.',
+    language: 'php',
+    primary: true,
+    output: '<form action="/users" method="POST" class="user-form" id="user-form"><button type="submit">Save User</button></form>'
+)]
+
 class Form extends HtmlComponent
 {
     /**

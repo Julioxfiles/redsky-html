@@ -5,26 +5,54 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Navigation;
 
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Components\Navigation\MenuItem;
+use RedSky\Html\Metadata\Example;
 
 /**
  * Represents an HTML menu component.
  *
- * The menu component generates a semantic HTML
- * ul element intended to contain navigation items.
+ * The Menu component generates a semantic HTML <ul>
+ * element intended to contain navigation items.
  *
- * Menu items should be added using MenuItem
- * components.
+ * Menu items are represented by MenuItem components and
+ * can be added individually or as a collection using
+ * addItem() and addItems().
  *
- * This component is UI-library agnostic and does
- * not apply any default classes or styles.
+ * Common attributes and content methods inherited from
+ * HtmlComponent can also be used, including class(),
+ * style(), attribute(), addChild(), render(), and
+ * __toString().
+ *
+ * This component is UI-library agnostic and does not
+ * apply any default classes or styles.
  *
  * @package RedSky\Html\Components\Navigation
  */
+#[Example(
+    title: 'Navigation Menu',
+    code: <<<'PHP'
+    echo (new Menu())
+        ->addItems([
+            new MenuItem('/home', 'Home'),
+            new MenuItem('/about', 'About'),
+            new MenuItem('/contact', 'Contact'),
+        ])
+        ->attribute('id', 'main-menu')
+        ->render();
+    PHP,
+    description: 'Creates a semantic unordered list containing
+                 navigation menu items. Each MenuItem represents
+                 an individual navigation link.',
+    language: 'php',
+    primary: true,
+    output: '<ul id="main-menu"><li><a href="/home">Home</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li></ul>'
+)]
 class Menu extends HtmlComponent
 {
     /**
      * Creates a new menu component.
+     *
+     * The component generates an HTML <ul> element
+     * that can contain MenuItem components.
      */
     public function __construct()
     {
@@ -33,9 +61,12 @@ class Menu extends HtmlComponent
 
 
     /**
-     * Adds a menu item.
+     * Adds a single menu item.
      *
-     * @param MenuItem $item
+     * The supplied MenuItem is added as a child of
+     * the menu element.
+     *
+     * @param MenuItem $item Menu item to add.
      *
      * @return static
      */
@@ -51,7 +82,10 @@ class Menu extends HtmlComponent
     /**
      * Adds multiple menu items.
      *
-     * @param array<int, MenuItem> $items
+     * Each MenuItem in the array is added to the
+     * menu in the order provided.
+     *
+     * @param array<int, MenuItem> $items Menu items to add.
      *
      * @return static
      */
@@ -59,7 +93,6 @@ class Menu extends HtmlComponent
         array $items
     ): static {
         foreach ($items as $item) {
-
             $this->addItem(
                 $item
             );

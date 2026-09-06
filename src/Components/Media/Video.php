@@ -5,24 +5,62 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Media;
 
 use RedSky\Html\Components\HtmlComponent;
+use RedSky\Html\Metadata\Example;
 
 /**
  * Represents an HTML video component.
  *
- * The video component generates a semantic HTML
- * video element.
+ * The Video component generates a semantic HTML
+ * <video> element for displaying video content.
  *
- * This component is UI-library agnostic and does
- * not apply any default classes or styles.
+ * A video can use a direct source through the constructor
+ * or through the src() method. Additional Source components
+ * can be added when multiple video formats or sources are
+ * required.
+ *
+ * Track components can be added to provide subtitles,
+ * captions, descriptions, chapters, or other timed text.
+ *
+ * The component supports common HTML video attributes
+ * such as playback controls, autoplay, muted playback,
+ * looping, preload behavior, poster images, dimensions,
+ * inline playback, picture-in-picture, and remote playback.
+ *
+ * Video is not a void HTML element, so it can contain
+ * child elements such as Source and Track.
+ *
+ * This component is UI-library agnostic and does not
+ * apply any default classes or styles.
  *
  * @package RedSky\Html\Components\Media
  */
+#[Example(
+    title: 'Video',
+    code: <<<'PHP'
+    echo (new Video('/media/demo.mp4'))
+        ->controls()
+        ->poster('/images/video-poster.jpg')
+        ->width(640)
+        ->height(360)
+        ->attribute('id', 'demo-video')
+        ->render();
+    PHP,
+    description: 'Creates a semantic HTML video element with a
+                 video source, playback controls, poster image,
+                 and explicit dimensions.',
+    language: 'php',
+    primary: true,
+    output: '<video src="/media/demo.mp4" controls poster="/images/video-poster.jpg" width="640" height="360" id="demo-video"></video>'
+)]
 class Video extends HtmlComponent
 {
     /**
      * Creates a new video component.
      *
-     * @param string|null $src Video source.
+     * When a source is provided, it is assigned to the
+     * src attribute.
+     *
+     * @param string|null $src Video source URL.
      */
     public function __construct(
         ?string $src = null
@@ -36,9 +74,9 @@ class Video extends HtmlComponent
 
 
     /**
-     * Sets video source.
+     * Sets the video source URL.
      *
-     * @param string $src
+     * @param string $src Video source URL.
      *
      * @return static
      */
@@ -53,9 +91,10 @@ class Video extends HtmlComponent
 
 
     /**
-     * Shows playback controls.
+     * Enables or disables the browser's
+     * built-in playback controls.
      *
-     * @param bool $controls
+     * @param bool $controls Whether controls should be displayed.
      *
      * @return static
      */
@@ -70,9 +109,13 @@ class Video extends HtmlComponent
 
 
     /**
-     * Enables autoplay.
+     * Enables or disables automatic playback.
      *
-     * @param bool $autoplay
+     * Browsers may restrict autoplay unless the
+     * video is muted or other autoplay requirements
+     * are satisfied.
+     *
+     * @param bool $autoplay Whether autoplay is enabled.
      *
      * @return static
      */
@@ -87,9 +130,9 @@ class Video extends HtmlComponent
 
 
     /**
-     * Mutes the video.
+     * Enables or disables muted playback.
      *
-     * @param bool $muted
+     * @param bool $muted Whether the video is muted.
      *
      * @return static
      */
@@ -104,9 +147,12 @@ class Video extends HtmlComponent
 
 
     /**
-     * Enables looping.
+     * Enables or disables looping playback.
      *
-     * @param bool $loop
+     * When enabled, the video automatically starts
+     * again after reaching the end.
+     *
+     * @param bool $loop Whether looping is enabled.
      *
      * @return static
      */
@@ -121,9 +167,11 @@ class Video extends HtmlComponent
 
 
     /**
-     * Sets preload behavior.
+     * Sets the browser's preload behavior.
      *
-     * @param string $preload
+     * Common values are "none", "metadata", and "auto".
+     *
+     * @param string $preload Preload behavior.
      *
      * @return static
      */
@@ -138,9 +186,9 @@ class Video extends HtmlComponent
 
 
     /**
-     * Sets poster image.
+     * Sets the image displayed before video playback begins.
      *
-     * @param string $poster
+     * @param string $poster Poster image URL.
      *
      * @return static
      */
@@ -155,9 +203,9 @@ class Video extends HtmlComponent
 
 
     /**
-     * Sets video width.
+     * Sets the rendered video width.
      *
-     * @param int $width
+     * @param int $width Width in CSS pixels.
      *
      * @return static
      */
@@ -172,9 +220,9 @@ class Video extends HtmlComponent
 
 
     /**
-     * Sets video height.
+     * Sets the rendered video height.
      *
-     * @param int $height
+     * @param int $height Height in CSS pixels.
      *
      * @return static
      */
@@ -189,9 +237,12 @@ class Video extends HtmlComponent
 
 
     /**
-     * Allows picture-in-picture.
+     * Enables or disables picture-in-picture mode.
      *
-     * @param bool $enabled
+     * When disabled, the disablepictureinpicture
+     * attribute is added to the video element.
+     *
+     * @param bool $enabled Whether picture-in-picture is allowed.
      *
      * @return static
      */
@@ -206,9 +257,12 @@ class Video extends HtmlComponent
 
 
     /**
-     * Disables remote playback.
+     * Enables or disables remote playback.
      *
-     * @param bool $disabled
+     * When enabled, the disableremoteplayback attribute
+     * is added to the video element.
+     *
+     * @param bool $disabled Whether remote playback is disabled.
      *
      * @return static
      */
@@ -223,9 +277,13 @@ class Video extends HtmlComponent
 
 
     /**
-     * Plays inline on mobile devices.
+     * Enables or disables inline playback.
      *
-     * @param bool $playsInline
+     * The playsinline attribute allows video to play
+     * within the element instead of automatically
+     * switching to fullscreen on supported mobile browsers.
+     *
+     * @param bool $playsInline Whether inline playback is enabled.
      *
      * @return static
      */
@@ -238,10 +296,14 @@ class Video extends HtmlComponent
         );
     }
 
-        /**
-     * Adds a source element.
+
+    /**
+     * Adds a video source.
      *
-     * @param Source $source
+     * Source components can be used to provide
+     * multiple video formats or alternative sources.
+     *
+     * @param Source $source Video source component.
      *
      * @return static
      */
@@ -255,9 +317,12 @@ class Video extends HtmlComponent
 
 
     /**
-     * Adds multiple source elements.
+     * Adds multiple video sources.
      *
-     * @param array<int, Source> $sources
+     * Each Source component is added as a child
+     * of the video element.
+     *
+     * @param array<int, Source> $sources Video source components.
      *
      * @return static
      */
@@ -277,7 +342,11 @@ class Video extends HtmlComponent
     /**
      * Adds a text track.
      *
-     * @param Track $track
+     * Track components can provide subtitles,
+     * captions, descriptions, chapters, or other
+     * timed text information.
+     *
+     * @param Track $track Text track component.
      *
      * @return static
      */
@@ -293,7 +362,7 @@ class Video extends HtmlComponent
     /**
      * Adds multiple text tracks.
      *
-     * @param array<int, Track> $tracks
+     * @param array<int, Track> $tracks Text track components.
      *
      * @return static
      */

@@ -6,18 +6,43 @@ namespace RedSky\Html\Components\Typography;
 
 use InvalidArgumentException;
 use RedSky\Html\Components\HtmlComponent;
+use RedSky\Html\Metadata\Example;
 
 /**
  * Represents an HTML heading component.
  *
- * The heading component generates semantic HTML
- * heading elements from h1 to h6.
+ * The Heading component generates semantic HTML heading
+ * elements from <h1> through <h6>.
  *
- * This component is UI-library agnostic and does
- * not apply any default classes or styles.
+ * The heading level is specified when the component is
+ * created and can also be changed dynamically using
+ * the level() method. Only levels from 1 through 6 are
+ * accepted.
+ *
+ * Text content can be provided through the constructor.
+ * Common content, attribute, styling, child-management,
+ * rendering, and string-conversion methods are inherited
+ * from HtmlComponent.
+ *
+ * The component is UI-library agnostic and does not apply
+ * any default classes or styles.
  *
  * @package RedSky\Html\Components\Typography
  */
+#[Example(
+    title: 'Heading',
+    code: <<<'PHP'
+    echo (new Heading(2, 'RedSky Framework'))
+        ->class('page-title')
+        ->attribute('id', 'main-heading')
+        ->render();
+    PHP,
+    description: 'Creates a semantic HTML heading with a
+                 configurable level from h1 through h6.',
+    language: 'php',
+    primary: true,
+    output: '<h2 class="page-title" id="main-heading">RedSky Framework</h2>'
+)]
 class Heading extends HtmlComponent
 {
     /**
@@ -30,6 +55,9 @@ class Heading extends HtmlComponent
 
     /**
      * Creates a new heading component.
+     *
+     * The heading level must be between 1 and 6.
+     * The corresponding HTML tag is generated automatically.
      *
      * @param int $level Heading level (1-6).
      * @param string|null $text Heading content.
@@ -55,9 +83,12 @@ class Heading extends HtmlComponent
 
 
     /**
-     * Sets heading level.
+     * Sets the heading level.
      *
-     * @param int $level
+     * Changing the level also changes the underlying
+     * HTML tag from h1 through h6.
+     *
+     * @param int $level Heading level (1-6).
      *
      * @return static
      *
@@ -77,7 +108,7 @@ class Heading extends HtmlComponent
 
 
     /**
-     * Returns heading level.
+     * Returns the current heading level.
      *
      * @return int
      */
@@ -88,9 +119,12 @@ class Heading extends HtmlComponent
 
 
     /**
-     * Validates heading level.
+     * Validates a heading level.
      *
-     * @param int $level
+     * Only heading levels from 1 through 6 are valid
+     * according to the HTML heading element range.
+     *
+     * @param int $level Heading level to validate.
      *
      * @return void
      *

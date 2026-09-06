@@ -5,36 +5,73 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Layout;
 
 use RedSky\Html\Components\HtmlComponent;
+use RedSky\Html\Metadata\Example;
 
 /**
  * Represents an HTML <main> element.
  *
- * The main element represents the primary content of the
- * document. It should contain the central topic or functionality
- * of the page and should not include repeated content such as
- * headers, footers, or navigation.
+ * The Main component generates a semantic HTML <main>
+ * element used to contain the primary content of a document.
  *
- * A document should contain only one <main> element.
+ * The main content should represent the central topic or
+ * functionality of the page and should not contain content
+ * that is repeated across documents, such as site navigation,
+ * headers, or footers.
+ *
+ * A document should normally contain only one <main> element.
+ *
+ * Main extends HtmlComponent and inherits common functionality
+ * for managing attributes, classes, styles, content, children,
+ * rendering, and fluent configuration.
+ *
+ * Child components can be added using the inherited addChild()
+ * method, allowing the main element to contain headings,
+ * paragraphs, sections, articles, and other HTML components.
+ *
+ * The component is UI-library agnostic and does not apply
+ * default CSS classes or visual styles.
+ *
+ * The component can be rendered explicitly using render()
+ * or converted automatically to its HTML representation
+ * through __toString().
  *
  * Example:
  *
  * ```php
- * $main = (new Main())
+ * echo (new Main())
  *     ->addChild(
  *         (new Heading(1))->text('Welcome'),
  *         (new Paragraph())->text('This is the main content.')
- *     );
+ *     )
+ *     ->render();
  * ```
  *
- * Renders:
+ * Produces:
  *
  * ```html
- * <main>
- *     <h1>Welcome</h1>
- *     <p>This is the main content.</p>
- * </main>
+ * <main><h1>Welcome</h1><p>This is the main content.</p></main>
  * ```
+ *
+ * @package RedSky\Html\Components\Layout
  */
+#[Example(
+    title: 'Main Content',
+    code: <<<'PHP'
+    echo (new Main())
+        ->addChild(
+            (new Heading(1))->text('Welcome'),
+            (new Paragraph())->text('This is the main content.')
+        )
+        ->render();
+    PHP,
+    description: 'The Main component generates a semantic HTML
+                 <main> element for the primary content of a
+                 document. It is intended to contain the central
+                 topic or functionality of the page.',
+    language: 'php',
+    primary: true,
+    output: '<main><h1>Welcome</h1><p>This is the main content.</p></main>'
+)]
 class Main extends HtmlComponent
 {
     /**

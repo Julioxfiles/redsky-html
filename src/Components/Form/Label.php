@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Form;
 
 use RedSky\Html\Components\HtmlComponent;
+use RedSky\Html\Metadata\Example;
 
 /**
  * Represents an HTML label component.
@@ -17,6 +18,20 @@ use RedSky\Html\Components\HtmlComponent;
  *
  * @package RedSky\Html\Components\Form
  */
+#[Example(
+    title: 'Form label',
+    code: <<<'PHP'
+    echo new Label('Email address')
+        ->for('email-input')
+        ->attribute('id', 'email-label')
+        ->render();
+    PHP,
+    description: 'The Label component generates a native HTML
+                 <label> element associated with a form control.',
+    language: 'php',
+    primary: true,
+    output: '<label for="email-input" id="email-label">Email address</label>'
+)]
 class Label extends HtmlComponent
 {
     /**

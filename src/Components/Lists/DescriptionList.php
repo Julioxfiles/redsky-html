@@ -5,22 +5,72 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Lists;
 
 use RedSky\Html\Components\HtmlComponent;
+use RedSky\Html\Metadata\Example;
 
 /**
- * Represents an HTML description list component.
+ * Represents an HTML <dl> element.
  *
- * The description list component generates a
- * semantic HTML dl element.
+ * The DescriptionList component generates a semantic HTML
+ * <dl> element used to contain a list of terms and their
+ * corresponding descriptions or values.
  *
- * Description terms and details should be added
- * using DescriptionTerm and DescriptionDetails
- * components.
+ * Description terms are represented by DescriptionTerm
+ * components, while their associated descriptions are
+ * represented by DescriptionDetails components.
  *
- * This component is UI-library agnostic and does
- * not apply any default classes or styles.
+ * The component provides dedicated methods for adding individual
+ * or multiple terms and details while preserving the semantic
+ * structure of the description list.
+ *
+ * DescriptionList extends HtmlComponent and inherits common
+ * functionality for managing attributes, classes, styles,
+ * content, children, rendering, and fluent configuration.
+ *
+ * The component is UI-library agnostic and does not apply
+ * default CSS classes or visual styles.
+ *
+ * The component can be rendered explicitly using render()
+ * or converted automatically to its HTML representation
+ * through __toString().
+ *
+ * Example:
+ *
+ * ```php
+ * echo (new DescriptionList())
+ *     ->addTerm(new DescriptionTerm('Language'))
+ *     ->addDetails(new DescriptionDetails('PHP'))
+ *     ->addTerm(new DescriptionTerm('Framework'))
+ *     ->addDetails(new DescriptionDetails('RedSky'))
+ *     ->render();
+ * ```
+ *
+ * Produces:
+ *
+ * ```html
+ * <dl><dt>Language</dt><dd>PHP</dd><dt>Framework</dt><dd>RedSky</dd></dl>
+ * ```
  *
  * @package RedSky\Html\Components\Lists
  */
+#[Example(
+    title: 'Description List',
+    code: <<<'PHP'
+    echo (new DescriptionList())
+        ->addTerm(new DescriptionTerm('Language'))
+        ->addDetails(new DescriptionDetails('PHP'))
+        ->addTerm(new DescriptionTerm('Framework'))
+        ->addDetails(new DescriptionDetails('RedSky'))
+        ->render();
+    PHP,
+    description: 'The DescriptionList component generates a
+                 semantic HTML <dl> element containing terms
+                 and their associated descriptions. Terms are
+                 represented by DescriptionTerm components and
+                 descriptions by DescriptionDetails components.',
+    language: 'php',
+    primary: true,
+    output: '<dl><dt>Language</dt><dd>PHP</dd><dt>Framework</dt><dd>RedSky</dd></dl>'
+)]
 class DescriptionList extends HtmlComponent
 {
     /**
@@ -31,11 +81,10 @@ class DescriptionList extends HtmlComponent
         parent::__construct('dl');
     }
 
-
     /**
-     * Adds a description term.
+     * Adds a description term to the list.
      *
-     * @param DescriptionTerm $term
+     * @param DescriptionTerm $term Description term component.
      *
      * @return static
      */
@@ -45,11 +94,10 @@ class DescriptionList extends HtmlComponent
         return $this->addChild($term);
     }
 
-
     /**
-     * Adds multiple description terms.
+     * Adds multiple description terms to the list.
      *
-     * @param array<int, DescriptionTerm> $terms
+     * @param array<int, DescriptionTerm> $terms Description terms.
      *
      * @return static
      */
@@ -63,11 +111,10 @@ class DescriptionList extends HtmlComponent
         return $this;
     }
 
-
     /**
-     * Adds description details.
+     * Adds description details to the list.
      *
-     * @param DescriptionDetails $details
+     * @param DescriptionDetails $details Description details component.
      *
      * @return static
      */
@@ -77,11 +124,10 @@ class DescriptionList extends HtmlComponent
         return $this->addChild($details);
     }
 
-
     /**
-     * Adds multiple description details.
+     * Adds multiple description details to the list.
      *
-     * @param array<int, DescriptionDetails> $details
+     * @param array<int, DescriptionDetails> $details Description details.
      *
      * @return static
      */

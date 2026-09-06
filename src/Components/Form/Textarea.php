@@ -5,24 +5,85 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Form;
 
 use RedSky\Html\Components\HtmlComponent;
+use RedSky\Html\Metadata\Example;
 
 /**
  * Represents an HTML textarea component.
  *
- * The textarea component generates a semantic HTML
- * textarea element used for multiline text input.
+ * The Textarea component generates a semantic HTML
+ * <textarea> element for multiline text input.
  *
- * This component is UI-library agnostic and does
- * not apply any default classes or styles.
+ * Textarea supports common textarea attributes such as
+ * name, rows, cols, wrap, placeholder, readonly,
+ * disabled, and required.
+ *
+ * The component also provides fluent methods for configuring
+ * its dimensions and state. Common methods inherited from
+ * HtmlComponent can be used to set attributes, classes,
+ * styles, content, and child elements where applicable.
+ *
+ * The component is UI-library agnostic and does not apply
+ * default classes or styles.
+ *
+ * The component can be rendered explicitly using render()
+ * or converted to its HTML representation automatically
+ * through __toString().
+ *
+ * Example:
+ *
+ * ```php
+ * echo new Textarea('Enter your message here...')
+ *     ->name('message')
+ *     ->rows(6)
+ *     ->cols(50)
+ *     ->placeholder('Write your message...')
+ *     ->attribute('id', 'message')
+ *     ->required()
+ *     ->render();
+ * ```
+ *
+ * Produces:
+ *
+ * ```html
+ * <textarea name="message"
+ *           rows="6"
+ *           cols="50"
+ *           placeholder="Write your message..."
+ *           id="message"
+ *           required>Enter your message here...</textarea>
+ * ```
  *
  * @package RedSky\Html\Components\Form
  */
+#[Example(
+    title: 'Complete textarea',
+    code: <<<'PHP'
+    echo new Textarea('Enter your message here...')
+        ->name('message')
+        ->rows(6)
+        ->cols(50)
+        ->placeholder('Write your message...')
+        ->attribute('id', 'message')
+        ->required()
+        ->render();
+    PHP,
+    description: 'The Textarea component generates a semantic HTML
+                 <textarea> element for multiline text input and
+                 provides fluent methods for configuring its name,
+                 dimensions, placeholder, and state.',
+    language: 'php',
+    primary: true,
+    output: '<textarea name="message" rows="6" cols="50" placeholder="Write your message..." id="message" required>Enter your message here...</textarea>'
+)]
 class Textarea extends HtmlComponent
 {
     /**
      * Creates a new textarea component.
      *
-     * @param string|null $content Initial content.
+     * The optional content is used as the initial text content
+     * of the textarea element.
+     *
+     * @param string|null $content Initial textarea content.
      */
     public function __construct(
         ?string $content = null
@@ -35,9 +96,11 @@ class Textarea extends HtmlComponent
     }
 
     /**
-     * Sets number of visible rows.
+     * Sets the number of visible rows.
      *
-     * @param int $rows
+     * Corresponds to the HTML `rows` attribute.
+     *
+     * @param int $rows Number of visible text rows.
      *
      * @return static
      */
@@ -52,11 +115,12 @@ class Textarea extends HtmlComponent
         return $this;
     }
 
-
     /**
-     * Sets number of visible columns.
+     * Sets the number of visible columns.
      *
-     * @param int $cols
+     * Corresponds to the HTML `cols` attribute.
+     *
+     * @param int $cols Number of visible text columns.
      *
      * @return static
      */
@@ -71,11 +135,12 @@ class Textarea extends HtmlComponent
         return $this;
     }
 
-
     /**
-     * Sets wrapping behavior.
+     * Sets the text wrapping behavior.
      *
-     * @param string $wrap
+     * Corresponds to the HTML `wrap` attribute.
+     *
+     * @param string $wrap Wrapping behavior, such as `soft` or `hard`.
      *
      * @return static
      */
@@ -90,11 +155,12 @@ class Textarea extends HtmlComponent
         return $this;
     }
 
-
     /**
      * Sets placeholder text.
      *
-     * @param string $placeholder
+     * Corresponds to the HTML `placeholder` attribute.
+     *
+     * @param string $placeholder Placeholder text displayed when empty.
      *
      * @return static
      */
@@ -109,11 +175,12 @@ class Textarea extends HtmlComponent
         return $this;
     }
 
-
     /**
-     * Sets textarea name.
+     * Sets the textarea name.
      *
-     * @param string $name
+     * Corresponds to the HTML `name` attribute.
+     *
+     * @param string $name Form field name.
      *
      * @return static
      */
@@ -128,11 +195,13 @@ class Textarea extends HtmlComponent
         return $this;
     }
 
-
     /**
-     * Sets textarea readonly state.
+     * Sets the readonly state.
      *
-     * @param bool $readonly
+     * When enabled, the textarea can be read but its value
+     * cannot be edited by the user.
+     *
+     * @param bool $readonly Whether the textarea is readonly.
      *
      * @return static
      */
@@ -148,9 +217,12 @@ class Textarea extends HtmlComponent
     }
 
     /**
-     * Sets textarea disabled state.
+     * Sets the disabled state.
      *
-     * @param bool $disabled
+     * When enabled, the textarea is disabled and cannot be
+     * edited or submitted as a form control.
+     *
+     * @param bool $disabled Whether the textarea is disabled.
      *
      * @return static
      */
@@ -165,11 +237,13 @@ class Textarea extends HtmlComponent
         return $this;
     }
 
-
     /**
-     * Sets required state.
+     * Sets the required state.
      *
-     * @param bool $required
+     * When enabled, the textarea must contain a value before
+     * its associated form can be submitted.
+     *
+     * @param bool $required Whether the textarea is required.
      *
      * @return static
      */
@@ -184,12 +258,14 @@ class Textarea extends HtmlComponent
         return $this;
     }
 
-
     /**
-     * Sets textarea dimensions.
+     * Sets the number of visible rows and columns.
      *
-     * @param int $rows
-     * @param int $cols
+     * This is a convenience method equivalent to calling
+     * rows() and cols() separately.
+     *
+     * @param int $rows Number of visible text rows.
+     * @param int $cols Number of visible text columns.
      *
      * @return static
      */

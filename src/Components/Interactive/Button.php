@@ -5,21 +5,75 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Interactive;
 
 use RedSky\Html\Components\HtmlComponent;
+use RedSky\Html\Metadata\Example;
 
 /**
- * Represents an HTML button component.
+ * Represents an HTML <button> element.
  *
- * The button component generates a semantic HTML
- * button element.
+ * The Button component generates a semantic HTML button
+ * element used for user interactions and form actions.
  *
- * This component is UI-library agnostic and does
- * not apply any default classes or styles.
+ * The component supports common button functionality,
+ * including button text, type, name, value, disabled state,
+ * form association, and form submission overrides.
  *
- * UI frameworks such as Bootstrap or Tailwind are
- * handled by higher level layers like redsky-ui.
+ * Form submission attributes such as formaction, formenctype,
+ * formmethod, formnovalidate, and formtarget allow an individual
+ * button to override corresponding attributes of its associated
+ * form when the button is used as a submit control.
+ *
+ * Button extends HtmlComponent and inherits common functionality
+ * for managing attributes, classes, styles, content, children,
+ * rendering, and fluent configuration.
+ *
+ * The component is UI-library agnostic and does not apply
+ * default CSS classes or visual styles.
+ *
+ * UI frameworks such as Bootstrap or Tailwind are handled by
+ * higher-level layers such as redsky-ui.
+ *
+ * The component can be rendered explicitly using render()
+ * or converted automatically to its HTML representation
+ * through __toString().
+ *
+ * Example:
+ *
+ * ```php
+ * echo (new Button('Save'))
+ *     ->type('submit')
+ *     ->name('action')
+ *     ->value('save')
+ *     ->attribute('id', 'save-button')
+ *     ->render();
+ * ```
+ *
+ * Produces:
+ *
+ * ```html
+ * <button type="submit" name="action" value="save" id="save-button">Save</button>
+ * ```
  *
  * @package RedSky\Html\Components\Interactive
  */
+#[Example(
+    title: 'Submit Button',
+    code: <<<'PHP'
+    echo (new Button('Save'))
+        ->type('submit')
+        ->name('action')
+        ->value('save')
+        ->attribute('id', 'save-button')
+        ->render();
+    PHP,
+    description: 'The Button component generates a semantic HTML
+                 <button> element for user interactions and form
+                 actions. It supports common button attributes,
+                 disabled state, form association, and form
+                 submission overrides.',
+    language: 'php',
+    primary: true,
+    output: '<button type="submit" name="action" value="save" id="save-button">Save</button>'
+)]
 class Button extends HtmlComponent
 {
     /**
@@ -37,11 +91,10 @@ class Button extends HtmlComponent
         }
     }
 
-
     /**
-     * Sets button text.
+     * Sets the button text.
      *
-     * @param string $text
+     * @param string $text Button text.
      *
      * @return static
      */
@@ -53,11 +106,12 @@ class Button extends HtmlComponent
         return $this;
     }
 
-
     /**
-     * Sets button type.
+     * Sets the button type.
      *
-     * @param string $type
+     * Common values include `button`, `submit`, and `reset`.
+     *
+     * @param string $type Button type.
      *
      * @return static
      */
@@ -72,11 +126,10 @@ class Button extends HtmlComponent
         return $this;
     }
 
-
     /**
-     * Disables the button.
+     * Enables or disables the button.
      *
-     * @param bool $disabled
+     * @param bool $disabled Whether the button is disabled.
      *
      * @return static
      */
@@ -91,10 +144,13 @@ class Button extends HtmlComponent
         return $this;
     }
 
-        /**
-     * Sets button name.
+    /**
+     * Sets the button name.
      *
-     * @param string $name
+     * The name is submitted with the button value when the
+     * button participates in form submission.
+     *
+     * @param string $name Button name.
      *
      * @return static
      */
@@ -107,11 +163,10 @@ class Button extends HtmlComponent
         );
     }
 
-
     /**
-     * Sets button value.
+     * Sets the button value.
      *
-     * @param mixed $value
+     * @param mixed $value Button value.
      *
      * @return static
      */
@@ -124,11 +179,12 @@ class Button extends HtmlComponent
         );
     }
 
-
     /**
-     * Associates button with a form.
+     * Associates the button with a form.
      *
-     * @param string $form
+     * Corresponds to the HTML `form` attribute.
+     *
+     * @param string $form ID of the associated form.
      *
      * @return static
      */
@@ -141,11 +197,12 @@ class Button extends HtmlComponent
         );
     }
 
-
     /**
-     * Sets form action override.
+     * Sets the form action override.
      *
-     * @param string $action
+     * Corresponds to the HTML `formaction` attribute.
+     *
+     * @param string $action URL to submit the form to.
      *
      * @return static
      */
@@ -158,11 +215,12 @@ class Button extends HtmlComponent
         );
     }
 
-
     /**
-     * Sets form encoding type override.
+     * Sets the form encoding type override.
      *
-     * @param string $enctype
+     * Corresponds to the HTML `formenctype` attribute.
+     *
+     * @param string $enctype Form encoding type.
      *
      * @return static
      */
@@ -175,11 +233,13 @@ class Button extends HtmlComponent
         );
     }
 
-
     /**
-     * Sets form method override.
+     * Sets the form submission method override.
      *
-     * @param string $method
+     * The supplied method is converted to uppercase before
+     * being assigned to the HTML `formmethod` attribute.
+     *
+     * @param string $method HTTP form submission method.
      *
      * @return static
      */
@@ -192,11 +252,12 @@ class Button extends HtmlComponent
         );
     }
 
-
     /**
-     * Disables form validation.
+     * Enables or disables form validation for this button.
      *
-     * @param bool $novalidate
+     * Corresponds to the HTML `formnovalidate` attribute.
+     *
+     * @param bool $novalidate Whether form validation is disabled.
      *
      * @return static
      */
@@ -209,11 +270,12 @@ class Button extends HtmlComponent
         );
     }
 
-
     /**
-     * Sets form target override.
+     * Sets the form target override.
      *
-     * @param string $target
+     * Corresponds to the HTML `formtarget` attribute.
+     *
+     * @param string $target Browsing context for the form response.
      *
      * @return static
      */

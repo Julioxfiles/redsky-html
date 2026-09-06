@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Form;
 
 use RedSky\Html\Components\HtmlComponent;
+use RedSky\Html\Metadata\Example;
 
 /**
  * Represents an HTML input component.
@@ -15,8 +16,36 @@ use RedSky\Html\Components\HtmlComponent;
  * This component is UI-library agnostic and does
  * not apply any default classes or styles.
  *
+ * @example
+ * $input = (new Input('email'))
+ *     ->name('email')
+ *     ->placeholder('Enter your email')
+ *     ->required();
+ *
+ * echo $input->render();
+ *
+ * // <input type="email" name="email"
+ * //     placeholder="Enter your email" required>
+ *
  * @package RedSky\Html\Components\Form
  */
+#[Example(
+    title: 'Complete input',
+    code: <<<'PHP'
+    echo new Input('email', 'email')
+        ->placeholder('Enter your email')
+        ->required()
+        ->autocomplete('email')
+        ->attribute('id', 'email-input')
+        ->render();
+    PHP,
+    description: 'The Input component generates a native HTML
+                 <input> element for user data entry and supports
+                 common HTML input attributes.',
+    language: 'php',
+    primary: true,
+    output: '<input type="email" name="email" placeholder="Enter your email" required autocomplete="email" id="email-input" />'
+)]
 class Input extends HtmlComponent
 {
     /**

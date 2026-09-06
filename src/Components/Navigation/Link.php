@@ -5,24 +5,58 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Link;
 
 use RedSky\Html\Components\HtmlComponent;
+use RedSky\Html\Metadata\Example;
 
 /**
  * Represents an HTML anchor component.
  *
- * The link component generates a semantic HTML
- * anchor element used for navigation.
+ * The Link component generates a semantic HTML <a>
+ * element used for navigation and linking to resources.
  *
- * This component is UI-library agnostic and does
- * not apply any default styling.
+ * A destination and link text can be provided through
+ * the constructor, or configured using the fluent methods
+ * provided by the component.
+ *
+ * The component supports common anchor attributes including
+ * target, download, rel, hreflang, type, referrer policy,
+ * title, and ARIA labeling.
+ *
+ * Common attributes and content methods inherited from
+ * HtmlComponent can also be used, including class(),
+ * style(), attribute(), addChild(), text(), html(),
+ * render(), and __toString().
+ *
+ * This component is UI-library agnostic and does not
+ * apply any default classes or styles.
  *
  * @package RedSky\Html\Components\Link
  */
+#[Example(
+    title: 'Navigation Link',
+    code: <<<'PHP'
+    echo (new Link('/docs', 'Documentation'))
+        ->target('_blank')
+        ->rel('noopener')
+        ->attribute('id', 'docs-link')
+        ->render();
+    PHP,
+    description: 'Creates a semantic HTML anchor element that
+                 links to a documentation page and opens it in
+                 a new browsing context.',
+    language: 'php',
+    primary: true,
+    output: '<a href="/docs" target="_blank" rel="noopener" id="docs-link">Documentation</a>'
+)]
 class Link extends HtmlComponent
 {
     /**
      * Creates a new link component.
      *
-     * @param string|null $href Link destination.
+     * The destination and link text are optional. When
+     * provided, they are assigned to the href attribute
+     * and element content respectively.
+     *
+     * @param string|null $href Link destination URL.
      * @param string|null $text Link text.
      */
     public function __construct(
@@ -42,9 +76,9 @@ class Link extends HtmlComponent
 
 
     /**
-     * Sets link destination.
+     * Sets the link destination.
      *
-     * @param string $href
+     * @param string $href Link destination URL.
      *
      * @return static
      */
@@ -58,12 +92,16 @@ class Link extends HtmlComponent
 
         return $this;
     }
-    
+
 
     /**
-     * Opens link in a target location.
+     * Sets the browsing context in which the link
+     * should be opened.
      *
-     * @param string $target
+     * Common values include "_self", "_blank",
+     * "_parent", and "_top".
+     *
+     * @param string $target Target browsing context.
      *
      * @return static
      */
@@ -78,10 +116,14 @@ class Link extends HtmlComponent
         return $this;
     }
 
+
     /**
-     * Sets download behavior.
+     * Sets download behavior for the linked resource.
      *
-     * @param string|bool $download
+     * A boolean enables or disables the download behavior.
+     * A string can specify the suggested filename.
+     *
+     * @param string|bool $download Download behavior or filename.
      *
      * @return static
      */
@@ -96,9 +138,13 @@ class Link extends HtmlComponent
 
 
     /**
-     * Sets relationship attribute.
+     * Sets the relationship between the current document
+     * and the linked resource.
      *
-     * @param string $rel
+     * Common values include "noopener", "noreferrer",
+     * "nofollow", and "external".
+     *
+     * @param string $rel Link relationship.
      *
      * @return static
      */
@@ -113,9 +159,9 @@ class Link extends HtmlComponent
 
 
     /**
-     * Sets alternative language.
+     * Sets the language of the linked resource.
      *
-     * @param string $hreflang
+     * @param string $hreflang Language code.
      *
      * @return static
      */
@@ -130,9 +176,9 @@ class Link extends HtmlComponent
 
 
     /**
-     * Sets MIME type.
+     * Sets the MIME type of the linked resource.
      *
-     * @param string $type
+     * @param string $type MIME type.
      *
      * @return static
      */
@@ -147,9 +193,9 @@ class Link extends HtmlComponent
 
 
     /**
-     * Sets referrer policy.
+     * Sets the referrer policy for the link.
      *
-     * @param string $policy
+     * @param string $policy Referrer policy value.
      *
      * @return static
      */
@@ -164,9 +210,9 @@ class Link extends HtmlComponent
 
 
     /**
-     * Sets link title.
+     * Sets the advisory title associated with the link.
      *
-     * @param string $title
+     * @param string $title Link title.
      *
      * @return static
      */
@@ -181,9 +227,12 @@ class Link extends HtmlComponent
 
 
     /**
-     * Sets ARIA label.
+     * Sets the accessible ARIA label for the link.
      *
-     * @param string $label
+     * This can provide a more descriptive accessible
+     * name when the visible link text is insufficient.
+     *
+     * @param string $label Accessible link label.
      *
      * @return static
      */

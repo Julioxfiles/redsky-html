@@ -194,4 +194,19 @@ class Example
             JSON_THROW_ON_ERROR
         );
     }
+
+    /**
+     * Returns the rendered HTML output formatted
+     * for documentation display.
+     *
+     * @return string|null
+     */
+    public function formattedOutput(): ?string
+    {
+        if ($this->output === null || $this->output === '') {
+            return null;
+        }
+
+        return (new HtmlFormatter())->format($this->output);
+    }
 }

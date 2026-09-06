@@ -5,26 +5,81 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Media;
 
 use RedSky\Html\Components\HtmlComponent;
+use RedSky\Html\Metadata\Example;
 
 /**
- * Represents an HTML source component.
+ * Represents an HTML <source> element.
  *
- * The source component generates a semantic HTML
- * source element used by audio, video and picture
- * elements to provide alternative media sources.
+ * The Source component generates a semantic HTML <source>
+ * element used to provide alternative media resources for
+ * audio, video, and picture elements.
  *
- * This component is UI-library agnostic and does
- * not apply any default classes or styles.
+ * A Source component can define a media URL, MIME type,
+ * media query, responsive image source set, image sizes,
+ * and optional width and height descriptors.
+ *
+ * Source extends HtmlComponent and inherits common functionality
+ * for managing attributes, classes, styles, content, children,
+ * rendering, and fluent configuration.
+ *
+ * The component is UI-library agnostic and does not apply
+ * default CSS classes or visual styles.
+ *
+ * The component is rendered as a self-closing HTML element
+ * because <source> is a void element and cannot contain
+ * child elements or content.
+ *
+ * Source is normally used as a child of Audio, Video, or
+ * Picture components.
+ *
+ * The component can be rendered explicitly using render()
+ * or converted automatically to its HTML representation
+ * through __toString().
+ *
+ * Example:
+ *
+ * ```php
+ * echo (new Source(
+ *     '/images/photo.webp',
+ *     'image/webp'
+ * ))
+ *     ->media('(min-width: 768px)')
+ *     ->render();
+ * ```
+ *
+ * Produces:
+ *
+ * ```html
+ * <source src="/images/photo.webp" type="image/webp" media="(min-width: 768px)" />
+ * ```
  *
  * @package RedSky\Html\Components\Media
  */
+#[Example(
+    title: 'Media Source',
+    code: <<<'PHP'
+    echo (new Source(
+        '/images/photo.webp',
+        'image/webp'
+    ))
+        ->media('(min-width: 768px)')
+        ->render();
+    PHP,
+    description: 'The Source component generates a semantic HTML <source> element for defining an alternative media resource. It can be used with Audio, Video, or Picture components.',
+    language: 'php',
+    primary: true,
+    output: '<source src="/images/photo.webp" type="image/webp" media="(min-width: 768px)" />'
+)]
 class Source extends HtmlComponent
 {
     /**
      * Creates a new source component.
      *
+     * If a source URL or MIME type is provided, the
+     * corresponding attributes are configured automatically.
+     *
      * @param string|null $src Source URL.
-     * @param string|null $type MIME type.
+     * @param string|null $type MIME type of the resource.
      */
     public function __construct(
         ?string $src = null,
@@ -43,11 +98,10 @@ class Source extends HtmlComponent
         }
     }
 
-
     /**
      * Sets the source URL.
      *
-     * @param string $src
+     * @param string $src Source URL.
      *
      * @return static
      */
@@ -60,11 +114,10 @@ class Source extends HtmlComponent
         );
     }
 
-
     /**
-     * Sets the MIME type.
+     * Sets the MIME type of the source.
      *
-     * @param string $type
+     * @param string $type MIME type.
      *
      * @return static
      */
@@ -77,13 +130,14 @@ class Source extends HtmlComponent
         );
     }
 
-
     /**
-     * Sets the media query.
+     * Sets the media query that determines when
+     * this source should be used.
      *
-     * Used primarily inside the picture element.
+     * This is primarily useful when Source is used
+     * inside a Picture component.
      *
-     * @param string $media
+     * @param string $media CSS media query.
      *
      * @return static
      */
@@ -96,13 +150,13 @@ class Source extends HtmlComponent
         );
     }
 
-
     /**
-     * Sets responsive image source set.
+     * Sets the responsive image source set.
      *
-     * Used by picture elements.
+     * This attribute is primarily used when the Source
+     * component is contained within a Picture component.
      *
-     * @param string $srcset
+     * @param string $srcset Responsive image source set.
      *
      * @return static
      */
@@ -115,13 +169,13 @@ class Source extends HtmlComponent
         );
     }
 
-
     /**
-     * Sets image sizes.
+     * Sets responsive image size information.
      *
-     * Used by responsive images.
+     * This attribute is used together with srcset()
+     * when defining responsive images.
      *
-     * @param string $sizes
+     * @param string $sizes Responsive image sizes.
      *
      * @return static
      */
@@ -134,11 +188,10 @@ class Source extends HtmlComponent
         );
     }
 
-
     /**
-     * Sets image width descriptor.
+     * Sets the width descriptor for the source.
      *
-     * @param int $width
+     * @param int $width Image width.
      *
      * @return static
      */
@@ -151,11 +204,10 @@ class Source extends HtmlComponent
         );
     }
 
-
     /**
-     * Sets image height descriptor.
+     * Sets the height descriptor for the source.
      *
-     * @param int $height
+     * @param int $height Image height.
      *
      * @return static
      */

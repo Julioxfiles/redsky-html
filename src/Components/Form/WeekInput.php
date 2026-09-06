@@ -3,17 +3,16 @@
 declare(strict_types=1);
 
 namespace RedSky\Html\Components\Form;
-            
+
 use RedSky\Html\Metadata\Example;
 
 /**
- * Represents an HTML week input component.
+ * The WeekInput component generates a native HTML
+ * <input type="week"> element that allows users to
+ * select a specific week and year.
  *
- * The week input component generates a native HTML
- * input element with type="week".
- *
- * It allows users to select a specific week of a year.
- * The selected value follows the ISO week date format:
+ * The value submitted by the browser follows the ISO
+ * week date format:
  *
  *     YYYY-Www
  *
@@ -21,67 +20,80 @@ use RedSky\Html\Metadata\Example;
  *
  *     2026-W34
  *
- * The component provides convenient methods for setting
- * the current week, restricting the selectable range,
- * and limiting the input to past or future weeks.
+ * The component automatically configures the HTML input
+ * type as "week". A name can optionally be supplied to
+ * identify the value when the containing form is submitted.
+ *
+ * WeekInput provides convenient methods for common week-based
+ * restrictions and values, including:
+ *
+ * - Setting the current ISO week as the input value.
+ * - Restricting the input to the current week or future weeks.
+ * - Restricting the input to the current week or previous weeks.
+ * - Defining a minimum and maximum selectable week.
+ * - Defining the selectable range for the current year.
+ *
+ * Because WeekInput extends the standard input component,
+ * it also supports the common component methods for setting
+ * HTML attributes, CSS classes, inline styles, and other
+ * component properties.
+ *
+ * Component methods support fluent method chaining, allowing
+ * multiple configuration methods to be combined before the
+ * component is rendered.
+ *
+ * Calling render() returns the generated HTML as a string.
+ * The component can also be converted directly to a string
+ * through HtmlComponent::__toString().
  *
  * Example:
  *
  * ```php
- * $input = new WeekInput('week');
- *
- * echo $input->render();
+ * echo new WeekInput('week')
+ *     ->class('dark')
+ *     ->style('color:cornflowerblue')
+ *     ->attribute('id', 'week-input')
+ *     ->between('2026-W01', '2026-W52')
+ *     ->render();
  * ```
  *
  * Produces:
  *
  * ```html
- * <input type="week" name="week" />
+ * <input type="week"
+ *        name="week"
+ *        class="dark"
+ *        style="color:cornflowerblue"
+ *        id="week-input"
+ *        min="2026-W01"
+ *        max="2026-W52" />
  * ```
  *
  * @package RedSky\Html\Components\Form
  */
-
 #[Example(
-    title: 'Basic week input',
-    code: '$input = new WeekInput(\'week\');',
-    description: 'Creates a native HTML week input that allows the user to select a week of the year.',
+    title: 'Complete week input',
+    code: <<<'PHP'
+    echo new WeekInput('week')
+        ->class('dark')
+        ->style('color:cornflowerblue')
+        ->attribute('id', 'week-input')
+        ->between('2026-W01', '2026-W52')
+        ->render();
+    PHP,
+    description: 'The WeekInput component generates a native HTML
+                 <input type="week"> element that allows users to
+                 select a specific week and year.',
     language: 'php',
     primary: true,
-    output: '<input type="week" name="week" />'
-)]
-#[Example(
-    title: 'Current week',
-    code: '$input = (new WeekInput(\'week\'))->current();',
-    description: 'Sets the current ISO week as the input value.',
-    language: 'php',
-    output: '<input type="week" name="week" value="2026-W34" />'
-)]
-#[Example(
-    title: 'Future weeks',
-    code: '$input = (new WeekInput(\'week\'))->future();',
-    description: 'Restricts the input so that users can select the current week or a future week.',
-    language: 'php',
-    output: '<input type="week" name="week" min="2026-W34" />'
-)]
-#[Example(
-    title: 'Past weeks',
-    code: '$input = (new WeekInput(\'week\'))->past();',
-    description: 'Restricts the input so that users can select the current week or an earlier week.',
-    language: 'php',
-    output: '<input type="week" name="week" max="2026-W34" />'
-)]
-#[Example(
-    title: 'Week range',
-    code: '$input = (new WeekInput(\'week\'))->between(\'2026-W01\', \'2026-W52\');',
-    description: 'Restricts the selectable weeks to a specific range.',
-    language: 'php',
-    output: '<input type="week" name="week" min="2026-W01" max="2026-W52" />'
+    output: '<input type="week" name="week" class="dark" style="color:cornflowerblue" id="week-input" min="2026-W01" max="2026-W52" />'
 )]
 class WeekInput extends Input
 {
     /**
      * Creates a new week input component.
+     *
+     * The input type is automatically set to "week".
      *
      * @param string|null $name Input name.
      */
@@ -96,7 +108,15 @@ class WeekInput extends Input
 
 
     /**
-     * Sets current week as value.
+     * Sets the current ISO week as the input value.
+     *
+     * The generated value follows the ISO week date format:
+     *
+     *     YYYY-Www
+     *
+     * For example:
+     *
+     *     2026-W34
      *
      * @return static
      */
@@ -111,7 +131,11 @@ class WeekInput extends Input
 
 
     /**
-     * Sets minimum and maximum week.
+     * Sets the minimum and maximum selectable week.
+     *
+     * The supplied values must use the ISO week date format:
+     *
+     *     YYYY-Www
      *
      * @param string $min Minimum selectable week.
      * @param string $max Maximum selectable week.
@@ -129,10 +153,9 @@ class WeekInput extends Input
 
 
     /**
-     * Restricts weeks from current week onwards.
+     * Restricts selection to the current week and future weeks.
      *
-     * The current week becomes the minimum
-     * selectable week.
+     * The current ISO week becomes the minimum selectable week.
      *
      * @return static
      */
@@ -147,10 +170,9 @@ class WeekInput extends Input
 
 
     /**
-     * Restricts weeks up to current week.
+     * Restricts selection to the current week and previous weeks.
      *
-     * The current week becomes the maximum
-     * selectable week.
+     * The current ISO week becomes the maximum selectable week.
      *
      * @return static
      */
@@ -165,10 +187,9 @@ class WeekInput extends Input
 
 
     /**
-     * Sets the current year's week range.
+     * Restricts selection to the current year's week range.
      *
-     * The range starts at ISO week 01 and ends
-     * at ISO week 52.
+     * The range starts at ISO week 01 and ends at ISO week 52.
      *
      * @return static
      */
