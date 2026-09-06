@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 namespace RedSky\Html\Components\Form;
-
+            
 use RedSky\Html\Metadata\Example;
 
 /**
@@ -41,6 +41,7 @@ use RedSky\Html\Metadata\Example;
  *
  * @package RedSky\Html\Components\Form
  */
+
 #[Example(
     title: 'Basic week input',
     code: '$input = new WeekInput(\'week\');',

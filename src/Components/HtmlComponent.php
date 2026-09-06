@@ -87,6 +87,15 @@ abstract class HtmlComponent extends Component
         );
     }
 
+    /**
+     * Converts component to string.
+     *
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->render();
+    }
 
     /**
      * Renders component attributes.
