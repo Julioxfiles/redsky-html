@@ -193,6 +193,24 @@ class Scanner
     }
 
 
+    /**
+     * Scans usage examples for a component.
+     *
+     * Examples declared directly on the component class take
+     * precedence over external example definitions.
+     *
+     * When the component does not define any inline examples,
+     * the scanner looks for an external example class under:
+     *
+     * Documentation/Examples/{ComponentName}Examples.php
+     *
+     * External example classes may define examples using
+     * #[Example] attributes on the class itself or on methods.
+     *
+     * This allows large components to keep their production
+     * classes focused while keeping their documentation examples
+     * organized separately.
+     */
     protected function scanExamples(
         ReflectionClass $reflection,
         Component $component
@@ -201,20 +219,183 @@ class Scanner
             ExampleMetadata::class
         );
 
+        if ($attributes !== []) {
+            $this->addExamples(
+                $attributes,
+                $component
+            );
+
+            return;
+        }
+
+        $this->scanExternalExamples(
+            $reflection,
+            $component
+        );
+    }
+
+
+    /**
+     * Adds example metadata to a component.
+     *
+     * @param array<int, \ReflectionAttribute> $attributes
+     */
+    protected function addExamples(
+        array $attributes,
+        Component $component
+    ): void {
         foreach ($attributes as $attribute) {
             /** @var ExampleMetadata $metadata */
             $metadata = $attribute->newInstance();
 
-            $example = new \RedSky\Html\Documentation\Example(
-                $metadata->title(),
-                $metadata->code(),
-                $metadata->description(),
-                $metadata->language(),
-                $metadata->isPrimary(),
-                $metadata->output()
+            $component->addExample(
+                $this->createExample($metadata)
+            );
+        }
+    }
+
+
+    /**
+     * Creates documentation example metadata from an Example
+     * attribute instance.
+     */
+    protected function createExample(
+        ExampleMetadata $metadata
+    ): Example {
+        return new Example(
+            $metadata->title(),
+            $metadata->code(),
+            $metadata->description(),
+            $metadata->language(),
+            $metadata->isPrimary(),
+            $metadata->output()
+        );
+    }
+
+
+    /**
+     * Scans the external example class associated with a component.
+     *
+     * The external class is loaded only when the corresponding
+     * PHP file exists.
+     */
+    protected function scanExternalExamples(
+        ReflectionClass $componentReflection,
+        Component $component
+    ): void {
+        $exampleClass = $this->resolveExternalExampleClass(
+            $componentReflection
+        );
+
+        if ($exampleClass === null) {
+            return;
+        }
+
+        if (!class_exists($exampleClass)) {
+            return;
+        }
+
+        $reflection = new ReflectionClass($exampleClass);
+
+        $this->scanExternalClassExamples(
+            $reflection,
+            $component
+        );
+
+        $this->scanExternalMethodExamples(
+            $reflection,
+            $component
+        );
+    }
+
+
+    /**
+     * Resolves the external example class for a component.
+     *
+     * Example:
+     *
+     * RedSky\Html\Components\Form\TextInput
+     *
+     * becomes:
+     *
+     * RedSky\Html\Documentation\Examples\TextInputExamples
+     */
+    protected function resolveExternalExampleClass(
+        ReflectionClass $componentReflection
+    ): ?string {
+        $className = $componentReflection->getShortName();
+
+        $file = dirname(__DIR__)
+            . DIRECTORY_SEPARATOR
+            . 'Documentation'
+            . DIRECTORY_SEPARATOR
+            . 'Examples'
+            . DIRECTORY_SEPARATOR
+            . $className
+            . 'Examples.php';
+
+        if (!is_file($file)) {
+            return null;
+        }
+
+        $class = 'RedSky\\Html\\Documentation\\Examples\\'
+            . $className
+            . 'Examples';
+
+        require_once $file;
+
+        return $class;
+    }
+
+
+    /**
+     * Scans #[Example] attributes declared directly on an
+     * external example class.
+     */
+    protected function scanExternalClassExamples(
+        ReflectionClass $reflection,
+        Component $component
+    ): void {
+        $attributes = $reflection->getAttributes(
+            ExampleMetadata::class
+        );
+
+        if ($attributes === []) {
+            return;
+        }
+
+        $this->addExamples(
+            $attributes,
+            $component
+        );
+    }
+
+
+    /**
+     * Scans #[Example] attributes declared on methods of an
+     * external example class.
+     *
+     * Only methods that explicitly define Example attributes
+     * are considered. The methods themselves do not need to
+     * be executed.
+     */
+    protected function scanExternalMethodExamples(
+        ReflectionClass $reflection,
+        Component $component
+    ): void {
+        foreach ($reflection->getMethods() as $method) {
+            $attributes = $method->getAttributes(
+                ExampleMetadata::class
             );
 
-            $component->addExample($example);
+            if ($attributes === []) {
+                continue;
+            }
+
+            $this->addExamples(
+                $attributes,
+                $component
+            );
         }
     }
 

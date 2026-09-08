@@ -10,300 +10,251 @@ use RedSky\Html\Metadata\Example;
 /**
  * Represents an HTML select component.
  *
- * The Select component generates a semantic HTML
- * <select> element used to provide one or more
- * selectable options.
+ * The select component generates a semantic HTML
+ * select element used to present a list of options
+ * from which the user can make a selection.
  *
- * Options can be added individually using addOption()
- * or in bulk using addOptions(). The option() and options()
- * methods provide convenient aliases for these methods.
+ * The component supports both fluent configuration
+ * and associative-array configuration.
  *
- * Select supports both single-selection and multiple-selection
- * controls, as well as required, disabled, and visible option
- * count configurations.
- *
- * Options are represented by Option components and are added
- * as child components of the Select element.
- *
- * This component is UI-library agnostic and does not apply
- * any default classes or styles.
- *
- * Component methods support fluent method chaining, allowing
- * multiple configuration methods to be combined before the
- * component is rendered.
- *
- * Calling render() returns the generated HTML as a string.
- * The component can also be converted directly to a string
- * through HtmlComponent::__toString().
- *
- * Example:
- *
- * ```php
- * echo new Select()
- *     ->name('country')
- *     ->required()
- *     ->addOptions([
- *         'Mexico' => 'mx',
- *         'United States' => 'us',
- *         'Canada' => 'ca',
- *     ])
- *     ->render();
- * ```
- *
- * Produces:
- *
- * ```html
- * <select name="country" required>
- *     <option value="mx">Mexico</option>
- *     <option value="us">United States</option>
- *     <option value="ca">Canada</option>
- * </select>
- * ```
- *
- * @package RedSky\Html\Components\Form
+ * This component is UI-library agnostic and does
+ * not apply any default classes or styles.
  */
 #[Example(
-    title: 'Complete select',
+    title: 'Fluent select',
     code: <<<'PHP'
     echo new Select()
         ->name('country')
         ->required()
-        ->addOptions([
+        ->options([
             'Mexico' => 'mx',
             'United States' => 'us',
             'Canada' => 'ca',
         ])
+        ->selected('mx')
         ->render();
     PHP,
-    description: 'The Select component generates a semantic HTML
-                 <select> element with multiple selectable options
-                 and form configuration.',
+    description: 'The Select component can be configured using
+                 a fluent API.',
     language: 'php',
     primary: true,
-    output: '<select name="country" required><option value="mx">Mexico</option><option value="us">United States</option><option value="ca">Canada</option></select>'
+    output: '<select name="country" required><option value="mx" selected>Mexico</option><option value="us">United States</option><option value="ca">Canada</option></select>'
+)]
+#[Example(
+    title: 'Array configuration',
+    code: <<<'PHP'
+    echo new Select([
+        'name' => 'country',
+        'required' => true,
+        'options' => [
+            'Mexico' => 'mx',
+            'United States' => 'us',
+            'Canada' => 'ca',
+        ],
+        'selected' => 'mx',
+    ])->render();
+    PHP,
+    description: 'The Select component can also be configured
+                 using an associative array.',
+    language: 'php',
+    output: '<select name="country" required><option value="mx" selected>Mexico</option><option value="us">United States</option><option value="ca">Canada</option></select>'
 )]
 class Select extends HtmlComponent
 {
     /**
      * Creates a new select component.
+     *
+     * The configuration array is optional. When provided,
+     * its values are applied through the same fluent methods
+     * used to configure the component manually.
+     *
+     * Supported configuration keys include:
+     *
+     * - name
+     * - options
+     * - selected
+     * - multiple
+     * - required
+     * - disabled
+     * - size
+     * - attributes
+     *
+     * @param array $config Optional component configuration.
      */
-    public function __construct()
+    public function __construct(array $config = [])
     {
         parent::__construct('select');
+
+        if (isset($config['name'])) {
+            $this->name($config['name']);
+        }
+
+        if (isset($config['options'])) {
+            $this->options($config['options']);
+        }
+
+        if (isset($config['selected'])) {
+            $this->selected($config['selected']);
+        }
+
+        if (isset($config['multiple'])) {
+            $this->multiple($config['multiple']);
+        }
+
+        if (isset($config['required'])) {
+            $this->required($config['required']);
+        }
+
+        if (isset($config['disabled'])) {
+            $this->disabled($config['disabled']);
+        }
+
+        if (isset($config['size'])) {
+            $this->size($config['size']);
+        }
+
+        if (isset($config['attributes'])) {
+            foreach ($config['attributes'] as $name => $value) {
+                $this->attribute($name, $value);
+            }
+        }
     }
 
-
     /**
-     * Sets the select name.
+     * Sets the name attribute.
      *
-     * The name identifies the submitted value when the
-     * containing form is submitted.
-     *
-     * @param string $name Select name.
-     *
+     * @param string $name The form field name.
      * @return static
      */
-    public function name(
-        string $name
-    ): static {
-        return $this->attribute(
-            'name',
-            $name
-        );
+    public function name(string $name): static
+    {
+        return $this->attribute('name', $name);
     }
 
-
     /**
-     * Enables or disables multiple selection.
-     *
-     * When enabled, the user can select multiple options
-     * from the select control.
+     * Sets whether multiple options can be selected.
      *
      * @param bool $multiple Whether multiple selection is enabled.
-     *
      * @return static
      */
-    public function multiple(
-        bool $multiple = true
-    ): static {
-        return $this->attribute(
-            'multiple',
-            $multiple
-        );
+    public function multiple(bool $multiple = true): static
+    {
+        return $this->attribute('multiple', $multiple);
     }
 
-
     /**
-     * Marks the select as required.
+     * Sets whether the select field is required.
      *
-     * A required select must have a valid option selected
-     * before the containing form can be submitted.
-     *
-     * @param bool $required Whether the select is required.
-     *
+     * @param bool $required Whether the field is required.
      * @return static
      */
-    public function required(
-        bool $required = true
-    ): static {
-        return $this->attribute(
-            'required',
-            $required
-        );
+    public function required(bool $required = true): static
+    {
+        return $this->attribute('required', $required);
     }
 
-
     /**
-     * Adds a single option.
+     * Adds an option to the select.
      *
-     * The option is created as an Option component and
-     * added as a child of the select element.
-     *
-     * @param string $text Visible option text.
-     * @param mixed $value Submitted option value.
-     *
+     * @param string $text The option display text.
+     * @param mixed $value The option value.
      * @return static
      */
-    public function addOption(
-        string $text,
-        mixed $value
-    ): static {
-        $this->addChild(
-            new Option(
-                $text,
-                $value
-            )
-        );
+    public function addOption(string $text, mixed $value): static
+    {
+        $this->addChild(new Option($text, $value));
 
         return $this;
     }
 
-
     /**
-     * Adds multiple options from an associative array.
+     * Adds multiple options to the select.
      *
-     * The array key is used as the visible option text
-     * and the array value is used as the submitted option value.
+     * The array keys are used as option labels and
+     * the array values are used as option values.
      *
-     * Example:
-     *
-     *     [
-     *         'Mexico' => 'mx',
-     *         'Canada' => 'ca',
-     *     ]
-     *
-     * @param array<string, mixed> $options Options indexed by text.
-     *
+     * @param array $options The options to add.
      * @return static
      */
-    public function addOptions(
-        array $options
-    ): static {
+    public function addOptions(array $options): static
+    {
         foreach ($options as $text => $value) {
-            $this->addOption(
-                $text,
-                $value
-            );
+            $this->addOption($text, $value);
         }
 
         return $this;
     }
 
-
     /**
-     * Sets the selected option value.
+     * Marks an option as selected.
      *
-     * This method is intended to define the value that should
-     * be selected when the select is rendered.
+     * The selected attribute is applied to the option
+     * whose value matches the supplied value.
      *
-     * @param mixed $value Selected option value.
-     *
+     * @param mixed $value The value of the option to select.
      * @return static
      */
-    public function selected(
-        mixed $value
-    ): static {
-        return $this->attribute(
-            'value',
-            $value
-        );
+    public function selected(mixed $value): static
+    {
+        foreach ($this->children() as $child) {
+            if (!$child instanceof Option) {
+                continue;
+            }
+
+            if ($child->getAttribute('value') == $value) {
+                $child->selected();
+            }
+        }
+
+        return $this;
     }
 
-
     /**
-     * Adds a single option.
+     * Adds a single option to the select.
      *
-     * Alias of addOption().
+     * This is an alias of addOption().
      *
-     * @param string $text Visible option text.
-     * @param mixed $value Submitted option value.
-     *
+     * @param string $text The option display text.
+     * @param mixed $value The option value.
      * @return static
      */
-    public function option(
-        string $text,
-        mixed $value
-    ): static {
-        return $this->addOption(
-            $text,
-            $value
-        );
+    public function option(string $text, mixed $value): static
+    {
+        return $this->addOption($text, $value);
     }
 
-
     /**
-     * Adds multiple options.
+     * Adds multiple options to the select.
      *
-     * Alias of addOptions().
+     * This is an alias of addOptions().
      *
-     * @param array<string, mixed> $options Options indexed by text.
-     *
+     * @param array $options The options to add.
      * @return static
      */
-    public function options(
-        array $options
-    ): static {
-        return $this->addOptions(
-            $options
-        );
+    public function options(array $options): static
+    {
+        return $this->addOptions($options);
     }
 
-
     /**
-     * Sets the disabled state.
-     *
-     * A disabled select cannot be interacted with by the user
-     * and its value is not submitted with the form.
+     * Sets whether the select is disabled.
      *
      * @param bool $disabled Whether the select is disabled.
-     *
      * @return static
      */
-    public function disabled(
-        bool $disabled = true
-    ): static {
-        return $this->attribute(
-            'disabled',
-            $disabled
-        );
+    public function disabled(bool $disabled = true): static
+    {
+        return $this->attribute('disabled', $disabled);
     }
-
 
     /**
      * Sets the number of visible options.
      *
-     * The value is assigned to the native HTML size attribute.
-     *
-     * @param int $size Number of visible options.
-     *
+     * @param int $size The number of visible options.
      * @return static
      */
-    public function size(
-        int $size
-    ): static {
-        return $this->attribute(
-            'size',
-            $size
-        );
+    public function size(int $size): static
+    {
+        return $this->attribute('size', $size);
     }
 }

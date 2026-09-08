@@ -51,7 +51,12 @@ class Heading extends HtmlComponent
      * @var int
      */
     protected int $level;
+    
+    protected HtmlComponent $header;
 
+    protected HtmlComponent $body;
+
+    protected HtmlComponent $footer;
 
     /**
      * Creates a new heading component.
@@ -79,6 +84,16 @@ class Heading extends HtmlComponent
         if ($text !== null) {
             $this->text($text);
         }
+
+        $this->header = new class('header') extends HtmlComponent {
+
+        };
+
+        $this->body = new class('section') extends HtmlComponent {
+        };
+
+        $this->footer = new class('footer') extends HtmlComponent {
+        };
     }
 
 
@@ -139,4 +154,42 @@ class Heading extends HtmlComponent
             );
         }
     }
+
+
+    public function bodyAttribute(string $name, mixed $value): static
+    {
+        $this->body->attribute($name, $value);
+
+        return $this;
+    }
+
+    public function bodyClass(string $class): static
+    {
+        $this->body->class($class);
+
+        return $this;
+    }
+
+    public function bodyStyle(string $property, string $value): static
+    {
+        $this->body->style($property, $value);
+
+        return $this;
+    }
+
+    public function bodyData(string $name, mixed $value): static
+    {
+        $this->body->data($name, $value);
+
+        return $this;
+    }
+
+    public function bodyAria(string $name, mixed $value): static
+    {
+        $this->body->aria($name, $value);
+
+        return $this;
+    }
+
+
 }
