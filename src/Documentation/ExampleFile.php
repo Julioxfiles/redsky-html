@@ -128,9 +128,10 @@ class ExampleFile
      * Returns rendered component output.
      */
     public function output(): string
-    {
+    {   
         return $this->output;
-    }
+        
+    }   
 
 
     /**

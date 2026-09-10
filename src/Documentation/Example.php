@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace RedSky\Html\Documentation;
 
+use RedSky\Html\Documentation\HtmlFormatter;
+
 /**
  * Represents documentation metadata for a component usage example.
  *
@@ -121,7 +123,7 @@ class Example
      */
     public function output(): ?string
     {
-        return $this->output;
+        return $this->output;        
     }
 
 

@@ -455,8 +455,7 @@ class Scanner
 
         $loader = new ExampleLoader();
         $renderer = new ExampleRenderer();
-        $renderer = new ExampleRenderer();
-
+        
         foreach ($loader->load($directory) as $example) {
 
             $example->setOutput(

@@ -1,0 +1,11 @@
+.documentation-example-copy {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 4px;
+    opacity: .7;
+}
+
+.documentation-example-copy:hover {
+    opacity: 1;
+}
