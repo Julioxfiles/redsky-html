@@ -68,7 +68,7 @@ class Scanner
         $this->scanMethods($reflection, $component);
         $this->scanProperties($reflection, $component);
         $this->scanExamples($reflection, $component);
-
+        
         return $component;
     }
 
@@ -181,7 +181,7 @@ class Scanner
         return new Property(
             name: $property->getName(),
             type: $this->resolveType($property->getType()),
-            description: $this->resolvePropertyDescription($property),
+            description: '',
             default: $default,
             hasDefault: $hasDefault,
             declaringClass: $declaringClass->getName(),
@@ -232,8 +232,12 @@ class Scanner
             $reflection,
             $component
         );
-    }
 
+        $this->scanExampleFiles(
+            $reflection,
+            $component
+        );
+    }
 
     /**
      * Adds example metadata to a component.
@@ -399,24 +403,70 @@ class Scanner
         }
     }
 
+    /**
+     * Loads PHP example files for a component.
+     */
+    protected function scanExampleFiles(
+        ReflectionClass $reflection,
+        Component $component
+    ): void {
+        $namespace = $reflection->getNamespaceName();
 
-    protected function resolvePropertyDescription(
-        ReflectionProperty $property
-    ): string {
-        $docComment = $property->getDocComment();
+        $prefix = 'RedSky\\Html\\Components\\';
 
-        if ($docComment !== false) {
-            $description = $this->extractDocDescription($docComment);
-
-            if ($description !== '') {
-                return $description;
-            }
+        if (!str_starts_with($namespace, $prefix)) {
+            return;
         }
 
-        return sprintf(
-            'Property %s.',
-            $property->getName()
+        $relative = substr(
+            $namespace,
+            strlen($prefix)
         );
+
+        $parts = explode('\\', $relative);
+
+        if (count($parts) === 0) {
+            return;
+        }
+
+        $category = strtolower($parts[0]);
+        $name = strtolower($reflection->getShortName());
+
+
+        $directory = dirname(__DIR__, 2)
+            . DIRECTORY_SEPARATOR
+            . 'resources'
+            . DIRECTORY_SEPARATOR
+            . 'views'
+            . DIRECTORY_SEPARATOR
+            . 'components'
+            . DIRECTORY_SEPARATOR
+            . $category
+            . DIRECTORY_SEPARATOR
+            . $name
+            . DIRECTORY_SEPARATOR
+            . 'examples';
+
+
+        if (!is_dir($directory)) {
+            return;
+        }
+
+
+        $loader = new ExampleLoader();
+        $renderer = new ExampleRenderer();
+        $renderer = new ExampleRenderer();
+
+        foreach ($loader->load($directory) as $example) {
+
+            $example->setOutput(
+                $renderer->renderFormatted(
+                    $example->file()
+                )
+            );
+
+            $component->addExampleFile($example);
+        }    
     }
 
 
@@ -615,4 +665,46 @@ class Scanner
 
         return explode('\\', $relative)[0];
     }
+
+    protected function resolveExampleDirectory(
+        ReflectionClass $reflection
+    ): ?string {
+        $class = $reflection->getShortName();
+
+        $namespace = $reflection->getNamespaceName();
+
+        $prefix = 'RedSky\\Html\\Components\\';
+
+        if (!str_starts_with($namespace, $prefix)) {
+            return null;
+        }
+
+        $relative = substr(
+            $namespace,
+            strlen($prefix)
+        );
+
+        $path = dirname(__DIR__, 2)
+            . DIRECTORY_SEPARATOR
+            . 'resources'
+            . DIRECTORY_SEPARATOR
+            . 'views'
+            . DIRECTORY_SEPARATOR
+            . 'components'
+            . DIRECTORY_SEPARATOR
+            . strtolower($relative)
+            . DIRECTORY_SEPARATOR
+            . strtolower($class)
+            . DIRECTORY_SEPARATOR
+            . 'examples';
+
+
+        if (!is_dir($path)) {
+            return null;
+        }
+
+        return $path;
+    }
+
+ 
 }

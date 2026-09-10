@@ -55,25 +55,6 @@ use RedSky\Html\Metadata\Example;
  *
  * @package RedSky\Html\Components\Interactive
  */
-#[Example(
-    title: 'Submit Button',
-    code: <<<'PHP'
-    echo (new Button('Save'))
-        ->type('submit')
-        ->name('action')
-        ->value('save')
-        ->attribute('id', 'save-button')
-        ->render();
-    PHP,
-    description: 'The Button component generates a semantic HTML
-                 <button> element for user interactions and form
-                 actions. It supports common button attributes,
-                 disabled state, form association, and form
-                 submission overrides.',
-    language: 'php',
-    primary: true,
-    output: '<button type="submit" name="action" value="save" id="save-button">Save</button>'
-)]
 class Button extends HtmlComponent
 {
     /**

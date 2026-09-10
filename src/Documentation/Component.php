@@ -67,8 +67,6 @@ class Component
     /**
      * Documented methods.
      *
-     * The method name is used as the array key.
-     *
      * @var array<string, Method>
      */
     protected array $methods = [];
@@ -77,15 +75,16 @@ class Component
     /**
      * Documented properties.
      *
-     * The property name is used as the array key.
-     *
      * @var array<string, Property>
      */
     protected array $properties = [];
 
 
     /**
-     * Usage examples.
+     * Usage examples defined using metadata.
+     *
+     * This property is kept for backwards compatibility
+     * with #[Example] attributes.
      *
      * @var array<int, Example>
      */
@@ -93,14 +92,18 @@ class Component
 
 
     /**
-     * Creates component documentation metadata.
+     * Real PHP example files.
      *
-     * @param string      $name        Component name.
-     * @param string      $class       Fully qualified component class name.
-     * @param string|null $category    Component category.
-     * @param string|null $description Component description.
-     * @param string|null $version     Component version.
-     * @param bool        $deprecated  Whether the component is deprecated.
+     * These examples are stored as editable PHP files
+     * under resources/views/components.
+     *
+     * @var array<int, ExampleFile>
+     */
+    protected array $exampleFiles = [];
+
+
+    /**
+     * Creates component documentation metadata.
      */
     public function __construct(
         string $name,
@@ -175,26 +178,13 @@ class Component
 
     /**
      * Adds a documented method.
-     *
-     * If a method with the same name already exists,
-     * it is replaced by the supplied method.
      */
-    public function addMethod(Method $method): static
-    {
+    public function addMethod(
+        Method $method
+    ): static {
         $this->methods[$method->name()] = $method;
 
         return $this;
-    }
-
-
-    /**
-     * Returns a documented method by name.
-     *
-     * Returns null when the method is not documented.
-     */
-    public function method(string $name): ?Method
-    {
-        return $this->methods[$name] ?? null;
     }
 
 
@@ -210,45 +200,14 @@ class Component
 
 
     /**
-     * Determines whether a method is documented.
-     */
-    public function hasMethod(string $name): bool
-    {
-        return isset($this->methods[$name]);
-    }
-
-
-    /**
-     * Returns the number of documented methods.
-     */
-    public function methodCount(): int
-    {
-        return count($this->methods);
-    }
-
-
-    /**
      * Adds a documented property.
-     *
-     * If a property with the same name already exists,
-     * it is replaced by the supplied property.
      */
-    public function addProperty(Property $property): static
-    {
+    public function addProperty(
+        Property $property
+    ): static {
         $this->properties[$property->name()] = $property;
 
         return $this;
-    }
-
-
-    /**
-     * Returns a documented property by name.
-     *
-     * Returns null when the property is not documented.
-     */
-    public function property(string $name): ?Property
-    {
-        return $this->properties[$name] ?? null;
     }
 
 
@@ -264,28 +223,13 @@ class Component
 
 
     /**
-     * Determines whether a property is documented.
-     */
-    public function hasProperty(string $name): bool
-    {
-        return isset($this->properties[$name]);
-    }
-
-
-    /**
-     * Returns the number of documented properties.
-     */
-    public function propertyCount(): int
-    {
-        return count($this->properties);
-    }
-
-
-    /**
      * Adds a usage example.
+     *
+     * Legacy support for #[Example].
      */
-    public function addExample(Example $example): static
-    {
+    public function addExample(
+        Example $example
+    ): static {
         $this->examples[] = $example;
 
         return $this;
@@ -293,7 +237,7 @@ class Component
 
 
     /**
-     * Returns all usage examples.
+     * Returns metadata examples.
      *
      * @return array<int, Example>
      */
@@ -304,7 +248,7 @@ class Component
 
 
     /**
-     * Determines whether the component has usage examples.
+     * Determines whether metadata examples exist.
      */
     public function hasExamples(): bool
     {
@@ -313,11 +257,52 @@ class Component
 
 
     /**
-     * Returns the number of usage examples.
+     * Returns metadata example count.
      */
     public function exampleCount(): int
     {
         return count($this->examples);
+    }
+
+
+    /**
+     * Adds a real PHP example file.
+     */
+    public function addExampleFile(
+        ExampleFile $example
+    ): static {
+        $this->exampleFiles[] = $example;
+
+        return $this;
+    }
+
+
+    /**
+     * Returns real PHP example files.
+     *
+     * @return array<int, ExampleFile>
+     */
+    public function exampleFiles(): array
+    {
+        return $this->exampleFiles;
+    }
+
+
+    /**
+     * Determines whether PHP example files exist.
+     */
+    public function hasExampleFiles(): bool
+    {
+        return $this->exampleFiles !== [];
+    }
+
+
+    /**
+     * Returns PHP example file count.
+     */
+    public function exampleFileCount(): int
+    {
+        return count($this->exampleFiles);
     }
 
 
@@ -335,17 +320,38 @@ class Component
             'description' => $this->description,
             'version' => $this->version,
             'deprecated' => $this->deprecated,
+
             'methods' => array_map(
-                static fn (Method $method): array => $method->toArray(),
+                static fn (Method $method): array =>
+                    $method->toArray(),
                 $this->methods
             ),
+
             'properties' => array_map(
-                static fn (Property $property): array => $property->toArray(),
+                static fn (Property $property): array =>
+                    $property->toArray(),
                 $this->properties
             ),
+
             'examples' => array_map(
-                static fn (Example $example): array => $example->toArray(),
+                static fn (Example $example): array =>
+                    $example->toArray(),
                 $this->examples
+            ),
+
+            'example_files' => array_map(
+                static function (
+                    ExampleFile $example
+                ): array {
+                    return [
+                        'file' => $example->file(),
+                        'title' => $example->title(),
+                        'source' => $example->source(),
+                        'output' => $example->output(),
+                        'description' => $example->description(),
+                    ];
+                },
+                $this->exampleFiles
             ),
         ];
     }
