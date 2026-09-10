@@ -63,6 +63,7 @@ abstract class Component implements
         $this->children = new ChildrenCollection();
     }
 
+
     /**
      * Sets input id.
      *
@@ -191,10 +192,24 @@ abstract class Component implements
 
 
     /**
-     * Adds inline style.
+     * Adds or replaces an inline CSS declaration.
      *
-     * @param string $property
-     * @param string $value
+     * Multiple calls accumulate declarations.
+     * If the same property is specified more than once,
+     * the latest value replaces the previous value.
+     *
+     * Examples:
+     *
+     * ->style('font-size', '12pt')
+     * ->style('padding-left', '5px')
+     * ->style('padding-right', '5px')
+     *
+     * Generates:
+     *
+     * style="font-size:12pt;padding-left:5px;padding-right:5px"
+     *
+     * @param string $property CSS property name.
+     * @param string $value CSS property value.
      *
      * @return static
      */
@@ -202,9 +217,113 @@ abstract class Component implements
         string $property,
         string $value
     ): static {
+        $property =
+            trim($property);
+
+        $value =
+            trim($value);
+
+        if ($property === '') {
+            throw new \InvalidArgumentException(
+                'CSS property name cannot be empty.'
+            );
+        }
+
+        if ($value === '') {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'CSS value for property "%s" cannot be empty.',
+                    $property
+                )
+            );
+        }
+
+        $styles = [];
+
+        $existing =
+            $this->getAttribute('style');
+
+        if (
+            is_string($existing) &&
+            trim($existing) !== ''
+        ) {
+            foreach (
+                explode(';', $existing)
+                as $declaration
+            ) {
+                $declaration =
+                    trim($declaration);
+
+                if ($declaration === '') {
+                    continue;
+                }
+
+                $separator =
+                    strpos(
+                        $declaration,
+                        ':'
+                    );
+
+                if (
+                    $separator === false
+                ) {
+                    continue;
+                }
+
+                $name =
+                    trim(
+                        substr(
+                            $declaration,
+                            0,
+                            $separator
+                        )
+                    );
+
+                $existingValue =
+                    trim(
+                        substr(
+                            $declaration,
+                            $separator + 1
+                        )
+                    );
+
+                if (
+                    $name === ''
+                ) {
+                    continue;
+                }
+
+                $styles[
+                    strtolower($name)
+                ] = [
+                    'name' => $name,
+                    'value' => $existingValue,
+                ];
+            }
+        }
+
+        $styles[
+            strtolower($property)
+        ] = [
+            'name' => $property,
+            'value' => $value,
+        ];
+
+        $declarations = [];
+
+        foreach ($styles as $style) {
+            $declarations[] =
+                $style['name'] .
+                ':' .
+                $style['value'];
+        }
+
         return $this->attribute(
             'style',
-            $property . ':' . $value
+            implode(
+                ';',
+                $declarations
+            )
         );
     }
 
@@ -245,6 +364,7 @@ abstract class Component implements
 
         return $this;
     }
+
 
     /**
      * Adds multiple child nodes.
@@ -330,6 +450,7 @@ abstract class Component implements
         return $this;
     }
 
+
     /**
      * Sets plain text content.
      *
@@ -348,6 +469,7 @@ abstract class Component implements
         );
     }
 
+
     /**
      * Sets raw HTML content.
      *
@@ -362,6 +484,7 @@ abstract class Component implements
             $html
         );
     }
+
 
     /**
      * Determines whether content exists.
@@ -413,7 +536,9 @@ abstract class Component implements
     public function prependContent(
         mixed $content
     ): static {
-        $this->content = $content . $this->content;
+        $this->content =
+            $content .
+            $this->content;
 
         return $this;
     }
@@ -488,6 +613,7 @@ abstract class Component implements
         );
     }
 
+
     /**
      * Sets an ARIA attribute.
      *
@@ -495,8 +621,11 @@ abstract class Component implements
      * for assistive technologies.
      *
      * Example:
+     *
      * aria('label', 'Close button')
+     *
      * generates:
+     *
      * aria-label="Close button"
      *
      * @param string $name
@@ -521,5 +650,4 @@ abstract class Component implements
      * @return string
      */
     abstract public function render(): string;
-
 }

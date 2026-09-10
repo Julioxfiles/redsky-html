@@ -668,76 +668,6 @@ class DataGrid extends DataGridConfiguration
     }
 
     /**
-     * Renders an action configuration.
-     *
-     * @param array<string, mixed> $action Action configuration.
-     */
-    protected function renderActionConfig(
-        array $action,
-        mixed $record = null,
-        ?int $index = null
-    ): string {
-        $label = (string) (
-            $action['label'] ?? 'Action'
-        );
-
-        $type = (string) (
-            $action['type'] ?? 'button'
-        );
-
-        $event = $action['event'] ?? null;
-        $url = $action['url'] ?? null;
-
-        $attributes = [
-            'type' => $type,
-            'data-datagrid-action' => 'true',
-        ];
-
-        if ($event !== null) {
-            $attributes['data-action-event'] =
-                (string) $event;
-        }
-
-        if ($url !== null) {
-            $attributes['data-action-url'] =
-                (string) $url;
-        }
-
-        if ($index !== null) {
-            $attributes['data-row-index'] =
-                (string) $index;
-        }
-
-        $attributeString = '';
-
-        foreach ($attributes as $name => $value) {
-            $attributeString .= sprintf(
-                ' %s="%s"',
-                htmlspecialchars(
-                    $name,
-                    ENT_QUOTES | ENT_SUBSTITUTE,
-                    'UTF-8'
-                ),
-                htmlspecialchars(
-                    (string) $value,
-                    ENT_QUOTES | ENT_SUBSTITUTE,
-                    'UTF-8'
-                )
-            );
-        }
-
-        return sprintf(
-            '<button%s>%s</button>',
-            $attributeString,
-            htmlspecialchars(
-                $label,
-                ENT_QUOTES | ENT_SUBSTITUTE,
-                'UTF-8'
-            )
-        );
-    }
-
-    /**
      * Renders pagination configuration.
      */
     protected function renderPagination(): string
@@ -1037,5 +967,223 @@ class DataGrid extends DataGridConfiguration
                 'UTF-8'
             )
         );
+    }
+
+    /**
+     * Renders an action configuration.
+     *
+     * Supported action types:
+     * - button
+     * - link
+     * - icon
+     * - image
+     * - svg
+     *
+     * Buttons and links can contain text.
+     * Icons, images, and SVGs are rendered as clickable actions.
+     *
+     * @param array<string, mixed> $action Action configuration.
+     */
+    protected function renderActionConfig(
+        array $action,
+        mixed $record = null,
+        ?int $index = null
+    ): string {
+        $label = (string) (
+            $action['label'] ?? 'Action'
+        );
+
+        $type = strtolower(
+            trim(
+                (string) (
+                    $action['type'] ?? 'button'
+                )
+            )
+        );
+
+        if (!in_array(
+            $type,
+            ['button', 'link', 'icon', 'image', 'svg'],
+            true
+        )) {
+            throw new \InvalidArgumentException(
+                'The action type must be "button", "link", "icon", "image", or "svg".'
+            );
+        }
+
+        $event = $action['event'] ?? null;
+        $url = $action['url'] ?? null;
+        $icon = $action['icon'] ?? null;
+        $image = $action['image'] ?? null;
+        $svg = $action['svg'] ?? null;
+
+        $attributes = [
+            'data-datagrid-action' => 'true',
+        ];
+
+        /*
+        * Buttons use the native button type attribute.
+        */
+        if ($type === 'button') {
+            $attributes['type'] = 'button';
+        }
+
+        /*
+        * Links and visual actions can navigate to a URL.
+        */
+        if (
+            in_array(
+                $type,
+                ['link', 'icon', 'image', 'svg'],
+                true
+            ) &&
+            $url !== null
+        ) {
+            $attributes['href'] = (string) $url;
+        }
+
+        /*
+        * Preserve the URL as DataGrid metadata.
+        */
+        if ($url !== null) {
+            $attributes['data-action-url'] =
+                (string) $url;
+        }
+
+        /*
+        * Preserve the event as DataGrid metadata.
+        */
+        if ($event !== null) {
+            $attributes['data-action-event'] =
+                (string) $event;
+        }
+
+        /*
+        * Preserve the row index for row actions.
+        */
+        if ($index !== null) {
+            $attributes['data-row-index'] =
+                (string) $index;
+        }
+
+        /*
+        * Accessibility label.
+        */
+        $attributes['aria-label'] = $label;
+
+        $attributeString = '';
+
+        foreach ($attributes as $name => $value) {
+            $attributeString .= sprintf(
+                ' %s="%s"',
+                htmlspecialchars(
+                    $name,
+                    ENT_QUOTES | ENT_SUBSTITUTE,
+                    'UTF-8'
+                ),
+                htmlspecialchars(
+                    (string) $value,
+                    ENT_QUOTES | ENT_SUBSTITUTE,
+                    'UTF-8'
+                )
+            );
+        }
+
+        /*
+        * Text content.
+        */
+        if (
+            $type === 'button' ||
+            $type === 'link'
+        ) {
+            $content = htmlspecialchars(
+                $label,
+                ENT_QUOTES | ENT_SUBSTITUTE,
+                'UTF-8'
+            );
+
+            if ($type === 'link') {
+                return sprintf(
+                    '<a%s>%s</a>',
+                    $attributeString,
+                    $content
+                );
+            }
+
+            return sprintf(
+                '<button%s>%s</button>',
+                $attributeString,
+                $content
+            );
+        }
+
+        /*
+        * Font Awesome or another icon CSS class.
+        */
+        if ($type === 'icon') {
+            $icon = htmlspecialchars(
+                (string) $icon,
+                ENT_QUOTES | ENT_SUBSTITUTE,
+                'UTF-8'
+            );
+
+            $content = sprintf(
+                '<i class="%s" aria-hidden="true"></i>',
+                $icon
+            );
+
+            return sprintf(
+                '<a%s>%s</a>',
+                $attributeString,
+                $content
+            );
+        }
+
+        /*
+        * Image action.
+        */
+        if ($type === 'image') {
+            $image = htmlspecialchars(
+                (string) $image,
+                ENT_QUOTES | ENT_SUBSTITUTE,
+                'UTF-8'
+            );
+
+            $alt = htmlspecialchars(
+                $label,
+                ENT_QUOTES | ENT_SUBSTITUTE,
+                'UTF-8'
+            );
+
+            $content = sprintf(
+                '<img src="%s" alt="%s">',
+                $image,
+                $alt
+            );
+
+            return sprintf(
+                '<a%s>%s</a>',
+                $attributeString,
+                $content
+            );
+        }
+
+        /*
+        * SVG action.
+        *
+        * The SVG is intentionally not escaped because it is expected
+        * to contain valid SVG markup.
+        */
+        if ($type === 'svg') {
+            $content = (string) $svg;
+
+            return sprintf(
+                '<a%s>%s</a>',
+                $attributeString,
+                $content
+            );
+        }
+
+        return '';
     }
 }

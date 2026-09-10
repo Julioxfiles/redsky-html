@@ -29,9 +29,31 @@ class DataGridAction
     protected string $label;
 
     /**
-     * Optional action icon.
+     * The action type.
+     *
+     * Supported values:
+     * - button
+     * - link
+     */
+    protected string $type = 'button';
+
+    /**
+     * The icon CSS classes.
+     *
+     * Example:
+     * fa-solid fa-pen
      */
     protected ?string $icon = null;
+
+    /**
+     * The image URL.
+     */
+    protected ?string $image = null;
+
+    /**
+     * The SVG markup.
+     */
+    protected ?string $svg = null;
 
     /**
      * Optional action URL.
@@ -168,10 +190,30 @@ class DataGridAction
             $this->setLabel((string) $config['label']);
         }
 
+        if (isset($config['type'])) {
+            $this->type((string) $config['type']);
+        }
+
         if (array_key_exists('icon', $config)) {
             $this->icon(
                 $config['icon'] !== null
                     ? (string) $config['icon']
+                    : null
+            );
+        }
+
+        if (isset($config['image'])) {
+            $this->image(
+                $config['image'] !== null
+                    ? (string) $config['image']
+                    : null
+            );
+        }
+
+        if (isset($config['svg'])) {
+            $this->svg(
+                $config['svg'] !== null
+                    ? (string) $config['svg']
                     : null
             );
         }
@@ -306,19 +348,82 @@ class DataGridAction
     }
 
     /**
-     * Returns the icon.
+     * Returns the action type.
      */
-    public function getIcon(): ?string
+    public function getType(): string
     {
-        return $this->icon;
+        return $this->type;
     }
 
     /**
-     * Sets the icon.
+     * Sets the action type.
+     *
+     * @throws \InvalidArgumentException
      */
-    public function icon(?string $icon): static
+    public function type(string $type): static
     {
-        $this->icon = $icon;
+        $type = strtolower(trim($type));
+
+        if (!in_array(
+            $type,
+            ['button', 'link', 'icon', 'image', 'svg'],
+            true
+        )) {
+            throw new \InvalidArgumentException(
+                'The action type must be "button", "link", "icon", "image", or "svg".'
+            );
+        }
+
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Sets the icon CSS classes.
+     *
+     * Example:
+     * fa-solid fa-pen
+     */
+    public function icon(string $icon): static
+    {
+        $this->icon = trim($icon);
+
+        return $this;
+    }
+
+    /**
+     * Returns the image URL.
+     */
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    /**
+     * Sets the image URL.
+     */
+    public function image(string $image): static
+    {
+        $this->image = trim($image);
+
+        return $this;
+    }
+
+    /**
+     * Returns the SVG markup.
+     */
+    public function getSvg(): ?string
+    {
+        return $this->svg;
+    }
+
+    /**
+     * Sets the SVG markup.
+     */
+    public function svg(string $svg): static
+    {
+        $this->svg = trim($svg);
 
         return $this;
     }
@@ -428,7 +533,7 @@ class DataGridAction
     {
         return $this->requiresSelection;
     }
-    
+
     /**
      * Configures whether the action requires selected rows.
      */
@@ -542,7 +647,6 @@ class DataGridAction
         return $this->parameters;
     }
 
-   
     /**
      * Sets all action parameters.
      *
@@ -680,7 +784,7 @@ class DataGridAction
     {
         return $this->authorization;
     }
-    
+
     /**
      * Sets an authorization callback.
      *
@@ -724,7 +828,7 @@ class DataGridAction
     {
         return $this->callback;
     }
-    
+
     /**
      * Sets the action callback.
      *
@@ -816,7 +920,10 @@ class DataGridAction
         return [
             'name' => $this->name,
             'label' => $this->label,
+            'type' => $this->type,
             'icon' => $this->icon,
+            'image' => $this->image,
+            'svg' => $this->svg,
             'url' => $this->url,
             'method' => $this->method,
             'event' => $this->event,
@@ -833,6 +940,8 @@ class DataGridAction
             'permission' => $this->permission,
             'hasAuthorization' => $this->authorization !== null,
             'hasCallback' => $this->callback !== null,
+            
         ];
     }
+
 }
