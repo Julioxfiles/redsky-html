@@ -10,6 +10,20 @@ namespace RedSky\Html\Documentation;
  *
  * Example files are executable PHP files that
  * create and render components.
+ *
+ * An example may optionally have associated
+ * demonstration assets:
+ *
+ * Example:
+ *
+ * Examples/
+ *     01.php
+ *     01.css
+ *     01.js
+ *
+ * CSS and JavaScript files are only used
+ * to demonstrate component usage and are
+ * not part of the component implementation.
  */
 class ExampleFile
 {
@@ -128,10 +142,9 @@ class ExampleFile
      * Returns rendered component output.
      */
     public function output(): string
-    {   
+    {
         return $this->output;
-        
-    }   
+    }
 
 
     /**
@@ -166,6 +179,7 @@ class ExampleFile
         );
     }
 
+
     /**
      * Determines whether a metadata key exists.
      */
@@ -178,7 +192,8 @@ class ExampleFile
         );
     }
 
-        /**
+
+    /**
      * Returns a metadata value ignoring key case.
      */
     public function metaInsensitive(
@@ -193,7 +208,8 @@ class ExampleFile
         return null;
     }
 
-     /**
+
+    /**
      * Converts example to array.
      *
      * @return array<string,mixed>
@@ -208,15 +224,32 @@ class ExampleFile
             'description' => $this->description(),
             'source' => $this->source,
             'output' => $this->output,
+            'css' => $this->cssFile(),
+            'js' => $this->jsFile(),
         ];
     }
 
+
+    /**
+     * Returns the directory containing the example file.
+     */
     public function assetsDirectory(): string
     {
         return dirname($this->file);
     }
 
 
+    /**
+     * Returns the CSS asset associated with this example.
+     *
+     * Example:
+     *
+     * Examples/
+     *     01.php
+     *     01.css
+     *
+     * @return string|null
+     */
     public function cssFile(): ?string
     {
         $file = $this->assetsDirectory()
@@ -230,6 +263,17 @@ class ExampleFile
     }
 
 
+    /**
+     * Returns the JavaScript asset associated with this example.
+     *
+     * Example:
+     *
+     * Examples/
+     *     01.php
+     *     01.js
+     *
+     * @return string|null
+     */
     public function jsFile(): ?string
     {
         $file = $this->assetsDirectory()
@@ -240,20 +284,6 @@ class ExampleFile
         return is_file($file)
             ? $file
             : null;
-    }
-
-    /**
-    * Returns the example public URL base directory.
-    */
-    protected function publicBasePath(): string
-    {
-        $base = dirname(__DIR__, 2);
-
-        return str_replace(
-            '\\',
-            '/',
-            $base
-        );
     }
 
 
@@ -314,5 +344,4 @@ class ExampleFile
         return '/redsky/redsky-html'
             . $relative;
     }
-
 }

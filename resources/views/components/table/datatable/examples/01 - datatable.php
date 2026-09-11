@@ -14,7 +14,7 @@ $table = new DataTable();
 
 $table
     ->id('users-table')
-    ->class('rs-table rs-table-striped rs-table-bordered')
+    ->class('table table-striped table-bordered')
     ->style('width', '100%')
     ->title('Users management table')
     ->role('table')

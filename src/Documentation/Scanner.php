@@ -447,7 +447,6 @@ class Scanner
             . DIRECTORY_SEPARATOR
             . 'examples';
 
-
         if (!is_dir($directory)) {
             return;
         }
