@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Typography\Span;
 
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Metadata\Example;
+
 
 /**
  * Represents an HTML span component.
@@ -24,20 +24,6 @@ use RedSky\Html\Metadata\Example;
  *
  * @package RedSky\Html\Components\Typography
  */
-#[Example(
-    title: 'Span',
-    code: <<<'PHP'
-    echo (new Span('RedSky'))
-        ->class('highlight')
-        ->attribute('id', 'framework-name')
-        ->render();
-    PHP,
-    description: 'Creates a semantic inline span element
-                 containing text content.',
-    language: 'php',
-    primary: true,
-    output: '<span class="highlight" id="framework-name">RedSky</span>'
-)]
 class Span extends HtmlComponent
 {
     /**

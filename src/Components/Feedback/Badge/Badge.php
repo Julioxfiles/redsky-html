@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Feedback\Badge;
 
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Metadata\Example;
+
 
 /**
  * Represents a small badge component.

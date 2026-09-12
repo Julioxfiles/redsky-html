@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Table\TableCell;
 
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Metadata\Example;
+
 
 /**
  * Represents an HTML table cell component.
@@ -27,21 +27,6 @@ use RedSky\Html\Metadata\Example;
  *
  * @package RedSky\Html\Components\Table
  */
-#[Example(
-    title: 'Table Cell',
-    code: <<<'PHP'
-    echo (new TableCell('Total'))
-        ->colspan(2)
-        ->attribute('id', 'total-cell')
-        ->render();
-    PHP,
-    description: 'Creates a semantic table data cell that spans
-                 two columns. The cell can also span multiple
-                 rows using rowspan().',
-    language: 'php',
-    primary: true,
-    output: '<td colspan="2" id="total-cell">Total</td>'
-)]
 class TableCell extends HtmlComponent
 {
     /**

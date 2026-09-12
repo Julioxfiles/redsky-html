@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Media\Source;
 
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Metadata\Example;
+
 
 /**
  * Represents an HTML <source> element.
@@ -18,58 +18,8 @@ use RedSky\Html\Metadata\Example;
  * media query, responsive image source set, image sizes,
  * and optional width and height descriptors.
  *
- * Source extends HtmlComponent and inherits common functionality
- * for managing attributes, classes, styles, content, children,
- * rendering, and fluent configuration.
- *
- * The component is UI-library agnostic and does not apply
- * default CSS classes or visual styles.
- *
- * The component is rendered as a self-closing HTML element
- * because <source> is a void element and cannot contain
- * child elements or content.
- *
- * Source is normally used as a child of Audio, Video, or
- * Picture components.
- *
- * The component can be rendered explicitly using render()
- * or converted automatically to its HTML representation
- * through __toString().
- *
- * Example:
- *
- * ```php
- * echo (new Source(
- *     '/images/photo.webp',
- *     'image/webp'
- * ))
- *     ->media('(min-width: 768px)')
- *     ->render();
- * ```
- *
- * Produces:
- *
- * ```html
- * <source src="/images/photo.webp" type="image/webp" media="(min-width: 768px)" />
- * ```
- *
  * @package RedSky\Html\Components\Media
  */
-#[Example(
-    title: 'Media Source',
-    code: <<<'PHP'
-    echo (new Source(
-        '/images/photo.webp',
-        'image/webp'
-    ))
-        ->media('(min-width: 768px)')
-        ->render();
-    PHP,
-    description: 'The Source component generates a semantic HTML <source> element for defining an alternative media resource. It can be used with Audio, Video, or Picture components.',
-    language: 'php',
-    primary: true,
-    output: '<source src="/images/photo.webp" type="image/webp" media="(min-width: 768px)" />'
-)]
 class Source extends HtmlComponent
 {
     /**

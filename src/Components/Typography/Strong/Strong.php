@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Typography\Strong;
 
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Metadata\Example;
+
 
 /**
  * Represents an HTML strong component.
@@ -24,21 +24,6 @@ use RedSky\Html\Metadata\Example;
  *
  * @package RedSky\Html\Components\Typography
  */
-#[Example(
-    title: 'Strong',
-    code: <<<'PHP'
-    echo (new Strong('Important information'))
-        ->class('notice')
-        ->attribute('id', 'important')
-        ->render();
-    PHP,
-    description: 'Creates a semantic strong element used to
-                 indicate text with strong importance or
-                 significance.',
-    language: 'php',
-    primary: true,
-    output: '<strong class="notice" id="important">Important information</strong>'
-)]
 class Strong extends HtmlComponent
 {
     /**

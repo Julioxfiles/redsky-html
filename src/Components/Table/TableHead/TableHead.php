@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Table\TableHead;
 
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Metadata\Example;
+
+use RedSky\Html\Components\Table\TableRow\TableRow;
 
 /**
  * Represents an HTML table head component.
@@ -30,24 +31,6 @@ use RedSky\Html\Metadata\Example;
  *
  * @package RedSky\Html\Components\Table
  */
-#[Example(
-    title: 'Table Head',
-    code: <<<'PHP'
-    echo (new TableHead())
-        ->addRow(
-            (new TableRow())
-                ->addHeader(new TableHeader('Name'))
-                ->addHeader(new TableHeader('Email'))
-        )
-        ->render();
-    PHP,
-    description: 'Creates a semantic table header section containing
-                 a row of column headings. Header rows are represented
-                 by TableRow components.',
-    language: 'php',
-    primary: true,
-    output: '<thead><tr><th>Name</th><th>Email</th></tr></thead>'
-)]
 class TableHead extends HtmlComponent
 {
     /**

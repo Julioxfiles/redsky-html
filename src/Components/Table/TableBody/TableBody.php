@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Table\TableBody;
 
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Metadata\Example;
+
 use RedSky\Html\Components\Table\TableRow\TableRow;
 
 /**

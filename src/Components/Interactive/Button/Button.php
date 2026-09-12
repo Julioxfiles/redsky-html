@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Interactive\Button;
 
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Metadata\Example;
+
 
 /**
  * Represents an HTML <button> element.
@@ -13,47 +13,7 @@ use RedSky\Html\Metadata\Example;
  * The Button component generates a semantic HTML button
  * element used for user interactions and form actions.
  *
- * The component supports common button functionality,
- * including button text, type, name, value, disabled state,
- * form association, and form submission overrides.
- *
- * Form submission attributes such as formaction, formenctype,
- * formmethod, formnovalidate, and formtarget allow an individual
- * button to override corresponding attributes of its associated
- * form when the button is used as a submit control.
- *
- * Button extends HtmlComponent and inherits common functionality
- * for managing attributes, classes, styles, content, children,
- * rendering, and fluent configuration.
- *
- * The component is UI-library agnostic and does not apply
- * default CSS classes or visual styles.
- *
- * UI frameworks such as Bootstrap or Tailwind are handled by
- * higher-level layers such as redsky-ui.
- *
- * The component can be rendered explicitly using render()
- * or converted automatically to its HTML representation
- * through __toString().
- *
- * Example:
- *
- * ```php
- * echo (new Button('Save'))
- *     ->type('submit')
- *     ->name('action')
- *     ->value('save')
- *     ->attribute('id', 'save-button')
- *     ->render();
- * ```
- *
- * Produces:
- *
- * ```html
- * <button type="submit" name="action" value="save" id="save-button">Save</button>
- * ```
- *
- * @package RedSky\Html\Components\Interactive
+  * @package RedSky\Html\Components\Interactive
  */
 class Button extends HtmlComponent
 {

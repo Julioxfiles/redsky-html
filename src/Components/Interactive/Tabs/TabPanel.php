@@ -23,13 +23,6 @@ use RedSky\Html\Components\HtmlComponent;
  *
  * Those responsibilities belong to the UI layer.
  *
- * Example:
- *
- * $panel = new TabPanel(
- *     'users',
- *     'Users information'
- * );
- *
  * @package RedSky\Html\Components\Interactive\Tabs
  */
 class TabPanel extends HtmlComponent

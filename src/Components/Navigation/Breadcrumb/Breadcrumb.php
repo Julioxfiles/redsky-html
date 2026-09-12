@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Navigation\Breadcrum;
 
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Metadata\Example;
+
 
 /**
  * Represents a breadcrumb navigation component.
@@ -19,43 +19,6 @@ use RedSky\Html\Metadata\Example;
  *
  * @package RedSky\Html\Components\Navigation
  */
-#[Example(
-    title: 'Bootstrap — Customer Details Breadcrumb',
-    code: <<<'PHP'
-$breadcrumb = new Breadcrumb();
-
-$breadcrumb
-    ->item('Home', '/')
-    ->item('Customers', '/customers')
-    ->item('Customer Details')
-    ->class('breadcrumb')
-    ->attribute('aria-label', 'Breadcrumb');
-
-echo $breadcrumb;
-PHP,
-    description: 'Creates a Bootstrap breadcrumb navigation showing the path from Home to the current Customer Details page.',
-    language: 'php',
-    primary: true,
-    output: '<nav data-redsky-component="breadcrumb" aria-label="Breadcrumb"><ol class="breadcrumb"><li data-breadcrumb-item><a href="/">Home</a></li><li data-breadcrumb-separator aria-hidden="true">&gt;</li><li data-breadcrumb-item><a href="/customers">Customers</a></li><li data-breadcrumb-separator aria-hidden="true">&gt;</li><li data-breadcrumb-item data-breadcrumb-current="true" aria-current="page">Customer Details</li></ol></nav>'
-)]
-#[Example(
-    title: 'Materialize — Customer Details Breadcrumb',
-    code: <<<'PHP'
-$breadcrumb = new Breadcrumb();
-
-$breadcrumb
-    ->item('Home', '/')
-    ->item('Customers', '/customers')
-    ->item('Customer Details')
-    ->class('breadcrumb');
-
-echo $breadcrumb;
-PHP,
-    description: 'Creates a Materialize breadcrumb navigation using the Breadcrumb component and the inherited Component API.',
-    language: 'php',
-    primary: false,
-    output: '<nav data-redsky-component="breadcrumb"><ol class="breadcrumb"><li data-breadcrumb-item><a href="/">Home</a></li><li data-breadcrumb-separator aria-hidden="true">&gt;</li><li data-breadcrumb-item><a href="/customers">Customers</a></li><li data-breadcrumb-separator aria-hidden="true">&gt;</li><li data-breadcrumb-item data-breadcrumb-current="true" aria-current="page">Customer Details</li></ol></nav>'
-)]
 class Breadcrumb extends HtmlComponent
 {
     /**

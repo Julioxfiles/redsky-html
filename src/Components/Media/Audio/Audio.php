@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Media\Audio;
 
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Metadata\Example;
+
+use RedSky\Html\Components\Media\Source\Source;
 
 /**
  * Represents an HTML <audio> element.
@@ -24,49 +25,8 @@ use RedSky\Html\Metadata\Example;
  * The component also supports disabling remote playback
  * through disableRemotePlayback().
  *
- * Audio extends HtmlComponent and inherits common functionality
- * for managing attributes, classes, styles, content, children,
- * rendering, and fluent configuration.
- *
- * The component is UI-library agnostic and does not apply
- * default CSS classes or visual styles.
- *
- * The component can be rendered explicitly using render()
- * or converted automatically to its HTML representation
- * through __toString().
- *
- * Example:
- *
- * ```php
- * echo (new Audio('/media/intro.mp3'))
- *     ->controls()
- *     ->preload('metadata')
- *     ->attribute('id', 'intro-audio')
- *     ->render();
- * ```
- *
- * Produces:
- *
- * ```html
- * <audio src="/media/intro.mp3" controls preload="metadata" id="intro-audio"></audio>
- * ```
- *
  * @package RedSky\Html\Components\Media
  */
-#[Example(
-    title: 'Audio Player',
-    code: <<<'PHP'
-    echo (new Audio('/media/intro.mp3'))
-        ->controls()
-        ->preload('metadata')
-        ->attribute('id', 'intro-audio')
-        ->render();
-    PHP,
-    description: 'The Audio component generates a semantic HTML <audio> element for embedding sound content. Playback controls and loading behavior can be configured through the component API.',
-    language: 'php',
-    primary: true,
-    output: '<audio src="/media/intro.mp3" controls preload="metadata" id="intro-audio"></audio>'
-)]
 class Audio extends HtmlComponent
 {
     /**

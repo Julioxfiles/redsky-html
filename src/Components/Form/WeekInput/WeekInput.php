@@ -22,10 +22,7 @@ use RedSky\Html\Components\Form\Input\Input;
  *
  * Inherits the standard input component functionality for
  * HTML attributes, CSS classes, inline styles, and values.
- *
- * Supports fluent method chaining and renders the generated
- * HTML through render() or HtmlComponent::__toString().
- *
+  *
  * @package RedSky\Html\Components\Form
  */
 class WeekInput extends Input

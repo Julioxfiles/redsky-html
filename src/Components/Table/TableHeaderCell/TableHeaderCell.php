@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Table\TableHeaderCell;
 
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Metadata\Example;
+
 
 /**
  * Represents an HTML table header cell component.
@@ -31,21 +31,6 @@ use RedSky\Html\Metadata\Example;
  *
  * @package RedSky\Html\Components\Table
  */
-#[Example(
-    title: 'Table Header Cell',
-    code: <<<'PHP'
-    echo (new TableHeaderCell('Name'))
-        ->scope('col')
-        ->attribute('id', 'name-header')
-        ->render();
-    PHP,
-    description: 'Creates a semantic table header cell for a
-                 column heading. The scope attribute indicates
-                 that the header applies to a column.',
-    language: 'php',
-    primary: true,
-    output: '<th scope="col" id="name-header">Name</th>'
-)]
 class TableHeaderCell extends HtmlComponent
 {
     /**

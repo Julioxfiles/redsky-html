@@ -6,7 +6,7 @@ namespace RedSky\Html\Components\Feedback\Spinner;
 
 use InvalidArgumentException;
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Metadata\Example;
+
 
 /**
  * Represents a circular loading indicator.

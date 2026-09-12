@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Feedback\Toast;
 
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Metadata\Example;
+
 
 /**
  * Represents a high-level toast notification component.

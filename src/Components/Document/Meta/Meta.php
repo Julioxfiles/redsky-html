@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Document\Meta;
 
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Metadata\Example;
+
 
 /**
  * Represents an HTML <meta> element.
@@ -25,50 +25,8 @@ use RedSky\Html\Metadata\Example;
  * commonly used metadata attributes. Additional attributes
  * can be configured through the inherited HtmlComponent API.
  *
- * The component is UI-library agnostic and does not apply
- * default classes or styles.
- *
- * The component can be rendered explicitly using render()
- * or converted automatically to its HTML representation
- * through __toString().
- *
- * Example:
- *
- * ```php
- * echo (new Meta())
- *     ->name('viewport')
- *     ->AddContent('width=device-width, initial-scale=1')
- *     ->attribute('id', 'viewport-meta')
- *     ->render();
- * ```
- *
- * Produces:
- *
- * ```html
- * <meta name="viewport"
- *       content="width=device-width, initial-scale=1"
- *       id="viewport-meta" />
- * ```
- *
  * @package RedSky\Html\Components\Document
  */
-#[Example(
-    title: 'Viewport metadata',
-    code: <<<'PHP'
-    echo (new Meta())
-        ->name('viewport')
-        ->AddContent('width=device-width, initial-scale=1')
-        ->attribute('id', 'viewport-meta')
-        ->render();
-    PHP,
-    description: 'The Meta component generates a semantic HTML
-                 <meta> element for defining document metadata,
-                 such as character encoding, viewport settings,
-                 HTTP directives, and other metadata attributes.',
-    language: 'php',
-    primary: true,
-    output: '<meta name="viewport" content="width=device-width, initial-scale=1" id="viewport-meta" />'
-)]
 class Meta extends HtmlComponent
 {
     /**

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Document\Link;
 
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Metadata\Example;
+
 
 /**
  * Represents an HTML <link> element.
@@ -28,52 +28,8 @@ use RedSky\Html\Metadata\Example;
  * Link is a void HTML element and therefore does not contain
  * child elements or text content.
  *
- * The component is UI-library agnostic and does not apply
- * default classes or styles.
- *
- * The component can be rendered explicitly using render()
- * or converted automatically to its HTML representation
- * through __toString().
- *
- * Example:
- *
- * ```php
- * echo (new Link())
- *     ->stylesheet('/css/app.css')
- *     ->media('screen')
- *     ->attribute('id', 'app-styles')
- *     ->render();
- * ```
- *
- * Produces:
- *
- * ```html
- * <link rel="stylesheet"
- *       href="/css/app.css"
- *       media="screen"
- *       id="app-styles" />
- * ```
- *
  * @package RedSky\Html\Components\Document
  */
-#[Example(
-    title: 'Stylesheet link',
-    code: <<<'PHP'
-    echo (new Link())
-        ->stylesheet('/css/app.css')
-        ->media('screen')
-        ->attribute('id', 'app-styles')
-        ->render();
-    PHP,
-    description: 'The Link component generates a semantic HTML
-                 <link> element for defining relationships between
-                 the current document and external resources. The
-                 stylesheet() method provides a convenient way to
-                 create a stylesheet link.',
-    language: 'php',
-    primary: true,
-    output: '<link rel="stylesheet" href="/css/app.css" media="screen" id="app-styles" />'
-)]
 class Link extends HtmlComponent
 {
     /**

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Document\Title;
 
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Metadata\Example;
+
 
 /**
  * Represents an HTML <title> element.

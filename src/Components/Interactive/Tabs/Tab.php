@@ -14,9 +14,9 @@ use RedSky\Html\Components\HtmlComponent;
  *
  * A Tab contains:
  *
- * - A visible title.
- * - A target panel identifier.
- * - An active state.
+ * A visible title.
+ * A target panel identifier.
+ * An active state.
  *
  * The component only generates the tab button.
  * The related content is handled by TabPanel.

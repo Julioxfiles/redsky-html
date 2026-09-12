@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Navigation\Nav;
 
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Metadata\Example;
+
 
 /**
  * Represents an HTML navigation component.
@@ -26,24 +26,6 @@ use RedSky\Html\Metadata\Example;
  *
  * @package RedSky\Html\Components\Navigation
  */
-#[Example(
-    title: 'Navigation',
-    code: <<<'PHP'
-    echo (new Nav())
-        ->addChild(
-            (new Link('/home', 'Home')),
-            (new Link('/about', 'About')),
-            (new Link('/contact', 'Contact'))
-        )
-        ->attribute('aria-label', 'Main navigation')
-        ->render();
-    PHP,
-    description: 'Creates a semantic navigation region containing
-                 links to different sections of an application.',
-    language: 'php',
-    primary: true,
-    output: '<nav aria-label="Main navigation"><a href="/home">Home</a><a href="/about">About</a><a href="/contact">Contact</a></nav>'
-)]
 class Nav extends HtmlComponent
 {
     /**

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace RedSky\Html\Documentation\Examples;
 
-use RedSky\Html\Metadata\Example;
+
 
 #[Example(
     title: 'Modern SaaS Navbar',

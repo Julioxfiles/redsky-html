@@ -6,7 +6,7 @@ namespace RedSky\Html\Documentation\Examples;
 
 use RedSky\Html\Components\Buttons\Button;
 use RedSky\Html\Components\Feedback\Modal;
-use RedSky\Html\Metadata\Example;
+
 
 #[Example(
     title: 'Confirmation Modal',

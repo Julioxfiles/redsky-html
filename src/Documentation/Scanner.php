@@ -10,7 +10,6 @@ use ReflectionParameter;
 use ReflectionProperty;
 use ReflectionType;
 use RedSky\Html\Metadata\Component as ComponentMetadata;
-use RedSky\Html\Metadata\Example as ExampleMetadata;
 use RedSky\Html\Metadata\Method as MethodMetadata;
 
 class Scanner
@@ -59,7 +58,9 @@ class Scanner
                 name: $reflection->getShortName(),
                 class: $class,
                 category: $this->resolveCategory($reflection),
-                description: $this->extractDocDescription($reflection->getDocComment()),
+                description: $this->extractDocDescription(
+                    $reflection->getDocComment()
+                ),
                 version: null,
                 deprecated: false
             );
@@ -67,9 +68,9 @@ class Scanner
 
         $this->scanMethods($reflection, $component);
         $this->scanProperties($reflection, $component);
-        $this->scanExamples($reflection, $component);
+        $this->scanExampleFiles($reflection, $component);
         $this->scanResources($reflection, $component);
-        
+
         return $component;
     }
 
@@ -195,223 +196,12 @@ class Scanner
 
 
     /**
-     * Scans usage examples for a component.
-     *
-     * Examples declared directly on the component class take
-     * precedence over external example definitions.
-     *
-     * When the component does not define any inline examples,
-     * the scanner looks for an external example class under:
-     *
-     * Documentation/Examples/{ComponentName}Examples.php
-     *
-     * External example classes may define examples using
-     * #[Example] attributes on the class itself or on methods.
-     *
-     * This allows large components to keep their production
-     * classes focused while keeping their documentation examples
-     * organized separately.
-     */
-    protected function scanExamples(
-        ReflectionClass $reflection,
-        Component $component
-    ): void {
-        $attributes = $reflection->getAttributes(
-            ExampleMetadata::class
-        );
-
-        if ($attributes !== []) {
-            $this->addExamples(
-                $attributes,
-                $component
-            );
-
-            return;
-        }
-
-        $this->scanExternalExamples(
-            $reflection,
-            $component
-        );
-
-        $this->scanExampleFiles(
-            $reflection,
-            $component
-        );
-    }
-
-    /**
-     * Adds example metadata to a component.
-     *
-     * @param array<int, \ReflectionAttribute> $attributes
-     */
-    protected function addExamples(
-        array $attributes,
-        Component $component
-    ): void {
-        foreach ($attributes as $attribute) {
-            /** @var ExampleMetadata $metadata */
-            $metadata = $attribute->newInstance();
-
-            $component->addExample(
-                $this->createExample($metadata)
-            );
-        }
-    }
-
-
-    /**
-     * Creates documentation example metadata from an Example
-     * attribute instance.
-     */
-    protected function createExample(
-        ExampleMetadata $metadata
-    ): Example {
-        return new Example(
-            $metadata->title(),
-            $metadata->code(),
-            $metadata->description(),
-            $metadata->language(),
-            $metadata->isPrimary(),
-            $metadata->output()
-        );
-    }
-
-
-    /**
-     * Scans the external example class associated with a component.
-     *
-     * The external class is loaded only when the corresponding
-     * PHP file exists.
-     */
-    protected function scanExternalExamples(
-        ReflectionClass $componentReflection,
-        Component $component
-    ): void {
-        $exampleClass = $this->resolveExternalExampleClass(
-            $componentReflection
-        );
-
-        if ($exampleClass === null) {
-            return;
-        }
-
-        if (!class_exists($exampleClass)) {
-            return;
-        }
-
-        $reflection = new ReflectionClass($exampleClass);
-
-        $this->scanExternalClassExamples(
-            $reflection,
-            $component
-        );
-
-        $this->scanExternalMethodExamples(
-            $reflection,
-            $component
-        );
-    }
-
-
-    /**
-     * Resolves the external example class for a component.
-     *
-     * Example:
-     *
-     * RedSky\Html\Components\Form\TextInput
-     *
-     * becomes:
-     *
-     * RedSky\Html\Documentation\Examples\TextInputExamples
-     */
-    protected function resolveExternalExampleClass(
-        ReflectionClass $componentReflection
-    ): ?string {
-        $className = $componentReflection->getShortName();
-
-        $file = dirname(__DIR__)
-            . DIRECTORY_SEPARATOR
-            . 'Documentation'
-            . DIRECTORY_SEPARATOR
-            . 'Examples'
-            . DIRECTORY_SEPARATOR
-            . $className
-            . 'Examples.php';
-
-        if (!is_file($file)) {
-            return null;
-        }
-
-        $class = 'RedSky\\Html\\Documentation\\Examples\\'
-            . $className
-            . 'Examples';
-
-        require_once $file;
-
-        return $class;
-    }
-
-
-    /**
-     * Scans #[Example] attributes declared directly on an
-     * external example class.
-     */
-    protected function scanExternalClassExamples(
-        ReflectionClass $reflection,
-        Component $component
-    ): void {
-        $attributes = $reflection->getAttributes(
-            ExampleMetadata::class
-        );
-
-        if ($attributes === []) {
-            return;
-        }
-
-        $this->addExamples(
-            $attributes,
-            $component
-        );
-    }
-
-
-    /**
-     * Scans #[Example] attributes declared on methods of an
-     * external example class.
-     *
-     * Only methods that explicitly define Example attributes
-     * are considered. The methods themselves do not need to
-     * be executed.
-     */
-    protected function scanExternalMethodExamples(
-        ReflectionClass $reflection,
-        Component $component
-    ): void {
-        foreach ($reflection->getMethods() as $method) {
-            $attributes = $method->getAttributes(
-                ExampleMetadata::class
-            );
-
-            if ($attributes === []) {
-                continue;
-            }
-
-            $this->addExamples(
-                $attributes,
-                $component
-            );
-        }
-    }
-
-    /**
      * Loads PHP example files for a component.
      */
     protected function scanExampleFiles(
         ReflectionClass $reflection,
         Component $component
     ): void {
-
         $namespace = $reflection->getNamespaceName();
 
         $prefix = 'RedSky\\Html\\Components\\';
@@ -434,17 +224,15 @@ class Scanner
         $category = $parts[0];
         $name = $reflection->getShortName();
 
-
-$directory = dirname(__DIR__)
-    . DIRECTORY_SEPARATOR
-    . 'Components'
-    . DIRECTORY_SEPARATOR
-    . $category
-    . DIRECTORY_SEPARATOR
-    . $name
-    . DIRECTORY_SEPARATOR
-    . 'Examples';
-
+        $directory = dirname(__DIR__)
+            . DIRECTORY_SEPARATOR
+            . 'Components'
+            . DIRECTORY_SEPARATOR
+            . $category
+            . DIRECTORY_SEPARATOR
+            . $name
+            . DIRECTORY_SEPARATOR
+            . 'Examples';
 
         if (!is_dir($directory)) {
             return;
@@ -452,9 +240,8 @@ $directory = dirname(__DIR__)
 
         $loader = new ExampleLoader();
         $renderer = new ExampleRenderer();
-        
-        foreach ($loader->load($directory) as $example) {
 
+        foreach ($loader->load($directory) as $example) {
             $example->setOutput(
                 $renderer->renderFormatted(
                     $example->file()
@@ -462,7 +249,7 @@ $directory = dirname(__DIR__)
             );
 
             $component->addExampleFile($example);
-        }    
+        }
     }
 
 
@@ -659,51 +446,11 @@ $directory = dirname(__DIR__)
         return explode('\\', $relative)[0];
     }
 
-    protected function resolveExampleDirectory(
-        ReflectionClass $reflection
-    ): ?string {
-        $class = $reflection->getShortName();
-
-        $namespace = $reflection->getNamespaceName();
-
-        $prefix = 'RedSky\\Html\\Components\\';
-
-        if (!str_starts_with($namespace, $prefix)) {
-            return null;
-        }
-
-        $relative = substr(
-            $namespace,
-            strlen($prefix)
-        );
-
-        $path = dirname(__DIR__, 2)
-            . DIRECTORY_SEPARATOR
-            . 'resources'
-            . DIRECTORY_SEPARATOR
-            . 'views'
-            . DIRECTORY_SEPARATOR
-            . 'components'
-            . DIRECTORY_SEPARATOR
-            . strtolower($relative)
-            . DIRECTORY_SEPARATOR
-            . strtolower($class)
-            . DIRECTORY_SEPARATOR
-            . 'examples';
-
-
-        if (!is_dir($path)) {
-            return null;
-        }
-
-        return $path;
-    }
 
     protected function scanResources(
         ReflectionClass $reflection,
         Component $component
-    ): void
-    {
+    ): void {
         $category = strtolower(
             $this->resolveCategory($reflection) ?? ''
         );
@@ -712,7 +459,6 @@ $directory = dirname(__DIR__)
             $reflection->getShortName()
         );
 
-
         $base = dirname(__DIR__, 3)
             . DIRECTORY_SEPARATOR
             . '..'
@@ -720,8 +466,6 @@ $directory = dirname(__DIR__)
             . 'redsky-ui'
             . DIRECTORY_SEPARATOR
             . 'resources';
-
-
 
         $css = $base
             . DIRECTORY_SEPARATOR
@@ -736,17 +480,13 @@ $directory = dirname(__DIR__)
             . $name
             . '.css';
 
-
         if (is_file($css)) {
-
             $content = file_get_contents($css);
 
             if ($content !== false) {
                 $component->setCss($content);
             }
         }
-
-
 
         $js = $base
             . DIRECTORY_SEPARATOR
@@ -761,9 +501,7 @@ $directory = dirname(__DIR__)
             . $name
             . '.js';
 
-
         if (is_file($js)) {
-
             $content = file_get_contents($js);
 
             if ($content !== false) {
@@ -771,5 +509,4 @@ $directory = dirname(__DIR__)
             }
         }
     }
-
 }

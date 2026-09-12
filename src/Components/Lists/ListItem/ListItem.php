@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Lists;
 
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Metadata\Example;
+
 
 /**
  * Represents an HTML <li> element.
@@ -22,48 +22,8 @@ use RedSky\Html\Metadata\Example;
  * to an ordered list and the automatic numbering needs to
  * be overridden.
  *
- * ListItem extends HtmlComponent and inherits common
- * functionality for managing attributes, classes, styles,
- * content, children, rendering, and fluent configuration.
- *
- * The component is UI-library agnostic and does not apply
- * default CSS classes or visual styles.
- *
- * The component can be rendered explicitly using render()
- * or converted automatically to its HTML representation
- * through __toString().
- *
- * Example:
- *
- * ```php
- * echo (new ListItem('Third item'))
- *     ->value(3)
- *     ->render();
- * ```
- *
- * Produces:
- *
- * ```html
- * <li value="3">Third item</li>
- * ```
- *
  * @package RedSky\Html\Components\Lists
  */
-#[Example(
-    title: 'Ordered List Item',
-    code: <<<'PHP'
-    echo (new ListItem('Third item'))
-        ->value(3)
-        ->render();
-    PHP,
-    description: 'The ListItem component generates a semantic
-                 HTML <li> element for an individual list item.
-                 The value() method can be used with ordered
-                 lists to override the automatic numbering.',
-    language: 'php',
-    primary: true,
-    output: '<li value="3">Third item</li>'
-)]
 class ListItem extends HtmlComponent
 {
     /**

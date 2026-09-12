@@ -5,7 +5,12 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Document\Head;
 
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Metadata\Example;
+
+use RedSky\Html\Components\Document\Title\Title;
+use RedSky\Html\Components\Document\Meta\Meta;
+use RedSky\Html\Components\Document\Style\Style;
+use RedSky\Html\Components\Link\Link\Link;
+use RedSky\Html\Components\Document\Script\Script;
 
 /**
  * Represents an HTML <head> element.
@@ -34,53 +39,8 @@ use RedSky\Html\Metadata\Example;
  * or converted automatically to its HTML representation
  * through __toString().
  *
- * Example:
- *
- * ```php
- * echo (new Head())
- *     ->addTitle(new Title('RedSky'))
- *     ->addMeta(
- *         (new Meta())->charset('UTF-8')
- *     )
- *     ->addLink(
- *         (new Link())->stylesheet('/css/app.css')
- *     )
- *     ->render();
- * ```
- *
- * Produces:
- *
- * ```html
- * <head>
- *     <title>RedSky</title>
- *     <meta charset="UTF-8" />
- *     <link rel="stylesheet" href="/css/app.css" />
- * </head>
- * ```
- *
  * @package RedSky\Html\Components\Document
  */
-#[Example(
-    title: 'Document head',
-    code: <<<'PHP'
-    echo (new Head())
-        ->addTitle(new Title('RedSky'))
-        ->addMeta(
-            (new Meta())->charset('UTF-8')
-        )
-        ->addLink(
-            (new Link())->stylesheet('/css/app.css')
-        )
-        ->render();
-    PHP,
-    description: 'The Head component represents the HTML <head>
-                 element and provides dedicated methods for adding
-                 document metadata and resources such as titles,
-                 meta elements, stylesheets, styles, and scripts.',
-    language: 'php',
-    primary: true,
-    output: '<head><title>RedSky</title><meta charset="UTF-8" /><link rel="stylesheet" href="/css/app.css" /></head>'
-)]
 class Head extends HtmlComponent
 {
     /**

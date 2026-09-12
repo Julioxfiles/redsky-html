@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace RedSky\Html\Components\Form\TextInput;
 
-use RedSky\Html\Metadata\Example;
+
 use RedSky\Html\Components\Form\Input\Input;
 
 /**

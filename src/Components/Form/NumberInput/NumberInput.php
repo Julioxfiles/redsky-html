@@ -4,79 +4,19 @@ declare(strict_types=1);
 
 namespace RedSky\Html\Components\Form\NumberInput;
 
-use RedSky\Html\Metadata\Example;
+
 use RedSky\Html\Components\Form\Input\Input;
 
 /**
- * Represents an HTML number input component.
- *
  * The NumberInput component generates a native HTML
  * <input type="number"> element for entering numeric values.
  *
- * NumberInput provides convenient methods for configuring
- * common numeric input constraints, including:
- *
- * - Integer values.
- * - Decimal values with a configurable step.
- * - Positive numbers.
- * - Negative numbers.
- * - Minimum and maximum values.
- * - Percentage values from 0 to 100.
- *
- * Because NumberInput extends the standard input component,
- * it also supports the common component methods for setting
- * HTML attributes, CSS classes, inline styles, values,
- * and other input properties.
- *
- * Component methods support fluent method chaining, allowing
- * multiple configuration methods to be combined before the
- * component is rendered.
- *
- * Calling render() returns the generated HTML as a string.
- * The component can also be converted directly to a string
- * through HtmlComponent::__toString().
- *
- * Example:
- *
- * ```php
- * echo new NumberInput('age')
- *     ->integer()
- *     ->positive()
- *     ->between(0, 120)
- *     ->attribute('id', 'age-input')
- *     ->render();
- * ```
- *
- * Produces:
- *
- * ```html
- * <input type="number"
- *        name="age"
- *        min="0"
- *        max="120"
- *        step="1"
- *        id="age-input" />
- * ```
+ * NumberInput provides methods for configuring numeric
+ * constraints, including integer, decimal, positive, negative,
+ * minimum, maximum, and percentage values.
  *
  * @package RedSky\Html\Components\Form
  */
-#[Example(
-    title: 'Complete number input',
-    code: <<<'PHP'
-    echo new NumberInput('age')
-        ->integer()
-        ->positive()
-        ->between(0, 120)
-        ->attribute('id', 'age-input')
-        ->render();
-    PHP,
-    description: 'The NumberInput component generates a native HTML
-                 <input type="number"> element for entering numeric
-                 values with configurable numeric constraints.',
-    language: 'php',
-    primary: true,
-    output: '<input type="number" name="age" min="0" max="120" step="1" id="age-input" />'
-)]
 class NumberInput extends Input
 {
     /**

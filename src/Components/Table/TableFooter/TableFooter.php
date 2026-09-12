@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Table\TableFooter;
 
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Metadata\Example;
+
+use RedSky\Html\Components\Table\TableRow\TableRow;
 
 /**
  * Represents an HTML table footer component.
@@ -29,23 +30,6 @@ use RedSky\Html\Metadata\Example;
  *
  * @package RedSky\Html\Components\Table
  */
-#[Example(
-    title: 'Table Footer',
-    code: <<<'PHP'
-    echo (new TableFooter())
-        ->addRow(
-            (new TableRow())
-                ->addCell(new TableCell('Total'))
-                ->addCell(new TableCell('$1,500'))
-        )
-        ->render();
-    PHP,
-    description: 'Creates a semantic table footer containing
-                 a row with summary information for the table.',
-    language: 'php',
-    primary: true,
-    output: '<tfoot><tr><td>Total</td><td>$1,500</td></tr></tfoot>'
-)]
 class TableFooter extends HtmlComponent
 {
     /**

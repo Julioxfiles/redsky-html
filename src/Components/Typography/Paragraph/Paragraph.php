@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Typography\Paragraph;
 
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Metadata\Example;
+
 
 /**
  * Represents an HTML paragraph component.
@@ -23,20 +23,6 @@ use RedSky\Html\Metadata\Example;
  *
  * @package RedSky\Html\Components\Typography
  */
-#[Example(
-    title: 'Paragraph',
-    code: <<<'PHP'
-    echo (new Paragraph('Welcome to RedSky.'))
-        ->class('intro')
-        ->attribute('id', 'welcome-text')
-        ->render();
-    PHP,
-    description: 'Creates a semantic HTML paragraph containing
-                 a block of text.',
-    language: 'php',
-    primary: true,
-    output: '<p class="intro" id="welcome-text">Welcome to RedSky.</p>'
-)]
 class Paragraph extends HtmlComponent
 {
     /**

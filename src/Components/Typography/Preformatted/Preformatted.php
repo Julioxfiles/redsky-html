@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Typography\Performatted;
 
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Metadata\Example;
+
 
 /**
  * Represents an HTML preformatted text component.
@@ -28,21 +28,6 @@ use RedSky\Html\Metadata\Example;
  *
  * @package RedSky\Html\Components\Typography
  */
-#[Example(
-    title: 'Preformatted Text',
-    code: <<<'PHP'
-    echo new Preformatted(
-        "Name: RedSky\nVersion: 1.0.0\nStatus: Stable"
-    );
-    PHP,
-    description: 'Creates a semantic preformatted text element
-                 that preserves whitespace and line breaks.',
-    language: 'php',
-    primary: true,
-    output: '<pre>Name: RedSky
-Version: 1.0.0
-Status: Stable</pre>'
-)]
 class Preformatted extends HtmlComponent
 {
     /**

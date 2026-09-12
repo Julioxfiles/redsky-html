@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Layout\Stack;
 
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Metadata\Example;
+
 
 /**
  * Represents a stack layout component.
@@ -24,45 +24,6 @@ use RedSky\Html\Metadata\Example;
  *
  * @package RedSky\Html\Components\Layout
  */
-#[Example(
-    title: 'Bootstrap — Vertical Stack',
-    code: <<<'PHP'
-$stack = new Stack();
-
-$stack
-    ->direction('vertical')
-    ->gap('1rem')
-    ->addChild(new Heading('Customer'))
-    ->addChild(new Paragraph('Customer information'))
-    ->addChild(new Button('Save'))
-    ->class('d-flex flex-column');
-
-echo $stack;
-PHP,
-    description: 'Creates a vertical Bootstrap stack containing several components with consistent spacing.',
-    language: 'php',
-    primary: true,
-    output: '<div data-redsky-component="stack" data-stack-direction="vertical" data-stack-gap="1rem" class="d-flex flex-column"><h2>Customer</h2><p>Customer information</p><button>Save</button></div>'
-)]
-#[Example(
-    title: 'Materialize — Horizontal Stack',
-    code: <<<'PHP'
-$stack = new Stack();
-
-$stack
-    ->direction('horizontal')
-    ->gap('16px')
-    ->addChild(new Button('Save'))
-    ->addChild(new Button('Cancel'))
-    ->class('row');
-
-echo $stack;
-PHP,
-    description: 'Creates a horizontal Materialize stack containing action buttons with consistent spacing.',
-    language: 'php',
-    primary: false,
-    output: '<div data-redsky-component="stack" data-stack-direction="horizontal" data-stack-gap="16px" class="row"><button>Save</button><button>Cancel</button></div>'
-)]
 class Stack extends HtmlComponent
 {
     /**

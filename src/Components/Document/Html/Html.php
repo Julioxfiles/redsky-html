@@ -6,7 +6,9 @@ namespace RedSky\Html\Components\Document\Html;
 
 use RedSky\Html\Components\HtmlComponent;
 use RedSky\Html\Metadata\Component;
-use RedSky\Html\Metadata\Example;
+
+use RedSky\Html\Components\Document\Head\Head;
+use RedSky\Html\Components\Document\Body\Body;
 
 /**
  * Represents the root HTML <html> element.
@@ -24,59 +26,8 @@ use RedSky\Html\Metadata\Example;
  * for managing attributes, classes, styles, content, and
  * child components.
  *
- * Html is UI-library agnostic and does not apply default
- * classes or styles.
- *
- * The component can be rendered explicitly using render()
- * or converted automatically to its HTML representation
- * through __toString().
- *
- * Example:
- *
- * ```php
- * echo (new Html())
- *     ->lang('en')
- *     ->dir('ltr')
- *     ->head(new Head())
- *     ->body(new Body())
- *     ->render();
- * ```
- *
- * Produces:
- *
- * ```html
- * <html lang="en" dir="ltr">
- *     <head></head>
- *     <body></body>
- * </html>
- * ```
- *
  * @package RedSky\Html\Components\Document
  */
-#[Component(
-    name: 'Html',
-    category: 'Document',
-    description: 'Represents the root HTML document element.',
-    version: '1.0.0'
-)]
-#[Example(
-    title: 'HTML document structure',
-    code: <<<'PHP'
-    echo (new Html())
-        ->lang('en')
-        ->dir('ltr')
-        ->head(new Head())
-        ->body(new Body())
-        ->render();
-    PHP,
-    description: 'The Html component represents the root HTML document
-                 element and provides dedicated methods for defining
-                 the document language, writing direction, head, and
-                 body.',
-    language: 'php',
-    primary: true,
-    output: '<html lang="en" dir="ltr"><head></head><body></body></html>'
-)]
 class Html extends HtmlComponent
 {
     /**

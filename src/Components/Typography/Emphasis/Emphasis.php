@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Typography\Enphasis;
 
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Metadata\Example;
+
 
 /**
  * Represents an HTML emphasis component.
@@ -23,17 +23,6 @@ use RedSky\Html\Metadata\Example;
  *
  * @package RedSky\Html\Components\Typography
  */
-#[Example(
-    title: 'Emphasis',
-    code: <<<'PHP'
-    echo new Emphasis('important information');
-    PHP,
-    description: 'Creates a semantic emphasis element
-                 containing emphasized text.',
-    language: 'php',
-    primary: true,
-    output: '<em>important information</em>'
-)]
 class Emphasis extends HtmlComponent
 {
     /**

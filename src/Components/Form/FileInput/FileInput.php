@@ -4,89 +4,17 @@ declare(strict_types=1);
 
 namespace RedSky\Html\Components\Form\FileInput;
 
-use RedSky\Html\Metadata\Example;
 use RedSky\Html\Components\Form\Input\Input;
 
 /**
  * The FileInput component generates a native HTML
- * <input type="file"> element that allows users to
- * select files for upload.
+ * <input type="file"> element for selecting files.
  *
- * The component is UI-library agnostic and does not apply
- * any default CSS classes or styles.
- *
- * A name can optionally be supplied to identify the uploaded
- * file when the containing form is submitted.
- *
- * FileInput provides convenient methods for configuring
- * file selection, including:
- *
- * - Setting accepted file types.
- * - Allowing multiple file selection.
- * - Setting the file capture mode.
- * - Restricting selection to images.
- * - Restricting selection to common documents.
- * - Restricting selection to videos.
- * - Restricting selection to audio files.
- *
- * Because FileInput extends the standard input component,
- * it also supports the common component methods for setting
- * HTML attributes, CSS classes, inline styles, and other
- * component properties.
- *
- * Component methods support fluent method chaining, allowing
- * multiple configuration methods to be combined before the
- * component is rendered.
- *
- * Calling render() returns the generated HTML as a string.
- * The component can also be converted directly to a string
- * through HtmlComponent::__toString().
- *
- * Example:
- *
- * ```php
- * echo new FileInput('documents')
- *     ->class('file-input')
- *     ->style('color:cornflowerblue')
- *     ->attribute('id', 'documents')
- *     ->documents()
- *     ->multiple()
- *     ->render();
- * ```
- *
- * Produces:
- *
- * ```html
- * <input type="file"
- *        name="documents"
- *        class="file-input"
- *        style="color:cornflowerblue"
- *        id="documents"
- *        accept=".pdf,.doc,.docx,.txt"
- *        multiple />
- * ```
+ * FileInput provides methods for configuring accepted file
+ * types, multiple file selection, and file capture behavior.
  *
  * @package RedSky\Html\Components\Form
  */
-#[Example(
-    title: 'Complete file input',
-    code: <<<'PHP'
-echo new FileInput('documents')
-    ->class('file-input')
-    ->style('color:cornflowerblue')
-    ->attribute('id', 'documents')
-    ->documents()
-    ->multiple()
-    ->render();
-PHP,
-    description: 'The FileInput component generates a native HTML
-                 <input type="file"> element for selecting files
-                 and provides convenient methods for configuring
-                 accepted file types and multiple file selection.',
-    language: 'php',
-    primary: true,
-    output: '<input type="file" name="documents" class="file-input" style="color:cornflowerblue" id="documents" accept=".pdf,.doc,.docx,.txt" multiple />'
-)]
 class FileInput extends Input
 {
     /**
@@ -107,7 +35,7 @@ class FileInput extends Input
     /**
      * Sets accepted file types.
      *
-     * @param string $accept
+     * @param string $accept Accepted file types.
      *
      * @return static
      */
@@ -143,7 +71,9 @@ class FileInput extends Input
 
 
     /**
-     * Sets file capture mode.
+     * Sets the file capture mode.
+     *
+     * Accepted values: user, environment
      *
      * @param string|bool $capture
      *
@@ -160,8 +90,9 @@ class FileInput extends Input
         return $this;
     }
 
+
     /**
-     * Restricts input to images.
+     * Restricts file selection to images.
      *
      * @return static
      */
@@ -170,8 +101,9 @@ class FileInput extends Input
         return $this->accept('image/*');
     }
 
+
     /**
-     * Restricts input to common documents.
+     * Restricts file selection to common document types.
      *
      * @return static
      */
@@ -182,8 +114,9 @@ class FileInput extends Input
         );
     }
 
+
     /**
-     * Restricts input to common documents.
+     * Restricts file selection to videos.
      *
      * @return static
      */
@@ -194,8 +127,9 @@ class FileInput extends Input
         );
     }
 
+
     /**
-     * Restricts input to common documents.
+     * Restricts file selection to audio files.
      *
      * @return static
      */
@@ -204,6 +138,5 @@ class FileInput extends Input
         return $this->accept(
             'audio/*'
         );
-     
     }
 }

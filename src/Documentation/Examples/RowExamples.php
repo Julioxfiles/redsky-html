@@ -8,7 +8,7 @@ use RedSky\Html\Components\Layout\Column;
 use RedSky\Html\Components\Layout\Row;
 use RedSky\Html\Components\Typography\Heading;
 use RedSky\Html\Components\Typography\Text;
-use RedSky\Html\Metadata\Example;
+
 
 #[Example(
     title: 'Basic Row',

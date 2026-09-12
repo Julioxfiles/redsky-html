@@ -4,85 +4,25 @@ declare(strict_types=1);
 
 namespace RedSky\Html\Components\Form\RangeInput;
 
-use RedSky\Html\Metadata\Example;
+
 use RedSky\Html\Components\Form\Input\Input;
 
 /**
- * Represents an HTML range input component.
- *
  * The RangeInput component generates a native HTML
- * <input type="range"> element for selecting a numeric
- * value from a defined range.
+ * <input type="range"> element for selecting a numeric value.
  *
- * RangeInput provides convenient methods for common
- * range configurations, including:
- *
- * - Defining minimum and maximum values.
- * - Configuring percentage values from 0 to 100.
- * - Configuring volume controls from 0 to 100.
- * - Configuring rating controls with a configurable maximum.
- * - Configuring progress values from 0 to 100.
- * - Configuring integer or decimal steps.
+ * RangeInput provides methods for configuring minimum and
+ * maximum values, percentages, volume, ratings, progress,
+ * and integer or decimal steps.
  *
  * The range limits and step size are represented by the
  * native HTML min, max, and step attributes.
  *
- * This component is UI-library agnostic and does not apply
- * any default classes or styles.
- *
- * Because RangeInput extends the standard input component,
- * it also supports the common component methods for setting
- * HTML attributes, CSS classes, inline styles, values,
- * and other input properties.
- *
- * Component methods support fluent method chaining, allowing
- * multiple configuration methods to be combined before the
- * component is rendered.
- *
- * Calling render() returns the generated HTML as a string.
- * The component can also be converted directly to a string
- * through HtmlComponent::__toString().
- *
- * Example:
- *
- * ```php
- * echo new RangeInput('rating')
- *     ->rating(5)
- *     ->value(4)
- *     ->attribute('id', 'rating-input')
- *     ->render();
- * ```
- *
- * Produces:
- *
- * ```html
- * <input type="range"
- *        name="rating"
- *        min="1"
- *        max="5"
- *        step="1"
- *        value="4"
- *        id="rating-input" />
- * ```
+ * The component is UI-library agnostic and does not apply
+ * default CSS classes or styles.
  *
  * @package RedSky\Html\Components\Form
  */
-#[Example(
-    title: 'Complete range input',
-    code: <<<'PHP'
-    echo new RangeInput('rating')
-        ->rating(5)
-        ->value(4)
-        ->attribute('id', 'rating-input')
-        ->render();
-    PHP,
-    description: 'The RangeInput component generates a native HTML
-                 <input type="range"> element configured as a
-                 five-point rating control.',
-    language: 'php',
-    primary: true,
-    output: '<input type="range" name="rating" min="1" max="5" step="1" value="4" id="rating-input" />'
-)]
 class RangeInput extends Input
 {
     /**

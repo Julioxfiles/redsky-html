@@ -16,41 +16,6 @@ use RedSky\Html\Components\HtmlComponent;
  * Navigation items are represented as associative arrays containing
  * a label and an href value.
  *
- * Example:
- *
- * ```php
- * $navbar = new Navbar();
- *
- * $navbar
- *     ->brand('RedSky')
- *     ->addItems([
- *         ['label' => 'Home', 'href' => '/'],
- *         ['label' => 'Customers', 'href' => '/customers'],
- *         ['label' => 'Orders', 'href' => '/orders'],
- *     ]);
- *
- * echo $navbar;
- * ```
- *
- * Produces:
- *
- * ```html
- * <nav data-redsky-component="navbar">
- *     <a data-navbar-brand href="/">RedSky</a>
- *     <ul data-navbar-items>
- *         <li data-navbar-item>
- *             <a href="/">Home</a>
- *         </li>
- *         <li data-navbar-item>
- *             <a href="/customers">Customers</a>
- *         </li>
- *         <li data-navbar-item>
- *             <a href="/orders">Orders</a>
- *         </li>
- *     </ul>
- * </nav>
- * ```
- *
  * @package RedSky\Html\Components\Navigation
  */
 class Navbar extends HtmlComponent

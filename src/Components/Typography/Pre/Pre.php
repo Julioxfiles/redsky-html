@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Typography\Pre;
 
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Metadata\Example;
+
 
 /**
  * Represents an HTML preformatted text component.
@@ -24,21 +24,6 @@ use RedSky\Html\Metadata\Example;
  *
  * @package RedSky\Html\Components\Typography
  */
-#[Example(
-    title: 'Preformatted Text',
-    code: <<<'PHP'
-    echo new Pre(
-        "Line one\nLine two\nLine three"
-    );
-    PHP,
-    description: 'Creates a semantic preformatted text element
-                 that preserves whitespace and line breaks.',
-    language: 'php',
-    primary: true,
-    output: '<pre>Line one
-Line two
-Line three</pre>'
-)]
 class Pre extends HtmlComponent
 {
     /**

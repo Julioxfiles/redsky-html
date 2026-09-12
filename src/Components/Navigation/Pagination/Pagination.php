@@ -12,25 +12,6 @@ use RedSky\Html\Components\HtmlComponent;
  * The Pagination component renders a navigation structure containing
  * page links and optional previous and next links.
  *
- * Example:
- *
- * ```php
- * $pagination = new Pagination();
- *
- * $pagination
- *     ->currentPage(2)
- *     ->totalPages(5)
- *     ->items([
- *         ['label' => '1', 'href' => '?page=1'],
- *         ['label' => '2', 'href' => '?page=2', 'active' => true],
- *         ['label' => '3', 'href' => '?page=3'],
- *         ['label' => '4', 'href' => '?page=4'],
- *         ['label' => '5', 'href' => '?page=5'],
- *     ]);
- *
- * echo $pagination;
- * ```
- *
  * @package RedSky\Html\Components\Navigation
  */
 class Pagination extends HtmlComponent

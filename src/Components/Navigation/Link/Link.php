@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Link\Link;
 
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Metadata\Example;
+
 
 /**
  * Represents an HTML anchor component.
@@ -31,22 +31,6 @@ use RedSky\Html\Metadata\Example;
  *
  * @package RedSky\Html\Components\Link
  */
-#[Example(
-    title: 'Navigation Link',
-    code: <<<'PHP'
-    echo (new Link('/docs', 'Documentation'))
-        ->target('_blank')
-        ->rel('noopener')
-        ->attribute('id', 'docs-link')
-        ->render();
-    PHP,
-    description: 'Creates a semantic HTML anchor element that
-                 links to a documentation page and opens it in
-                 a new browsing context.',
-    language: 'php',
-    primary: true,
-    output: '<a href="/docs" target="_blank" rel="noopener" id="docs-link">Documentation</a>'
-)]
 class Link extends HtmlComponent
 {
     /**

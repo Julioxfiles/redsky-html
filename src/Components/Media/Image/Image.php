@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Media\Image;
 
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Metadata\Example;
+
 
 /**
  * Represents an HTML <img> element.
@@ -22,61 +22,8 @@ use RedSky\Html\Metadata\Example;
  * decoding strategy, cross-origin configuration, referrer
  * policy, and image maps.
  *
- * Image extends HtmlComponent and inherits common functionality
- * for managing attributes, classes, styles, content, children,
- * rendering, and fluent configuration.
- *
- * The component is UI-library agnostic and does not apply
- * default CSS classes or visual styles.
- *
- * The component is rendered as a self-closing HTML element
- * because <img> is a void element and cannot contain child
- * elements or content.
- *
- * The component can be rendered explicitly using render()
- * or converted automatically to its HTML representation
- * through __toString().
- *
- * Example:
- *
- * ```php
- * echo (new Image(
- *     '/images/redsky-logo.png',
- *     'RedSky logo'
- * ))
- *     ->width(200)
- *     ->height(80)
- *     ->loading('lazy')
- *     ->attribute('id', 'logo')
- *     ->render();
- * ```
- *
- * Produces:
- *
- * ```html
- * <img src="/images/redsky-logo.png" alt="RedSky logo" width="200" height="80" loading="lazy" id="logo" />
- * ```
- *
  * @package RedSky\Html\Components\Media
  */
-#[Example(
-    title: 'Image',
-    code: <<<'PHP'
-    echo (new Image(
-        '/images/redsky-logo.png',
-        'RedSky logo'
-    ))
-        ->width(200)
-        ->height(80)
-        ->loading('lazy')
-        ->attribute('id', 'logo')
-        ->render();
-    PHP,
-    description: 'The Image component generates a semantic HTML <img> element and provides methods for configuring its source, alternative text, dimensions, responsive sources, loading behavior, and other image-related attributes.',
-    language: 'php',
-    primary: true,
-    output: '<img src="/images/redsky-logo.png" alt="RedSky logo" width="200" height="80" loading="lazy" id="logo" />'
-)]
 class Image extends HtmlComponent
 {
     /**

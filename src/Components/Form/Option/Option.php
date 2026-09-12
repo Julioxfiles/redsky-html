@@ -5,60 +5,20 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Form\Option;
 
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Metadata\Example;
+
 
 /**
- * Represents an HTML option component.
+ * The Option component generates a native HTML
+ * <option> element for use inside select components.
  *
- * The Option component generates a semantic HTML
- * <option> element used inside select components.
+ * An option can define a display text, value, selected state,
+ * disabled state, and optional label.
  *
- * An option can define a display text, a submitted value,
- * a selected state, a disabled state, and an optional label.
- *
- * This component is UI-library agnostic and does
- * not apply any default classes or styles.
- *
- * Component methods support fluent method chaining,
- * allowing multiple attributes and states to be configured
- * before the component is rendered.
- *
- * Calling render() returns the generated HTML as a string.
- * The component can also be converted directly to a string
- * through HtmlComponent::__toString().
- *
- * Example:
- *
- * ```php
- * echo new Option('Mexico', 'mx')
- *     ->selected()
- *     ->attribute('id', 'country-mx')
- *     ->render();
- * ```
- *
- * Produces:
- *
- * ```html
- * <option value="mx" selected id="country-mx">Mexico</option>
- * ```
+ * The component is UI-library agnostic and does not apply
+ * default CSS classes or styles.
  *
  * @package RedSky\Html\Components\Form
  */
-#[Example(
-    title: 'Complete option',
-    code: <<<'PHP'
-    echo new Option('Mexico', 'mx')
-        ->selected()
-        ->attribute('id', 'country-mx')
-        ->render();
-    PHP,
-    description: 'The Option component generates a semantic HTML
-                 <option> element with a display text, value,
-                 and selected state.',
-    language: 'php',
-    primary: true,
-    output: '<option value="mx" selected id="country-mx">Mexico</option>'
-)]
 class Option extends HtmlComponent
 {
     /**

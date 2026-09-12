@@ -6,7 +6,7 @@ namespace RedSky\Html\Components\Feedback\Progress;
 
 use InvalidArgumentException;
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Metadata\Example;
+
 
 /**
  * Represents a progress indicator.

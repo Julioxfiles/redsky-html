@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Navigation\Menu;
 
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Metadata\Example;
+
+use RedSky\Html\Components\Navigation\MenuItem\MenuItem;
 
 /**
  * Represents an HTML menu component.
@@ -27,25 +28,6 @@ use RedSky\Html\Metadata\Example;
  *
  * @package RedSky\Html\Components\Navigation
  */
-#[Example(
-    title: 'Navigation Menu',
-    code: <<<'PHP'
-    echo (new Menu())
-        ->addItems([
-            new MenuItem('/home', 'Home'),
-            new MenuItem('/about', 'About'),
-            new MenuItem('/contact', 'Contact'),
-        ])
-        ->attribute('id', 'main-menu')
-        ->render();
-    PHP,
-    description: 'Creates a semantic unordered list containing
-                 navigation menu items. Each MenuItem represents
-                 an individual navigation link.',
-    language: 'php',
-    primary: true,
-    output: '<ul id="main-menu"><li><a href="/home">Home</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li></ul>'
-)]
 class Menu extends HtmlComponent
 {
     /**

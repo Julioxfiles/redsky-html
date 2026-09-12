@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace RedSky\Html\Components\Form\MonthInput;
 
-use RedSky\Html\Metadata\Example;
+
 use RedSky\Html\Components\Form\Input\Input;
 
 /**
@@ -15,23 +15,6 @@ use RedSky\Html\Components\Form\Input\Input;
  *
  * @package RedSky\Html\Components\Form
  */
-#[Example(
-    title: 'Complete month input',
-    code: <<<'PHP'
-    echo new MonthInput('month')
-        ->class('dark')
-        ->style('color:cornflowerblue')
-        ->attribute('id', 'month-input')
-        ->between('2026-01', '2026-12')
-        ->render();
-    PHP,
-    description: 'The MonthInput component generates a native HTML
-                 <input type="month"> element that allows users to
-                 select a specific month and year.',
-    language: 'php',
-    primary: true,
-    output: '<input type="month" name="month" class="dark" style="color:cornflowerblue" id="month-input" min="2026-01" max="2026-12" />'
-)]
 class MonthInput extends Input
 {
     /**

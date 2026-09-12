@@ -6,7 +6,7 @@ namespace RedSky\Html\Components\Typography\Heading;
 
 use InvalidArgumentException;
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Metadata\Example;
+
 
 /**
  * Represents an HTML heading component.
@@ -29,20 +29,6 @@ use RedSky\Html\Metadata\Example;
  *
  * @package RedSky\Html\Components\Typography
  */
-#[Example(
-    title: 'Heading',
-    code: <<<'PHP'
-    echo (new Heading(2, 'RedSky Framework'))
-        ->class('page-title')
-        ->attribute('id', 'main-heading')
-        ->render();
-    PHP,
-    description: 'Creates a semantic HTML heading with a
-                 configurable level from h1 through h6.',
-    language: 'php',
-    primary: true,
-    output: '<h2 class="page-title" id="main-heading">RedSky Framework</h2>'
-)]
 class Heading extends HtmlComponent
 {
     /**

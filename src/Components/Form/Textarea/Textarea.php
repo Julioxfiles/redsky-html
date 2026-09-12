@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Form\Textarea;
 
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Metadata\Example;
+
 use RedSky\Html\Components\Form\Input\Input;
 
 /**
@@ -18,64 +18,9 @@ use RedSky\Html\Components\Form\Input\Input;
  * name, rows, cols, wrap, placeholder, readonly,
  * disabled, and required.
  *
- * The component also provides fluent methods for configuring
- * its dimensions and state. Common methods inherited from
- * HtmlComponent can be used to set attributes, classes,
- * styles, content, and child elements where applicable.
- *
- * The component is UI-library agnostic and does not apply
- * default classes or styles.
- *
- * The component can be rendered explicitly using render()
- * or converted to its HTML representation automatically
- * through __toString().
- *
- * Example:
- *
- * ```php
- * echo new Textarea('Enter your message here...')
- *     ->name('message')
- *     ->rows(6)
- *     ->cols(50)
- *     ->placeholder('Write your message...')
- *     ->attribute('id', 'message')
- *     ->required()
- *     ->render();
- * ```
- *
- * Produces:
- *
- * ```html
- * <textarea name="message"
- *           rows="6"
- *           cols="50"
- *           placeholder="Write your message..."
- *           id="message"
- *           required>Enter your message here...</textarea>
- * ```
  *
  * @package RedSky\Html\Components\Form
  */
-#[Example(
-    title: 'Complete textarea',
-    code: <<<'PHP'
-    echo new Textarea('Enter your message here...')
-        ->name('message')
-        ->rows(6)
-        ->cols(50)
-        ->placeholder('Write your message...')
-        ->attribute('id', 'message')
-        ->required()
-        ->render();
-    PHP,
-    description: 'The Textarea component generates a semantic HTML
-                 <textarea> element for multiline text input and
-                 provides fluent methods for configuring its name,
-                 dimensions, placeholder, and state.',
-    language: 'php',
-    primary: true,
-    output: '<textarea name="message" rows="6" cols="50" placeholder="Write your message..." id="message" required>Enter your message here...</textarea>'
-)]
 class Textarea extends HtmlComponent
 {
     /**

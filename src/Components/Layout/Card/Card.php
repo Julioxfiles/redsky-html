@@ -6,9 +6,9 @@ namespace RedSky\Html\Components\Layout\Card;
 
 use RedSky\Html\Components\Component;
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Components\Media\Image;
+use RedSky\Html\Components\Media\Image\Image;
 use RedSky\Html\Components\Navigation\A;
-use RedSky\Html\Components\Typography\Heading;
+use RedSky\Html\Components\Typography\Heading\Heading;
 
 
 /**

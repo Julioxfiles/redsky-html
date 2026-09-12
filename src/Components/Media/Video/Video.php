@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Media\Track;
 
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Metadata\Example;
+
+use RedSky\Html\Components\Media\Source\Source;
 
 /**
  * Represents an HTML video component.
@@ -34,24 +35,6 @@ use RedSky\Html\Metadata\Example;
  *
  * @package RedSky\Html\Components\Media
  */
-#[Example(
-    title: 'Video',
-    code: <<<'PHP'
-    echo (new Video('/media/demo.mp4'))
-        ->controls()
-        ->poster('/images/video-poster.jpg')
-        ->width(640)
-        ->height(360)
-        ->attribute('id', 'demo-video')
-        ->render();
-    PHP,
-    description: 'Creates a semantic HTML video element with a
-                 video source, playback controls, poster image,
-                 and explicit dimensions.',
-    language: 'php',
-    primary: true,
-    output: '<video src="/media/demo.mp4" controls poster="/images/video-poster.jpg" width="640" height="360" id="demo-video"></video>'
-)]
 class Video extends HtmlComponent
 {
     /**

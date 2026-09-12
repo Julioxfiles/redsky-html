@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Typography\Quote;
 
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Metadata\Example;
+
 
 /**
  * Represents an HTML block quote component.
@@ -26,20 +26,6 @@ use RedSky\Html\Metadata\Example;
  *
  * @package RedSky\Html\Components\Typography
  */
-#[Example(
-    title: 'Block Quote',
-    code: <<<'PHP'
-    echo (new Quote('Simplicity is the soul of efficiency.'))
-        ->cite('https://example.com/quote')
-        ->render();
-    PHP,
-    description: 'Creates a semantic block quotation and
-                 optionally specifies the source of the
-                 quotation using the cite attribute.',
-    language: 'php',
-    primary: true,
-    output: '<blockquote cite="https://example.com/quote">Simplicity is the soul of efficiency.</blockquote>'
-)]
 class Quote extends HtmlComponent
 {
     /**

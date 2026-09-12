@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Table\TableCaption;
 
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Metadata\Example;
+
 
 /**
  * Represents an HTML table caption component.
@@ -30,19 +30,6 @@ use RedSky\Html\Metadata\Example;
  *
  * @package RedSky\Html\Components\Table
  */
-#[Example(
-    title: 'Table Caption',
-    code: <<<'PHP'
-    echo (new TableCaption('Users'))
-        ->attribute('id', 'users-caption')
-        ->render();
-    PHP,
-    description: 'Creates a semantic HTML caption that provides
-                 a title or description for a table.',
-    language: 'php',
-    primary: true,
-    output: '<caption id="users-caption">Users</caption>'
-)]
 class TableCaption extends HtmlComponent
 {
     /**

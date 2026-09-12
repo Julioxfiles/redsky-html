@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Table\TableRow;
 
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Metadata\Example;
+
+use RedSky\Html\Components\Table\TableHeaderCell\TableHeaderCell;
+use RedSky\Html\Components\Table\TableCell\TableCell;
 
 /**
  * Represents an HTML table row component.
@@ -31,27 +33,6 @@ use RedSky\Html\Metadata\Example;
  *
  * @package RedSky\Html\Components\Table
  */
-#[Example(
-    title: 'Table Row',
-    code: <<<'PHP'
-    echo (new TableRow())
-        ->addHeaderCell(
-            (new TableHeaderCell('Name'))
-                ->scope('col')
-        )
-        ->addHeaderCell(
-            (new TableHeaderCell('Email'))
-                ->scope('col')
-        )
-        ->render();
-    PHP,
-    description: 'Creates a semantic table row containing
-                 header cells. TableRow can also contain
-                 data cells using TableCell components.',
-    language: 'php',
-    primary: true,
-    output: '<tr><th scope="col">Name</th><th scope="col">Email</th></tr>'
-)]
 class TableRow extends HtmlComponent
 {
     /**

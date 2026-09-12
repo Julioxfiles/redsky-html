@@ -6,7 +6,7 @@ namespace RedSky\Html\Components\Navigation\MenuItem;
 
 use RedSky\Html\Components\HtmlComponent;
 use RedSky\Html\Components\Link\Link;
-use RedSky\Html\Metadata\Example;
+
 
 /**
  * Represents an HTML menu item component.
@@ -31,22 +31,6 @@ use RedSky\Html\Metadata\Example;
  *
  * @package RedSky\Html\Components\Navigation
  */
-#[Example(
-    title: 'Menu Item',
-    code: <<<'PHP'
-    echo (new MenuItem())
-        ->addChild(
-            new Link('/about', 'About')
-        )
-        ->render();
-    PHP,
-    description: 'Creates a semantic list item containing a
-                 navigation link. MenuItem is typically used
-                 as a child of a Menu component.',
-    language: 'php',
-    primary: true,
-    output: '<li><a href="/about">About</a></li>'
-)]
 class MenuItem extends HtmlComponent
 {
     /**

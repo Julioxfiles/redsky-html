@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace RedSky\Html\Components\Form\ColorInput;
 
-use RedSky\Html\Metadata\Example;
 use RedSky\Html\Components\Form\Input\Input;
 
 /**
@@ -15,71 +14,11 @@ use RedSky\Html\Components\Form\Input\Input;
  * The selected color is submitted by the browser as a
  * hexadecimal color value.
  *
- * ColorInput provides convenient methods for setting
- * the selected color, including:
- *
- * - Setting a custom hexadecimal color value.
- * - Setting the color to black.
- * - Setting the color to white.
- * - Setting the color to red.
- * - Setting the color to green.
- * - Setting the color to blue.
- *
- * Because ColorInput extends the standard input component,
- * it also supports the common component methods for setting
- * HTML attributes, CSS classes, inline styles, and other
- * component properties.
- *
- * Component methods support fluent method chaining, allowing
- * multiple configuration methods to be combined before the
- * component is rendered.
- *
- * Calling render() returns the generated HTML as a string.
- * The component can also be converted directly to a string
- * through HtmlComponent::__toString().
- *
- * Example:
- *
- * ```php
- * echo new ColorInput('color')
- *     ->class('color-picker')
- *     ->style('accent-color:cornflowerblue')
- *     ->attribute('id', 'color-input')
- *     ->blue()
- *     ->render();
- * ```
- *
- * Produces:
- *
- * ```html
- * <input type="color"
- *        name="color"
- *        class="color-picker"
- *        style="accent-color:cornflowerblue"
- *        id="color-input"
- *        value="#0000ff" />
- * ```
+ * ColorInput provides methods for setting the selected color
+ * using a custom hexadecimal value or predefined colors.
  *
  * @package RedSky\Html\Components\Form
  */
-#[Example(
-    title: 'Complete color input',
-    code: <<<'PHP'
-    echo new ColorInput('color')
-        ->class('color-picker')
-        ->style('accent-color:cornflowerblue')
-        ->attribute('id', 'color-input')
-        ->blue()
-        ->render();
-    PHP,
-    description: 'The ColorInput component generates a native HTML
-                 <input type="color"> element and provides
-                 convenient methods for setting custom or
-                 predefined hexadecimal color values.',
-    language: 'php',
-    primary: true,
-    output: '<input type="color" name="color" class="color-picker" style="accent-color:cornflowerblue" id="color-input" value="#0000ff" />'
-)]
 class ColorInput extends Input
 {
     /**
@@ -96,10 +35,11 @@ class ColorInput extends Input
         );
     }
 
-        /**
-     * Sets hexadecimal color value.
+
+    /**
+     * Sets the selected hexadecimal color value.
      *
-     * @param string $color
+     * @param string $color Hexadecimal color value.
      *
      * @return static
      */
@@ -113,7 +53,7 @@ class ColorInput extends Input
 
 
     /**
-     * Sets black color.
+     * Sets the selected color to black.
      *
      * @return static
      */
@@ -124,7 +64,7 @@ class ColorInput extends Input
 
 
     /**
-     * Sets white color.
+     * Sets the selected color to white.
      *
      * @return static
      */
@@ -135,7 +75,7 @@ class ColorInput extends Input
 
 
     /**
-     * Sets red color.
+     * Sets the selected color to red.
      *
      * @return static
      */
@@ -146,7 +86,7 @@ class ColorInput extends Input
 
 
     /**
-     * Sets green color.
+     * Sets the selected color to green.
      *
      * @return static
      */
@@ -157,7 +97,7 @@ class ColorInput extends Input
 
 
     /**
-     * Sets blue color.
+     * Sets the selected color to blue.
      *
      * @return static
      */

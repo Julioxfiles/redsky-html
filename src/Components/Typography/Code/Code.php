@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Typography\Code;
 
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Metadata\Example;
+
 
 /**
  * Represents an HTML code component.
@@ -24,17 +24,6 @@ use RedSky\Html\Metadata\Example;
  *
  * @package RedSky\Html\Components\Typography
  */
-#[Example(
-    title: 'Code',
-    code: <<<'PHP'
-    echo new Code('$user->getName()');
-    PHP,
-    description: 'Creates a semantic inline code element
-                 containing a PHP code fragment.',
-    language: 'php',
-    primary: true,
-    output: '<code>$user-&gt;getName()</code>'
-)]
 class Code extends HtmlComponent
 {
     /**

@@ -5,7 +5,15 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Table\Table;
 
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Metadata\Example;
+
+
+use RedSky\Html\Components\Table\TableCaption\TableCaption;
+use RedSky\Html\Components\Table\TableHead\TableHead;
+use RedSky\Html\Components\Table\TableBody\TableBody;
+use RedSky\Html\Components\Table\TableFooter\TableFooter;
+use RedSky\Html\Components\Table\TableHeaderCell\TableHeaderCell;
+use RedSky\Html\Components\Table\TableRow\TableRow;
+use RedSky\Html\Components\Table\TableCell\TableCell;
 
 /**
  * Represents an HTML table component.

@@ -6,6 +6,14 @@ namespace RedSky\Html\Components\Data\DataTable;
 
 use RedSky\Html\Components\HtmlComponent;
 
+use RedSky\Html\Components\Table\Table\Table;
+use RedSky\Html\Components\Table\TableBody\TableBody;
+use RedSky\Html\Components\Table\TableCaption\TableCaption;
+use RedSky\Html\Components\Table\TableHead\TableHead;
+use RedSky\Html\Components\Table\TableRow\TableRow;
+use RedSky\Html\Components\Table\TableHeaderCell\TableHeaderCell;
+use RedSky\Html\Components\Table\TableCell\TableCell;
+
 /**
  * DataTable component.
  *

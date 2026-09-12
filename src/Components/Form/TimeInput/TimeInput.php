@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace RedSky\Html\Components\Form\TimeInput\UrlInput;
 
-use RedSky\Html\Metadata\Example;
+
 use RedSky\Html\Components\Form\Input\Input;
 
 /**
@@ -13,68 +13,9 @@ use RedSky\Html\Components\Form\Input\Input;
  * The TimeInput component generates a semantic HTML
  * <input type="time"> element for selecting a time of day.
  *
- * It extends Input and inherits common input functionality,
- * including methods for setting values, minimum and maximum
- * values, placeholders, classes, styles, and HTML attributes.
- *
- * TimeInput also provides convenience methods for setting the
- * current time and restricting the accepted time range to
- * common periods such as business hours, morning, afternoon,
- * or evening.
- *
- * The component uses the HTML time input format and does not
- * apply any UI-library-specific classes or styles.
- *
- * The component uses fluent methods, allowing multiple
- * configuration calls to be chained together.
- *
- * The component can be rendered explicitly using render()
- * or converted automatically to its HTML representation
- * through __toString().
- *
- * Example:
- *
- * ```php
- * echo new TimeInput('appointment')
- *     ->businessHours('08:00', '18:00')
- *     ->value('10:30')
- *     ->attribute('id', 'appointment-time')
- *     ->required()
- *     ->render();
- * ```
- *
- * Produces:
- *
- * ```html
- * <input type="time"
- *        name="appointment"
- *        min="08:00"
- *        max="18:00"
- *        value="10:30"
- *        id="appointment-time"
- *        required />
- * ```
- *
+ 
  * @package RedSky\Html\Components\Form
  */
-#[Example(
-    title: 'Business hours time input',
-    code: <<<'PHP'
-    echo new TimeInput('appointment')
-        ->businessHours('08:00', '18:00')
-        ->value('10:30')
-        ->attribute('id', 'appointment-time')
-        ->required()
-        ->render();
-    PHP,
-    description: 'The TimeInput component generates a semantic HTML
-                 <input type="time"> element and provides convenient
-                 methods for setting the current time or restricting
-                 the selectable time to a specific range or period.',
-    language: 'php',
-    primary: true,
-    output: '<input type="time" name="appointment" min="08:00" max="18:00" value="10:30" id="appointment-time" required />'
-)]
 class TimeInput extends Input
 {
     /**

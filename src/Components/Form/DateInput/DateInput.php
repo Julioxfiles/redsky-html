@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace RedSky\Html\Components\Form\DataInput;
 
-use RedSky\Html\Metadata\Example;
 use RedSky\Html\Components\Form\Input\Input;
 
 /**
@@ -17,72 +16,11 @@ use RedSky\Html\Components\Form\Input\Input;
  *
  *     YYYY-MM-DD
  *
- * DateInput provides convenient methods for setting
- * and restricting dates, including:
- *
- * - Setting the current date as the input value.
- * - Restricting dates to today or future dates.
- * - Restricting dates to today or previous dates.
- * - Defining a minimum and maximum selectable date.
- * - Allowing only past dates.
- * - Allowing only future dates.
- *
- * Because DateInput extends the standard input component,
- * it also supports the common component methods for setting
- * HTML attributes, CSS classes, inline styles, and other
- * component properties.
- *
- * Component methods support fluent method chaining, allowing
- * multiple configuration methods to be combined before the
- * component is rendered.
- *
- * Calling render() returns the generated HTML as a string.
- * The component can also be converted directly to a string
- * through HtmlComponent::__toString().
- *
- * Example:
- *
- * ```php
- * echo new DateInput('date')
- *     ->class('date-picker')
- *     ->style('color:cornflowerblue')
- *     ->attribute('id', 'date-input')
- *     ->between('2026-01-01', '2026-12-31')
- *     ->render();
- * ```
- *
- * Produces:
- *
- * ```html
- * <input type="date"
- *        name="date"
- *        class="date-picker"
- *        style="color:cornflowerblue"
- *        id="date-input"
- *        min="2026-01-01"
- *        max="2026-12-31" />
- * ```
+ * DateInput provides methods for setting the current date
+ * and restricting the selectable date range.
  *
  * @package RedSky\Html\Components\Form
  */
-#[Example(
-    title: 'Complete date input',
-    code: <<<'PHP'
-    echo new DateInput('date')
-        ->class('date-picker')
-        ->style('color:cornflowerblue')
-        ->attribute('id', 'date-input')
-        ->between('2026-01-01', '2026-12-31')
-        ->render();
-    PHP,
-    description: 'The DateInput component generates a native HTML
-                 <input type="date"> element and provides
-                 convenient methods for setting the current date
-                 and restricting the selectable date range.',
-    language: 'php',
-    primary: true,
-    output: '<input type="date" name="date" class="date-picker" style="color:cornflowerblue" id="date-input" min="2026-01-01" max="2026-12-31" />'
-)]
 class DateInput extends Input
 {
     /**
@@ -99,8 +37,9 @@ class DateInput extends Input
         );
     }
 
-        /**
-     * Sets current date as value.
+
+    /**
+     * Sets the current date as the input value.
      *
      * @return static
      */
@@ -115,7 +54,7 @@ class DateInput extends Input
 
 
     /**
-     * Restricts dates from today onwards.
+     * Restricts selectable dates to today or later.
      *
      * @return static
      */
@@ -130,7 +69,7 @@ class DateInput extends Input
 
 
     /**
-     * Restricts dates up to today.
+     * Restricts selectable dates to today or earlier.
      *
      * @return static
      */
@@ -145,10 +84,10 @@ class DateInput extends Input
 
 
     /**
-     * Sets minimum and maximum dates.
+     * Sets the minimum and maximum selectable dates.
      *
-     * @param string $min
-     * @param string $max
+     * @param string $min Minimum date in YYYY-MM-DD format.
+     * @param string $max Maximum date in YYYY-MM-DD format.
      *
      * @return static
      */
@@ -163,7 +102,7 @@ class DateInput extends Input
 
 
     /**
-     * Allows only past dates.
+     * Allows only dates before or on the current date.
      *
      * @return static
      */
@@ -174,7 +113,7 @@ class DateInput extends Input
 
 
     /**
-     * Allows only future dates.
+     * Allows only dates from the current date onwards.
      *
      * @return static
      */

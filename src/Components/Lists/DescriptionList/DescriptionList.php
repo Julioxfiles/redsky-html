@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Lists\DescriptionList;
 
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Metadata\Example;
+
+use RedSky\Html\Components\Lists\DescriptionTerm\DescriptionTerm;
+use RedSky\Html\Components\Lists\DescriptionDetails\DescriptionDetails;
 
 /**
  * Represents an HTML <dl> element.
@@ -22,55 +24,8 @@ use RedSky\Html\Metadata\Example;
  * or multiple terms and details while preserving the semantic
  * structure of the description list.
  *
- * DescriptionList extends HtmlComponent and inherits common
- * functionality for managing attributes, classes, styles,
- * content, children, rendering, and fluent configuration.
- *
- * The component is UI-library agnostic and does not apply
- * default CSS classes or visual styles.
- *
- * The component can be rendered explicitly using render()
- * or converted automatically to its HTML representation
- * through __toString().
- *
- * Example:
- *
- * ```php
- * echo (new DescriptionList())
- *     ->addTerm(new DescriptionTerm('Language'))
- *     ->addDetails(new DescriptionDetails('PHP'))
- *     ->addTerm(new DescriptionTerm('Framework'))
- *     ->addDetails(new DescriptionDetails('RedSky'))
- *     ->render();
- * ```
- *
- * Produces:
- *
- * ```html
- * <dl><dt>Language</dt><dd>PHP</dd><dt>Framework</dt><dd>RedSky</dd></dl>
- * ```
- *
  * @package RedSky\Html\Components\Lists
  */
-#[Example(
-    title: 'Description List',
-    code: <<<'PHP'
-    echo (new DescriptionList())
-        ->addTerm(new DescriptionTerm('Language'))
-        ->addDetails(new DescriptionDetails('PHP'))
-        ->addTerm(new DescriptionTerm('Framework'))
-        ->addDetails(new DescriptionDetails('RedSky'))
-        ->render();
-    PHP,
-    description: 'The DescriptionList component generates a
-                 semantic HTML <dl> element containing terms
-                 and their associated descriptions. Terms are
-                 represented by DescriptionTerm components and
-                 descriptions by DescriptionDetails components.',
-    language: 'php',
-    primary: true,
-    output: '<dl><dt>Language</dt><dd>PHP</dd><dt>Framework</dt><dd>RedSky</dd></dl>'
-)]
 class DescriptionList extends HtmlComponent
 {
     /**

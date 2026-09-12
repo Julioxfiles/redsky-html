@@ -8,7 +8,7 @@ use RedSky\Html\Components\DataGrid\DataGrid;
 use RedSky\Html\Components\DataGrid\DataGridAction;
 use RedSky\Html\Components\DataGrid\DataGridColumn;
 use RedSky\Html\Components\DataGrid\DataGridTotals;
-use RedSky\Html\Metadata\Example;
+
 
 #[Example(
     title: 'PHP — Complete DataGrid with Links and Icons',

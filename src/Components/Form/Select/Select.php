@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Form\Select;
 
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Metadata\Example;
+
 use RedSky\Html\Components\Form\Input\Input;
 use RedSky\Html\Components\Form\Option\Option;
 
@@ -22,45 +22,6 @@ use RedSky\Html\Components\Form\Option\Option;
  * This component is UI-library agnostic and does
  * not apply any default classes or styles.
  */
-#[Example(
-    title: 'Fluent select',
-    code: <<<'PHP'
-    echo new Select()
-        ->name('country')
-        ->required()
-        ->options([
-            'Mexico' => 'mx',
-            'United States' => 'us',
-            'Canada' => 'ca',
-        ])
-        ->selected('mx')
-        ->render();
-    PHP,
-    description: 'The Select component can be configured using
-                 a fluent API.',
-    language: 'php',
-    primary: true,
-    output: '<select name="country" required><option value="mx" selected>Mexico</option><option value="us">United States</option><option value="ca">Canada</option></select>'
-)]
-#[Example(
-    title: 'Array configuration',
-    code: <<<'PHP'
-    echo new Select([
-        'name' => 'country',
-        'required' => true,
-        'options' => [
-            'Mexico' => 'mx',
-            'United States' => 'us',
-            'Canada' => 'ca',
-        ],
-        'selected' => 'mx',
-    ])->render();
-    PHP,
-    description: 'The Select component can also be configured
-                 using an associative array.',
-    language: 'php',
-    output: '<select name="country" required><option value="mx" selected>Mexico</option><option value="us">United States</option><option value="ca">Canada</option></select>'
-)]
 class Select extends HtmlComponent
 {
     /**
