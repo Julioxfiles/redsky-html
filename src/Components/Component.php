@@ -650,4 +650,6 @@ abstract class Component implements
      * @return string
      */
     abstract public function render(): string;
+
+    
 }

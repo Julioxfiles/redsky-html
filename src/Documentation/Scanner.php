@@ -59,7 +59,7 @@ class Scanner
                 name: $reflection->getShortName(),
                 class: $class,
                 category: $this->resolveCategory($reflection),
-                description: $this->resolveClassDescription($reflection),
+                description: $this->extractDocDescription($reflection->getDocComment()),
                 version: null,
                 deprecated: false
             );
@@ -68,6 +68,7 @@ class Scanner
         $this->scanMethods($reflection, $component);
         $this->scanProperties($reflection, $component);
         $this->scanExamples($reflection, $component);
+        $this->scanResources($reflection, $component);
         
         return $component;
     }
@@ -410,6 +411,7 @@ class Scanner
         ReflectionClass $reflection,
         Component $component
     ): void {
+
         $namespace = $reflection->getNamespaceName();
 
         $prefix = 'RedSky\\Html\\Components\\';
@@ -429,28 +431,24 @@ class Scanner
             return;
         }
 
-        $category = strtolower($parts[0]);
-        $name = strtolower($reflection->getShortName());
+        $category = $parts[0];
+        $name = $reflection->getShortName();
 
 
-        $directory = dirname(__DIR__, 2)
-            . DIRECTORY_SEPARATOR
-            . 'resources'
-            . DIRECTORY_SEPARATOR
-            . 'views'
-            . DIRECTORY_SEPARATOR
-            . 'components'
-            . DIRECTORY_SEPARATOR
-            . $category
-            . DIRECTORY_SEPARATOR
-            . $name
-            . DIRECTORY_SEPARATOR
-            . 'examples';
+$directory = dirname(__DIR__)
+    . DIRECTORY_SEPARATOR
+    . 'Components'
+    . DIRECTORY_SEPARATOR
+    . $category
+    . DIRECTORY_SEPARATOR
+    . $name
+    . DIRECTORY_SEPARATOR
+    . 'Examples';
+
 
         if (!is_dir($directory)) {
             return;
         }
-
 
         $loader = new ExampleLoader();
         $renderer = new ExampleRenderer();
@@ -603,10 +601,7 @@ class Scanner
             }
 
             if ($line === '') {
-                if ($description !== []) {
-                    break;
-                }
-
+                $description[] = '';
                 continue;
             }
 
@@ -704,5 +699,77 @@ class Scanner
         return $path;
     }
 
- 
+    protected function scanResources(
+        ReflectionClass $reflection,
+        Component $component
+    ): void
+    {
+        $category = strtolower(
+            $this->resolveCategory($reflection) ?? ''
+        );
+
+        $name = strtolower(
+            $reflection->getShortName()
+        );
+
+
+        $base = dirname(__DIR__, 3)
+            . DIRECTORY_SEPARATOR
+            . '..'
+            . DIRECTORY_SEPARATOR
+            . 'redsky-ui'
+            . DIRECTORY_SEPARATOR
+            . 'resources';
+
+
+
+        $css = $base
+            . DIRECTORY_SEPARATOR
+            . 'css'
+            . DIRECTORY_SEPARATOR
+            . 'components'
+            . DIRECTORY_SEPARATOR
+            . $category
+            . DIRECTORY_SEPARATOR
+            . $name
+            . DIRECTORY_SEPARATOR
+            . $name
+            . '.css';
+
+
+        if (is_file($css)) {
+
+            $content = file_get_contents($css);
+
+            if ($content !== false) {
+                $component->setCss($content);
+            }
+        }
+
+
+
+        $js = $base
+            . DIRECTORY_SEPARATOR
+            . 'js'
+            . DIRECTORY_SEPARATOR
+            . 'components'
+            . DIRECTORY_SEPARATOR
+            . $category
+            . DIRECTORY_SEPARATOR
+            . $name
+            . DIRECTORY_SEPARATOR
+            . $name
+            . '.js';
+
+
+        if (is_file($js)) {
+
+            $content = file_get_contents($js);
+
+            if ($content !== false) {
+                $component->setJavascript($content);
+            }
+        }
+    }
+
 }

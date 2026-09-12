@@ -5,25 +5,12 @@ declare(strict_types=1);
 namespace RedSky\Html\Documentation;
 
 /**
- * Represents a real PHP example file used
- * for component documentation.
+ * Example assets are demonstration files only.
  *
- * Example files are executable PHP files that
- * create and render components.
+ * They are not component resources.
  *
- * An example may optionally have associated
- * demonstration assets:
- *
- * Example:
- *
- * Examples/
- *     01.php
- *     01.css
- *     01.js
- *
- * CSS and JavaScript files are only used
- * to demonstrate component usage and are
- * not part of the component implementation.
+ * Component CSS and JavaScript belong
+ * to redsky-ui resources.
  */
 class ExampleFile
 {
@@ -51,7 +38,6 @@ class ExampleFile
      * Generated HTML output.
      */
     protected string $output;
-
 
     /**
      * Creates a new example representation.
@@ -344,4 +330,7 @@ class ExampleFile
         return '/redsky/redsky-html'
             . $relative;
     }
+
+       
+
 }

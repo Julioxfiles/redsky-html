@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RedSky\Html\Components\Interactive;
+namespace RedSky\Html\Components\Interactive\Button;
 
 use RedSky\Html\Components\HtmlComponent;
 use RedSky\Html\Metadata\Example;

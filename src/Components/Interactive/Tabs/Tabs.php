@@ -28,17 +28,7 @@ use RedSky\Html\Components\Interactive\Tabs\TabItem;
  * Styling and interaction logic are handled
  * by the UI layer.
  *
- * Example:
- *
- * $tabs = new Tabs();
- *
- * $tabs
- *     ->addTab(
- *         new Tab('Profile')
- *     );
- *
- * echo $tabs;
- *
+ * 
  * @package RedSky\Html\Components\Interactive\Tabs
  */
 class Tabs extends HtmlComponent

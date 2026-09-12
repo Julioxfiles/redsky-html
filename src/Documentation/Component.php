@@ -101,6 +101,9 @@ class Component
      */
     protected array $exampleFiles = [];
 
+    protected ?string $css = null;
+
+    protected ?string $javascript = null;
 
     /**
      * Creates component documentation metadata.
@@ -369,4 +372,47 @@ class Component
             JSON_THROW_ON_ERROR
         );
     }
+
+    /**
+     * Sets component CSS source.
+     */
+    public function setCss(
+        string $css
+    ): static {
+        $this->css = $css;
+
+        return $this;
+    }
+
+
+    /**
+     * Returns component CSS source.
+     */
+    public function css(): ?string
+    {
+        return $this->css;
+    }
+
+
+    /**
+     * Sets component JavaScript source.
+     */
+    public function setJavascript(
+        string $javascript
+    ): static {
+        $this->javascript = $javascript;
+
+        return $this;
+    }
+
+
+    /**
+     * Returns component JavaScript source.
+     */
+    public function javascript(): ?string
+    {
+        return $this->javascript;
+    }
+
+
 }
