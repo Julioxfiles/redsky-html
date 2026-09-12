@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Interactive\Tabs;
 
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Components\Layout\Div;
 use RedSky\Html\Components\Interactive\Tabs\Tab;
 use RedSky\Html\Components\Interactive\Tabs\TabPanel;
 use RedSky\Html\Components\Interactive\Tabs\TabItem;
+use RedSky\Html\Components\Layout\Div\Div;
 
 /**
  * Tabs component.
@@ -20,10 +20,10 @@ use RedSky\Html\Components\Interactive\Tabs\TabItem;
  *
  * The component generates:
  *
- * - Tab navigation container.
- * - Tab buttons.
- * - Tab content panels.
- * - Data attributes required by JavaScript behavior.
+ * Tab navigation container.
+ * Tab buttons.
+ * Tab content panels.
+ * Data attributes required by JavaScript behavior.
  *
  * Styling and interaction logic are handled
  * by the UI layer.
