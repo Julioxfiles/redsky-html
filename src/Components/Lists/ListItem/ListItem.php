@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RedSky\Html\Components\Lists;
+namespace RedSky\Html\Components\Lists\ListItem;
 
 use RedSky\Html\Components\HtmlComponent;
 

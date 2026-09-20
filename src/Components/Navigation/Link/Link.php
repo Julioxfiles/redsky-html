@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RedSky\Html\Components\Link\Link;
+namespace RedSky\Html\Components\Navigation\Link;
 
 use RedSky\Html\Components\HtmlComponent;
 

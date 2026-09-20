@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Lists\UnorderedList;
 
 use RedSky\Html\Components\HtmlComponent;
-
-use RedSky\Html\Components\Lists\ListItem;
+use RedSky\Html\Components\Lists\ListItem\ListItem;
 
 /**
  * Represents an HTML <ul> element.

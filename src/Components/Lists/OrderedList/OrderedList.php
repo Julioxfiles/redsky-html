@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace RedSky\Html\Components\Lists;
+namespace RedSky\Html\Components\Lists\OrderedList;
 
 use RedSky\Html\Components\HtmlComponent;
-
+use RedSky\Html\Components\Lists\ListItem\ListItem;
 
 /**
  * Represents an HTML <ol> element.
@@ -54,27 +54,6 @@ use RedSky\Html\Components\HtmlComponent;
  *
  * @package RedSky\Html\Components\Lists
  */
-#[Example(
-    title: 'Ordered List',
-    code: <<<'PHP'
-    echo (new OrderedList())
-        ->start(3)
-        ->addItems([
-            new ListItem('First item'),
-            new ListItem('Second item'),
-            new ListItem('Third item'),
-        ])
-        ->render();
-    PHP,
-    description: 'The OrderedList component generates a semantic
-                 HTML <ol> element for ordered content. It provides
-                 methods for adding list items and configuring the
-                 starting number, numbering direction, and numbering
-                 style.',
-    language: 'php',
-    primary: true,
-    output: '<ol start="3"><li>First item</li><li>Second item</li><li>Third item</li></ol>'
-)]
 class OrderedList extends HtmlComponent
 {
     /**

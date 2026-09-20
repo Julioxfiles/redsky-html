@@ -27,40 +27,6 @@ use RedSky\Html\Components\HtmlComponent;
  *
  * @package RedSky\Html\Components\Feedback
  */
-#[Example(
-    title: 'Bootstrap — Success Badge',
-    code: <<<'PHP'
-$badge = new Badge('Active');
-
-$badge
-    ->type('success')
-    ->class('badge bg-success')
-    ->attribute('aria-label', 'Status: Active');
-
-echo $badge;
-PHP,
-    description: 'Creates a Bootstrap success badge using the Badge component and the inherited Component API.',
-    language: 'php',
-    primary: true,
-    output: '<span data-redsky-component="badge" data-badge-type="success" class="badge bg-success" aria-label="Status: Active">Active</span>'
-)]
-#[Example(
-    title: 'Materialize — Success Badge',
-    code: <<<'PHP'
-$badge = new Badge('Active');
-
-$badge
-    ->type('success')
-    ->class('new badge green')
-    ->attribute('data-badge-caption', 'Status');
-
-echo $badge;
-PHP,
-    description: 'Creates a Materialize success badge using the Badge component and the inherited Component API.',
-    language: 'php',
-    primary: false,
-    output: '<span data-redsky-component="badge" data-badge-type="success" class="new badge green" data-badge-caption="Status">Active</span>'
-)]
 class Badge extends HtmlComponent
 {
     /**
