@@ -6,7 +6,7 @@ use RedSky\Html\Components\Feedback\Modal\Modal;
 use RedSky\Html\Components\Interactive\Button\Button;
 use RedSky\Html\Components\Navigation\Menu\Menu;
 use RedSky\Html\Components\Navigation\MenuItem\MenuItem;
-use RedSky\Html\Components\Navigation\MobileMenu\MobileMenu;
+use RedSky\Html\Components\Navigation\StackMenu\StackMenu;
 
 
 /*
@@ -138,17 +138,17 @@ $menu
     )
     ->addItem(
         (new MenuItem('About'))
-            ->onClick("alert('About clicked')")
+            ->href('/about')
     );
 
 
 /*
- * MobileMenu
+ * StackMenu
  */
 
-$mobileMenu = new MobileMenu();
+$stackMenu = new StackMenu();
 
-$mobileMenu->addMenu(
+$stackMenu->addMenu(
     $menu
 );
 
@@ -160,20 +160,16 @@ $mobileMenu->addMenu(
 $modal = new Modal();
 
 $modal
-    ->title('Mobile Menu')
+    ->title('Stack Menu')
     ->size('small')
     ->closeOnEscape(true)
     ->closeOnBackdrop(true)
     ->trapFocus(true)
-    ->body($mobileMenu);
+    ->body($stackMenu);
 
-
-/*
- * Modal identifier
- */
 
 $modal->id(
-    'mobile-menu-demo'
+    'stack-menu-demo'
 );
 
 
@@ -182,12 +178,14 @@ $modal->id(
  */
 
 $button = new Button(
-    'Open Mobile Menu'
+    'Open Stack Menu'
 );
+
+$button->class('btn btn-sm btn-primary');
 
 $button->attribute(
     'data-modal-target',
-    'mobile-menu-demo'
+    'stack-menu-demo'
 );
 
 

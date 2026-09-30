@@ -2,33 +2,34 @@
 
 declare(strict_types=1);
 
-namespace RedSky\Html\Components\Navigation\MobileMenu;
+namespace RedSky\Html\Components\Navigation\StackMenu;
 
 use RedSky\Html\Components\HtmlComponent;
 use RedSky\Html\Components\Navigation\Menu\Menu;
 
 
 /**
- * Represents a mobile navigation menu component.
+ * Represents a stack-based navigation menu component.
  *
- * The MobileMenu component stores the complete menu tree
- * and provides a single render container where JavaScript
- * displays the current navigation level.
+ * StackMenu provides a dynamic navigation container
+ * where JavaScript displays the current menu level.
  *
- * The navigation behavior is handled by mobile-menu.js.
+ * The menu hierarchy is provided by a Menu component.
+ * StackMenu manages navigation between menu levels
+ * using a stack-based history.
  *
  * This component is UI-library agnostic.
  *
- * @package RedSky\Html\Components\Navigation\MobileMenu
+ * @package RedSky\Html\Components\Navigation\StackMenu
  */
-class MobileMenu extends HtmlComponent
+class StackMenu extends HtmlComponent
 {
 
     /**
-     * Root menu source.
+     * Source menu tree.
      *
-     * The complete menu hierarchy is stored here
-     * and used by JavaScript as navigation data.
+     * The menu hierarchy used by JavaScript
+     * to navigate between levels.
      *
      * @var Menu|null
      */
@@ -37,19 +38,19 @@ class MobileMenu extends HtmlComponent
 
 
     /**
-     * Creates a new mobile menu component.
+     * Creates a new stack menu component.
      */
     public function __construct()
     {
         parent::__construct('nav');
 
         $this->class(
-            'mobile-menu'
+            'stack-menu'
         );
 
         $this->attribute(
             'data-redsky-component',
-            'mobile-menu'
+            'stack-menu'
         );
     }
 
@@ -58,10 +59,10 @@ class MobileMenu extends HtmlComponent
     /**
      * Adds the navigation menu tree.
      *
-     * The menu is stored and rendered as a hidden
-     * source tree. JavaScript will render only the
-     * current level inside the mobile-menu-root
-     * container.
+     * The menu is rendered as a hidden source.
+     * JavaScript uses this structure to display
+     * the current navigation level inside
+     * stack-menu-root.
      *
      * @param Menu $menu
      *
@@ -79,7 +80,7 @@ class MobileMenu extends HtmlComponent
 
 
     /**
-     * Returns the current menu tree.
+     * Returns the source menu tree.
      *
      * @return Menu|null
      */
@@ -91,16 +92,16 @@ class MobileMenu extends HtmlComponent
 
 
     /**
-     * Renders the MobileMenu.
+     * Renders the StackMenu structure.
      *
      * Structure:
      *
      * <nav>
      *
-     *     <div class="mobile-menu-root"></div>
+     *     <div class="stack-menu-root"></div>
      *
-     *     <div class="mobile-menu-source">
-     *         complete menu tree
+     *     <div class="stack-menu-source" hidden>
+     *         menu tree
      *     </div>
      *
      * </nav>
@@ -119,21 +120,22 @@ class MobileMenu extends HtmlComponent
 
 
         /*
-         * Visible navigation container.
+         * Dynamic navigation container.
          *
-         * JavaScript replaces this content
-         * with the current menu level.
+         * JavaScript updates this element
+         * with the active menu level.
          */
-        $html .= '<div class="mobile-menu-root"></div>';
+        $html .= '<div class="stack-menu-root"></div>';
 
 
 
         /*
-         * Complete menu tree.
+         * Source menu tree.
          *
-         * Hidden source used by JavaScript.
+         * Hidden from the user and used
+         * as navigation data.
          */
-        $html .= '<div class="mobile-menu-source" hidden>';
+        $html .= '<div class="stack-menu-source" hidden>';
 
 
         if ($this->menu !== null) {
