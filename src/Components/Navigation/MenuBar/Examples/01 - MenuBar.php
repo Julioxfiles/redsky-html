@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-use RedSky\Html\Components\Navigation\BarMenu\BarMenu;
+use RedSky\Html\Components\Navigation\MenuBar\MenuBar;
 use RedSky\Html\Components\Navigation\Menu\Menu;
 use RedSky\Html\Components\Navigation\MenuItem\MenuItem;
 
-$barMenu = new BarMenu();
+$MenuBar = new MenuBar();
 
 $fileMenu = new Menu();
 
@@ -103,6 +103,6 @@ $rootMenu
             ->addSubmenu($helpMenu)
     );
 
-$barMenu->addMenu($rootMenu);
+$MenuBar->addMenu($rootMenu);
 
-echo $barMenu;
+echo $MenuBar;

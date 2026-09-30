@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RedSky\Html\Components\Navigation\BarMenu;
+namespace RedSky\Html\Components\Navigation\MenuBar;
 
 use RedSky\Html\Components\HtmlComponent;
 use RedSky\Html\Components\Navigation\Menu\Menu;
@@ -27,7 +27,7 @@ use RedSky\Html\Components\Navigation\Menu\Menu;
  *
  * @package RedSky\Html\Components\Navigation
  */
-class BarMenu extends HtmlComponent
+class MenuBar extends HtmlComponent
 {
     /**
      * Creates a new menu bar component.
@@ -40,7 +40,7 @@ class BarMenu extends HtmlComponent
         parent::__construct('nav');
 
         $this
-            ->class('bar-menu')
+            ->class('menu-bar')
             ->role('menubar');
     }
 

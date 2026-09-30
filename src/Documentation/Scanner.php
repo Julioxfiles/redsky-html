@@ -242,11 +242,26 @@ class Scanner
         $renderer = new ExampleRenderer();
 
         foreach ($loader->load($directory) as $example) {
-            $example->setOutput(
-                $renderer->renderFormatted(
+
+            try {
+
+                $output = $renderer->renderFormatted(
                     $example->file()
-                )
+                );
+
+            } catch (\Throwable $exception) {
+
+                $output = $this->renderExampleError(
+                    $example->file(),
+                    $exception
+                );
+            }
+
+
+            $example->setOutput(
+                $output
             );
+
 
             $component->addExampleFile($example);
         }
@@ -508,5 +523,30 @@ class Scanner
                 $component->setJavascript($content);
             }
         }
+    }
+
+    /**
+     * Renders an example execution error.
+     */
+    protected function renderExampleError(
+        string $file,
+        \Throwable $exception
+    ): string {
+        return sprintf(
+            '
+            <div class="documentation-example-error">
+                <h4>Example execution error</h4>
+
+                <p><strong>File:</strong> %s</p>
+
+                <p><strong>Line:</strong> %d</p>
+
+                <p><strong>Error:</strong> %s</p>
+            </div>
+            ',
+            htmlspecialchars($file),
+            $exception->getLine(),
+            htmlspecialchars($exception->getMessage())
+        );
     }
 }

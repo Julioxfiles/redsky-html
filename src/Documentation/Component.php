@@ -5,26 +5,20 @@ declare(strict_types=1);
 namespace RedSky\Html\Documentation;
 
 /**
- * Represents documentation metadata for an HTML component.
+ * Real PHP example files.
  *
- * This object is the runtime representation used by the
- * documentation system.
- *
- * A component documentation object contains the component's
- * identity and metadata, together with its documented methods,
- * properties, and usage examples.
+ * These examples are stored as editable PHP files
+ * inside the component Examples directory.
  *
  * Example:
  *
- * ```php
- * $component = new Component(
- *     name: 'TextInput',
- *     class: TextInput::class,
- *     category: 'Form',
- *     description: 'Represents an HTML text input.',
- *     version: '1.0.0'
- * );
- * ```
+ * Components/
+ *     Form/
+ *         TextInput/
+ *             Examples/
+ *                 01.php
+ *
+ * @var array<int, ExampleFile>
  */
 class Component
 {
@@ -224,50 +218,6 @@ class Component
         return $this->properties;
     }
 
-
-    /**
-     * Adds a usage example.
-     *
-     * Legacy support for #[Example].
-     */
-    public function addExample(
-        Example $example
-    ): static {
-        $this->examples[] = $example;
-
-        return $this;
-    }
-
-
-    /**
-     * Returns metadata examples.
-     *
-     * @return array<int, Example>
-     */
-    public function examples(): array
-    {
-        return $this->examples;
-    }
-
-
-    /**
-     * Determines whether metadata examples exist.
-     */
-    public function hasExamples(): bool
-    {
-        return $this->examples !== [];
-    }
-
-
-    /**
-     * Returns metadata example count.
-     */
-    public function exampleCount(): int
-    {
-        return count($this->examples);
-    }
-
-
     /**
      * Adds a real PHP example file.
      */
@@ -334,12 +284,6 @@ class Component
                 static fn (Property $property): array =>
                     $property->toArray(),
                 $this->properties
-            ),
-
-            'examples' => array_map(
-                static fn (Example $example): array =>
-                    $example->toArray(),
-                $this->examples
             ),
 
             'example_files' => array_map(

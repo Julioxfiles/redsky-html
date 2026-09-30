@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace RedSky\Html\Documentation;
@@ -7,7 +8,9 @@ namespace RedSky\Html\Documentation;
 /**
  * Discovers HTML component classes from the Components directory.
  *
- * This class is responsible only for discovering component classes.
+ * This class is responsible only for discovering component classes
+ * and reporting namespace or autoloading problems.
+ *
  * It does not inspect metadata or generate documentation.
  *
  * Example:
@@ -33,6 +36,14 @@ class ComponentScanner
 
 
     /**
+     * Namespace discovery errors.
+     *
+     * @var array<int, array<string,string>>
+     */
+    protected array $errors = [];
+
+
+    /**
      * Creates a component scanner.
      *
      * @param string|null $directory Components directory.
@@ -51,6 +62,8 @@ class ComponentScanner
      */
     public function scan(): array
     {
+        $this->errors = [];
+
         if (!is_dir($this->directory)) {
             return [];
         }
@@ -68,6 +81,7 @@ class ComponentScanner
 
 
         foreach ($iterator as $file) {
+
             if (!$file->isFile()) {
                 continue;
             }
@@ -78,9 +92,15 @@ class ComponentScanner
             }
 
 
-            $class = $this->resolveClass(
-                $file->getPathname()
-            );
+            $path = $file->getPathname();
+
+
+            if ($this->shouldIgnore($path)) {
+                continue;
+            }
+
+
+            $class = $this->resolveClass($path);
 
 
             if ($class !== null) {
@@ -99,18 +119,79 @@ class ComponentScanner
 
 
     /**
-     * Converts a PHP file path into its component class name.
+     * Returns namespace discovery errors.
      *
-     * Example:
-     *
-     * Components/Form/TextInput.php
-     *
-     * becomes:
-     *
-     * RedSky\Html\Components\Form\TextInput
+     * @return array<int, array<string,string>>
      */
-    protected function resolveClass(string $file): ?string
+    public function errors(): array
     {
+        return $this->errors;
+    }
+
+
+    /**
+     * Determines whether namespace errors exist.
+     */
+    public function hasErrors(): bool
+    {
+        return $this->errors !== [];
+    }
+
+
+    /**
+     * Determines whether a file should be ignored.
+     */
+    protected function shouldIgnore(
+        string $file
+    ): bool {
+
+        $relative = substr(
+            $file,
+            strlen($this->directory) + 1
+        );
+
+
+        if ($relative === false) {
+            return true;
+        }
+
+
+        $relative = str_replace(
+            ['/', '\\'],
+            '/',
+            $relative
+        );
+
+
+        if (str_contains(
+            $relative,
+            '/Examples/'
+        )) {
+            return true;
+        }
+
+
+        $filename = pathinfo(
+            $file,
+            PATHINFO_FILENAME
+        );
+
+
+        return preg_match(
+            '/^[A-Z][A-Za-z0-9]*$/',
+            $filename
+        ) !== 1;
+    }
+
+
+    /**
+     * Converts a PHP file path into its expected class name
+     * and validates that the class exists.
+     */
+    protected function resolveClass(
+        string $file
+    ): ?string {
+
         $relative = substr(
             $file,
             strlen($this->directory) + 1
@@ -129,11 +210,6 @@ class ComponentScanner
         );
 
 
-        if (!str_ends_with($relative, '.php')) {
-            return null;
-        }
-
-
         $relative = substr(
             $relative,
             0,
@@ -146,7 +222,89 @@ class ComponentScanner
         }
 
 
-        return $this->namespace . '\\' . $relative;
+        $expectedClass = $this->namespace . '\\' . $relative;
+
+
+        if (class_exists($expectedClass)) {
+            return $expectedClass;
+        }
+
+
+        $this->registerError(
+            $file,
+            $expectedClass
+        );
+
+
+        return null;
+    }
+
+
+    /**
+     * Registers a namespace validation error.
+     */
+    protected function registerError(
+        string $file,
+        string $expectedClass
+    ): void {
+
+        $this->errors[] = [
+            'file' => $file,
+            'class' => $expectedClass,
+            'message' => $this->resolveErrorMessage(
+                $file,
+                $expectedClass
+            ),
+        ];
+    }
+
+
+    /**
+     * Generates a detailed validation message.
+     */
+    protected function resolveErrorMessage(
+        string $file,
+        string $expectedClass
+    ): string {
+
+        $contents = file_get_contents($file);
+
+
+        if ($contents === false) {
+            return 'Unable to read PHP file.';
+        }
+
+
+        if (!preg_match(
+            '/namespace\s+([^;]+);/',
+            $contents,
+            $namespaceMatch
+        )) {
+            return 'Namespace declaration was not found.';
+        }
+
+
+        $namespace = trim(
+            $namespaceMatch[1]
+        );
+
+
+        if (!preg_match(
+            '/class\s+([A-Za-z0-9_]+)/',
+            $contents,
+            $classMatch
+        )) {
+            return 'Class declaration was not found.';
+        }
+
+
+        $declaredClass = $namespace . '\\' . $classMatch[1];
+
+
+        return sprintf(
+            'Expected class "%s" but file declares "%s". Namespace or filename may not match.',
+            $expectedClass,
+            $declaredClass
+        );
     }
 }
-

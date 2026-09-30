@@ -22,7 +22,7 @@ class ExampleRenderer
      *
      * @return string Rendered output.
      *
-     * @throws \RuntimeException When the example file does not exist.
+     * @throws \RuntimeException When the example execution fails.
      */
     public function render(
         string $file
@@ -39,6 +39,7 @@ class ExampleRenderer
         ob_start();
 
         try {
+
             include $file;
 
             return (string) ob_get_clean();
@@ -47,10 +48,53 @@ class ExampleRenderer
 
             ob_end_clean();
 
-            throw $exception;
+            throw new \RuntimeException(
+                $this->formatException(
+                    $file,
+                    $exception
+                ),
+                0,
+                $exception
+            );
         }
     }
 
+    /**
+     * Formats example execution errors.
+     */
+    protected function formatException(
+        string $file,
+        \Throwable $exception
+    ): string {
+
+        $message = sprintf(
+            "Documentation example error\n\nFile:\n%s\n\nLine:\n%s\n\nType:\n%s\n\nError:\n%s",
+            $file,
+            $exception->getLine(),
+            $exception::class,
+            $exception->getMessage()
+        );
+
+
+        if (
+            $exception instanceof \Error &&
+            str_contains(
+                $exception->getMessage(),
+                'Class "'
+            )
+        ) {
+
+            $message .= "\n\nPossible causes:\n";
+
+            $message .= "- Incorrect namespace.\n";
+            $message .= "- Invalid use statement.\n";
+            $message .= "- Component was renamed or moved.\n";
+            $message .= "- Example was not updated after a component change.\n";
+        }
+
+
+        return $message;
+    }
 
     /**
      * Renders a PHP example file and formats
@@ -59,9 +103,49 @@ class ExampleRenderer
     public function renderFormatted(
         string $file
     ): string {
+
         return (new HtmlFormatter())
             ->format(
                 $this->render($file)
             );
+    }
+
+
+    /**
+     * Creates a readable error message while
+     * preserving the original PHP exception.
+     */
+    protected function formatError(
+        string $file,
+        \Throwable $exception
+    ): string {
+
+        $message = [];
+
+        $message[] = 'Documentation example error';
+        $message[] = '';
+        $message[] = 'File:';
+        $message[] = $file;
+        $message[] = '';
+        $message[] = 'Line:';
+        $message[] = (string) $exception->getLine();
+        $message[] = '';
+        $message[] = 'Error:';
+        $message[] = $exception->getMessage();
+        $message[] = '';
+        $message[] = 'Possible causes:';
+        $message[] = '- Incorrect namespace.';
+        $message[] = '- Invalid use statement.';
+        $message[] = '- Component was renamed or moved.';
+        $message[] = '- Example was not updated after a component change.';
+        $message[] = '';
+        $message[] = 'Original exception:';
+        $message[] = get_class($exception);
+
+
+        return implode(
+            PHP_EOL,
+            $message
+        );
     }
 }
