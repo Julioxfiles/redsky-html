@@ -290,4 +290,30 @@ class Image extends HtmlComponent
             $ismap
         );
     }
+
+        /**
+     * Enables zoom behavior for the image.
+     *
+     * @param bool $enabled Whether zoom behavior is enabled.
+     *
+     * @return static
+     */
+    public function zoomable(
+        bool $enabled = true
+    ): static {
+
+        if ($enabled) {
+
+            $this->class(
+                'image-zoomable'
+            );
+
+            $this->attribute(
+                'data-image-zoom',
+                'true'
+            );
+        }
+
+        return $this;
+    }
 }

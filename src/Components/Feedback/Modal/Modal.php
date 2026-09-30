@@ -46,6 +46,22 @@ class Modal extends HtmlComponent
 
 
     /**
+     * Modal body content.
+     *
+     * @var mixed
+     */
+    protected mixed $modalBody = null;
+
+
+    /**
+     * Modal footer content.
+     *
+     * @var array
+     */
+    protected array $footerChildren = [];
+
+
+    /**
      * Determines whether modal is open.
      *
      * @var bool
@@ -267,6 +283,62 @@ class Modal extends HtmlComponent
 
 
     /**
+     * Sets modal body content.
+     *
+     * @param mixed $body
+     *
+     * @return static
+     */
+    public function body(
+        mixed $body
+    ): static {
+
+        $this->modalBody = $body;
+
+        return $this;
+    }
+
+
+    /**
+     * Returns modal body content.
+     *
+     * @return mixed
+     */
+    public function getBody(): mixed
+    {
+        return $this->modalBody;
+    }
+
+
+    /**
+     * Adds content to the modal footer.
+     *
+     * @param mixed $content
+     *
+     * @return static
+     */
+    public function footer(
+        mixed $content
+    ): static {
+
+        $this->footerChildren[] = $content;
+
+        return $this;
+    }
+
+
+    /**
+     * Returns modal footer content.
+     *
+     * @return array
+     */
+    public function getFooter(): array
+    {
+        return $this->footerChildren;
+    }
+
+
+    /**
      * Opens or closes modal.
      *
      * @param bool $open
@@ -306,7 +378,8 @@ class Modal extends HtmlComponent
         return $this->open;
     }
 
-        /**
+
+    /**
      * Enables or disables close button.
      *
      * @param bool $show
@@ -505,7 +578,6 @@ class Modal extends HtmlComponent
             'custom',
         ];
 
-
         if (
             !in_array(
                 $position,
@@ -513,7 +585,6 @@ class Modal extends HtmlComponent
                 true
             )
         ) {
-
             throw new \InvalidArgumentException(
                 sprintf(
                     'Invalid modal position "%s".',
@@ -522,18 +593,14 @@ class Modal extends HtmlComponent
             );
         }
 
-
         $this->position = $position;
-
 
         if (
             $position !== 'custom'
         ) {
-
             $this->positionX = null;
             $this->positionY = null;
         }
-
 
         return $this;
     }
@@ -566,7 +633,6 @@ class Modal extends HtmlComponent
         $this->position = 'custom';
 
         $this->positionX = (float) $left;
-
         $this->positionY = (float) $top;
 
         return $this;
@@ -616,7 +682,6 @@ class Modal extends HtmlComponent
             'zoom',
         ];
 
-
         if (
             !in_array(
                 $animation,
@@ -624,7 +689,6 @@ class Modal extends HtmlComponent
                 true
             )
         ) {
-
             throw new \InvalidArgumentException(
                 sprintf(
                     'Invalid modal animation "%s".',
@@ -632,7 +696,6 @@ class Modal extends HtmlComponent
                 )
             );
         }
-
 
         $this->animation = $animation;
 
@@ -669,7 +732,6 @@ class Modal extends HtmlComponent
             'fullscreen',
         ];
 
-
         if (
             !in_array(
                 $size,
@@ -677,7 +739,6 @@ class Modal extends HtmlComponent
                 true
             )
         ) {
-
             throw new \InvalidArgumentException(
                 sprintf(
                     'Invalid modal size "%s".',
@@ -685,7 +746,6 @@ class Modal extends HtmlComponent
                 )
             );
         }
-
 
         $this->size = $size;
 
@@ -702,7 +762,8 @@ class Modal extends HtmlComponent
     {
         return $this->size;
     }
-    
+
+
     /**
      * Enables or disables dragging.
      *
@@ -757,7 +818,6 @@ class Modal extends HtmlComponent
                 true
             )
         ) {
-
             throw new \InvalidArgumentException(
                 sprintf(
                     'Invalid drag boundary "%s".',
@@ -765,7 +825,6 @@ class Modal extends HtmlComponent
                 )
             );
         }
-
 
         $this->dragBoundary = $boundary;
 
@@ -867,4 +926,200 @@ class Modal extends HtmlComponent
         return $this->repositionOnScroll;
     }
 
+
+    /**
+     * Renders the modal.
+     *
+     * @return string
+     */
+    public function render(): string
+    {
+        $this->attribute(
+            'data-modal-close-on-backdrop',
+            $this->closeOnBackdrop ? 'true' : 'false'
+        );
+
+        $this->attribute(
+            'data-modal-close-on-escape',
+            $this->closeOnEscape ? 'true' : 'false'
+        );
+
+        $this->attribute(
+            'data-modal-lock-body-scroll',
+            $this->lockBodyScroll ? 'true' : 'false'
+        );
+
+        $this->attribute(
+            'data-modal-trap-focus',
+            $this->trapFocus ? 'true' : 'false'
+        );
+
+        $this->attribute(
+            'data-modal-restore-focus',
+            $this->restoreFocus ? 'true' : 'false'
+        );
+
+        $this->attribute(
+            'data-modal-position',
+            $this->position
+        );
+
+        $this->attribute(
+            'data-modal-animation',
+            $this->animation
+        );
+
+        $this->attribute(
+            'data-modal-size',
+            $this->size
+        );
+
+        $this->attribute(
+            'data-modal-draggable',
+            $this->draggable ? 'true' : 'false'
+        );
+
+        $this->attribute(
+            'data-modal-drag-boundary',
+            $this->dragBoundary
+        );
+
+        $this->attribute(
+            'data-modal-reposition-on-resize',
+            $this->repositionOnResize ? 'true' : 'false'
+        );
+
+        $this->attribute(
+            'data-modal-reposition-on-scroll',
+            $this->repositionOnScroll ? 'true' : 'false'
+        );
+
+        if (
+            $this->positionX !== null
+        ) {
+            $this->attribute(
+                'data-modal-position-x',
+                (string) $this->positionX
+            );
+        }
+
+        if (
+            $this->positionY !== null
+        ) {
+            $this->attribute(
+                'data-modal-position-y',
+                (string) $this->positionY
+            );
+        }
+
+        $attributes = $this->renderAttributes();
+
+        if (!$this->open) {
+            $attributes .= ' hidden';
+        } else {
+            $attributes .= ' data-modal-open';
+        }
+
+        $html = sprintf(
+            '<div%s>',
+            $attributes
+        );
+
+        $html .= '<div data-modal-backdrop></div>';
+
+        $html .= '<div data-modal-dialog>';
+
+        $html .= '<div data-modal-header>';
+
+        if (
+            $this->modalTitle !== null
+        ) {
+            $html .= sprintf(
+                '<div data-modal-title>%s</div>',
+                htmlspecialchars(
+                    $this->modalTitle,
+                    ENT_QUOTES | ENT_SUBSTITUTE,
+                    'UTF-8'
+                )
+            );
+        }
+
+        if (
+            $this->modalDescription !== null
+        ) {
+            $html .= sprintf(
+                '<div data-modal-description>%s</div>',
+                htmlspecialchars(
+                    $this->modalDescription,
+                    ENT_QUOTES | ENT_SUBSTITUTE,
+                    'UTF-8'
+                )
+            );
+        }
+
+        if (
+            $this->showCloseButton
+        ) {
+            $html .=
+                '<button type="button" ' .
+                'data-modal-close ' .
+                'aria-label="Close modal">' .
+                '×' .
+                '</button>';
+        }
+
+        $html .= '</div>';
+
+        $html .= '<div data-modal-body>';
+
+        if (
+            $this->modalBody instanceof HtmlComponent
+        ) {
+            $html .= $this->modalBody->render();
+        } elseif (
+            $this->modalBody !== null
+        ) {
+            $html .= htmlspecialchars(
+                (string) $this->modalBody,
+                ENT_QUOTES | ENT_SUBSTITUTE,
+                'UTF-8'
+            );
+        }
+
+        $html .= $this->renderChildren();
+
+        $html .= '</div>';
+
+        if (
+            $this->footerChildren !== []
+        ) {
+            $html .= '<div data-modal-footer>';
+
+            foreach (
+                $this->footerChildren as $content
+            ) {
+                if (
+                    $content instanceof HtmlComponent
+                ) {
+                    $html .= $content->render();
+                } elseif (
+                    $content !== null
+                ) {
+                    $html .= htmlspecialchars(
+                        (string) $content,
+                        ENT_QUOTES | ENT_SUBSTITUTE,
+                        'UTF-8'
+                    );
+                }
+            }
+
+            $html .= '</div>';
+        }
+
+        $html .= '</div>';
+
+        $html .= '</div>';
+
+        return $html;
+    }
 }

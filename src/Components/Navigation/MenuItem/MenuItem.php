@@ -5,39 +5,51 @@ declare(strict_types=1);
 namespace RedSky\Html\Components\Navigation\MenuItem;
 
 use RedSky\Html\Components\HtmlComponent;
-use RedSky\Html\Components\Interactive\Button\Button;
-use RedSky\Html\Components\Navigation\Link\Link;
 use RedSky\Html\Components\Navigation\Menu\Menu;
+
 
 /**
  * Represents an HTML menu item component.
  *
- * The MenuItem component generates a semantic HTML <li>
- * element intended to be used within a Menu component.
+ * A MenuItem can contain:
  *
- * A menu item can contain a Link or Button component
- * representing a navigation target or an application
- * action.
- *
- * A menu item can also contain a nested Menu, allowing
- * hierarchical application menus and submenus.
- *
- * This component is UI-library agnostic.
+ * - text
+ * - navigation actions
+ * - click actions
+ * - nested menus
+ * - arbitrary child components
  *
  * @package RedSky\Html\Components\Navigation\MenuItem
  */
 class MenuItem extends HtmlComponent
 {
     /**
-     * Keyboard shortcut associated with this menu item.
+     * Navigation target.
+     *
+     * @var string|null
+     */
+    protected ?string $navigation = null;
+
+
+    /**
+     * JavaScript action.
+     *
+     * @var string|null
+     */
+    protected ?string $clickScript = null;
+
+
+    /**
+     * Keyboard shortcut.
      *
      * @var string|null
      */
     protected ?string $shortcut = null;
 
 
+
     /**
-     * Creates a new menu item component.
+     * Creates a new menu item.
      *
      * @param string|null $text
      */
@@ -46,7 +58,10 @@ class MenuItem extends HtmlComponent
     ) {
         parent::__construct('li');
 
-        $this->class('menu-item');
+        $this->class(
+            'menu-item'
+        );
+
 
         if ($text !== null) {
             $this->text($text);
@@ -54,8 +69,12 @@ class MenuItem extends HtmlComponent
     }
 
 
+
     /**
-     * Sets the menu item text.
+     * Sets menu item text.
+     *
+     * Does not remove existing children.
+     * This allows mixing text and components.
      *
      * @param string $text
      *
@@ -64,16 +83,18 @@ class MenuItem extends HtmlComponent
     public function text(
         string $text
     ): static {
-        $this->clearChildren();
 
-        $this->setContent($text);
+        $this->setContent(
+            $text
+        );
 
         return $this;
     }
 
 
+
     /**
-     * Sets the menu item as a navigation link.
+     * Sets navigation target.
      *
      * @param string $href
      *
@@ -82,29 +103,53 @@ class MenuItem extends HtmlComponent
     public function href(
         string $href
     ): static {
-        $text = $this->content();
 
-        $this->clearContent();
-        $this->clearChildren();
-
-        $this
-            ->removeAttribute('tabindex')
-            ->removeAttribute('aria-haspopup')
-            ->removeAttribute('aria-expanded');
-
-        $link = new Link(
-            $href,
-            is_string($text) ? $text : null
-        );
-
-        $this->addChild($link);
+        $this->navigation = $href;
+        $this->clickScript = null;
 
         return $this;
     }
 
 
+
     /**
-     * Sets the menu item as an application action.
+     * Alias of href().
+     *
+     * @param string $url
+     *
+     * @return static
+     */
+    public function url(
+        string $url
+    ): static {
+
+        return $this->href(
+            $url
+        );
+    }
+
+
+
+    /**
+     * Alias of href().
+     *
+     * @param string $uri
+     *
+     * @return static
+     */
+    public function uri(
+        string $uri
+    ): static {
+
+        return $this->href(
+            $uri
+        );
+    }
+
+
+
+    /**
+     * Sets JavaScript action.
      *
      * @param string $script
      *
@@ -113,48 +158,45 @@ class MenuItem extends HtmlComponent
     public function onClick(
         string $script
     ): static {
-        $text = $this->content();
 
-        $this->clearContent();
-        $this->clearChildren();
-
-        $this
-            ->removeAttribute('tabindex')
-            ->removeAttribute('aria-haspopup')
-            ->removeAttribute('aria-expanded');
-
-        $button = new Button(
-            is_string($text) ? $text : null
-        );
-
-        $button->attribute(
-            'onclick',
-            $script
-        );
-
-        $this->addChild($button);
+        $this->clickScript = $script;
+        $this->navigation = null;
 
         return $this;
     }
 
 
+
     /**
      * Adds a nested submenu.
      *
-     * The submenu is added as a child of this menu item.
-     *
-     * @param Menu $menu Submenu to add.
+     * @param Menu $menu
      *
      * @return static
      */
     public function addSubmenu(
         Menu $menu
     ): static {
-        $this
-            ->attribute('class', 'menu-item has-submenu')
-            ->attribute('tabindex', '0')
-            ->aria('haspopup', 'true')
-            ->aria('expanded', 'false');
+
+        $this->class(
+            'menu-item has-submenu'
+        );
+
+        $this->attribute(
+            'tabindex',
+            '0'
+        );
+
+        $this->aria(
+            'haspopup',
+            'true'
+        );
+
+        $this->aria(
+            'expanded',
+            'false'
+        );
+
 
         return $this->addChild(
             $menu
@@ -162,25 +204,29 @@ class MenuItem extends HtmlComponent
     }
 
 
+
     /**
-     * Determines whether this menu item has a submenu.
+     * Determines whether this item contains submenu.
      *
      * @return bool
      */
     public function hasSubmenu(): bool
     {
         foreach ($this->children() as $child) {
+
             if ($child instanceof Menu) {
                 return true;
             }
+
         }
 
         return false;
     }
 
 
+
     /**
-     * Sets the keyboard shortcut associated with this menu item.
+     * Sets keyboard shortcut.
      *
      * @param string $shortcut
      *
@@ -189,43 +235,108 @@ class MenuItem extends HtmlComponent
     public function shortcut(
         string $shortcut
     ): static {
+
         $this->shortcut = $shortcut;
 
         return $this;
     }
 
 
+
     /**
-     * Renders the menu item children.
+     * Gets navigation target.
      *
-     * The shortcut is rendered inside the action element
-     * so that the menu text and shortcut can be sized and
-     * aligned as a single menu row.
+     * @return string|null
+     */
+    public function getNavigation(): ?string
+    {
+        return $this->navigation;
+    }
+
+
+
+    /**
+     * Gets click action.
+     *
+     * @return string|null
+     */
+    public function getClickScript(): ?string
+    {
+        return $this->clickScript;
+    }
+
+
+
+    /**
+     * Renders menu item.
+     *
+     * @return string
+     */
+    public function render(): string
+    {
+
+        if ($this->navigation !== null) {
+
+            $this->attribute(
+                'data-menu-href',
+                $this->navigation
+            );
+
+        } else {
+
+            $this->removeAttribute(
+                'data-menu-href'
+            );
+
+        }
+
+
+        if ($this->clickScript !== null) {
+
+            $this->attribute(
+                'data-menu-onclick',
+                $this->clickScript
+            );
+
+        } else {
+
+            $this->removeAttribute(
+                'data-menu-onclick'
+            );
+
+        }
+
+
+        return parent::render();
+    }
+
+
+
+    /**
+     * Adds shortcut after children.
      *
      * @return string
      */
     protected function renderChildren(): string
     {
-        $html = parent::renderChildren();
+
+        $html =
+            parent::renderChildren();
+
 
         if ($this->shortcut === null) {
             return $html;
         }
 
-        $shortcut = sprintf(
-            '<span class="menu-item-shortcut">%s</span>',
-            htmlspecialchars(
-                $this->shortcut,
-                ENT_QUOTES,
-                'UTF-8'
-            )
-        );
 
-        return preg_replace(
-            '/(<(?:a|button)\b[^>]*>)(.*?)(<\/(?:a|button)>)/s',
-            '$1<span class="menu-item-text">$2</span>' . $shortcut . '$3',
-            $html,
-            1
-        ) ?? $html;
+        return $html .
+            sprintf(
+                '<span class="menu-item-shortcut">%s</span>',
+                htmlspecialchars(
+                    $this->shortcut,
+                    ENT_QUOTES,
+                    'UTF-8'
+                )
+            );
     }
 }
