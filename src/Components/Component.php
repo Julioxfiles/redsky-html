@@ -192,6 +192,47 @@ abstract class Component implements
 
 
     /**
+     * Adds a CSS class without replacing existing classes.
+     *
+     * @param string $class
+     *
+     * @return static
+     */
+    public function addClass(
+        string $class
+    ): static {
+        $class = trim($class);
+
+        if ($class === '') {
+            throw new \InvalidArgumentException(
+                'CSS class cannot be empty.'
+            );
+        }
+
+        $existing = $this->getAttribute('class');
+
+        if (
+            !is_string($existing) ||
+            trim($existing) === ''
+        ) {
+            return $this->class($class);
+        }
+
+        $classes = preg_split(
+            '/\s+/',
+            trim($existing)
+        );
+
+        if (!in_array($class, $classes, true)) {
+            $classes[] = $class;
+        }
+
+        return $this->class(
+            implode(' ', $classes)
+        );
+    }
+
+    /**
      * Adds or replaces an inline CSS declaration.
      *
      * Multiple calls accumulate declarations.

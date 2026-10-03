@@ -1,0 +1,151 @@
+/**
+ * CheckboxInput Component
+ *
+ * Provides Bootstrap-compatible checkbox styling
+ * without requiring Bootstrap.
+ */
+
+/* =========================================================
+   Form Check
+   ========================================================= */
+:root {
+    /* Checkbox */
+    --checkbox-color: #212529;
+    --checkbox-background: #ffffff;
+    --checkbox-border-color: #6c757d;
+    --checkbox-border-radius: 0.25rem;
+    /* Focus */
+    --checkbox-focus-border-color: #86b7fe;
+    --checkbox-focus-ring-color: rgba(13, 110, 253, 0.25);
+    /* Checked */
+    --checkbox-checked-background: #0d6efd;
+    --checkbox-checked-border-color: #0d6efd;
+    /* Disabled */
+    --checkbox-disabled-background: #e9ecef;
+    --checkbox-disabled-border-color: #ced4da;
+    --checkbox-disabled-opacity: 0.65;
+    --checkbox-disabled-label-color: #6c757d;
+    /* Validation */
+    --checkbox-valid-border-color: #198754;
+    --checkbox-invalid-border-color: #dc3545;
+    --checkbox-invalid-ring-color: rgba(220, 53, 69, 0.25);
+}
+
+.html.dark {
+    /* Checkbox */
+    --checkbox-color: #f8f9fa;
+    --checkbox-background: #212529;
+    --checkbox-border-color: #adb5bd;
+    --checkbox-border-radius: 0.25rem;
+    /* Focus */
+    --checkbox-focus-border-color: #86b7fe;
+    --checkbox-focus-ring-color: rgba(110, 168, 254, 0.25);
+    /* Checked */
+    --checkbox-checked-background: #0d6efd;
+    --checkbox-checked-border-color: #0d6efd;
+    /* Disabled */
+    --checkbox-disabled-background: #343a40;
+    --checkbox-disabled-border-color: #495057;
+    --checkbox-disabled-opacity: 0.65;
+    --checkbox-disabled-label-color: #868e96;
+    /* Validation */
+    --checkbox-valid-border-color: #75b798;
+    --checkbox-invalid-border-color: #ea868f;
+    --checkbox-invalid-ring-color: rgba(234, 134, 143, 0.25);
+}   
+
+.form-check {
+    display: block;
+    min-height: 1.5rem;
+    padding-left: 1.5em;
+    margin-bottom: 0.125rem;
+}
+
+.form-check-inline {
+    display: inline-block;
+    margin-right: 1rem;
+}
+
+.form-check-label {
+    cursor: pointer;
+}
+
+/* =========================================================
+   Form Check Input
+   ========================================================= */
+
+.form-check-input {
+    width: 1em;
+    height: 1em;
+    margin-top: 0.25em;
+    margin-left: -1.5em;
+
+    vertical-align: top;
+    appearance: none;
+
+    color: var(--checkbox-color);
+    background-color: var(--checkbox-background);
+
+    border: 1px solid var(--checkbox-border-color);
+    border-radius: var(--checkbox-border-radius);
+
+    cursor: pointer;
+
+    print-color-adjust: exact;
+
+    transition:
+        background-color 0.15s ease-in-out,
+        border-color 0.15s ease-in-out,
+        box-shadow 0.15s ease-in-out;
+}
+
+/* =========================================================
+   Focus
+   ========================================================= */
+
+.form-check-input:focus {
+    outline: 0;
+    border-color: var(--checkbox-focus-border-color);
+    box-shadow: 0 0 0 0.25rem var(--checkbox-focus-ring-color);
+}
+
+/* =========================================================
+   Checked
+   ========================================================= */
+
+.form-check-input:checked {
+    background-color: var(--checkbox-checked-background);
+    border-color: var(--checkbox-checked-border-color);
+}
+
+/* =========================================================
+   Disabled
+   ========================================================= */
+
+.form-check-input:disabled {
+    background-color: var(--checkbox-disabled-background);
+    border-color: var(--checkbox-disabled-border-color);
+    cursor: not-allowed;
+    opacity: var(--checkbox-disabled-opacity);
+}
+
+.form-check-input:disabled ~ .form-check-label {
+    color: var(--checkbox-disabled-label-color);
+    cursor: not-allowed;
+}
+
+/* =========================================================
+   Validation
+   ========================================================= */
+
+.form-check-input.is-valid {
+    border-color: var(--checkbox-valid-border-color);
+}
+
+.form-check-input.is-invalid {
+    border-color: var(--checkbox-invalid-border-color);
+}
+
+.form-check-input.is-invalid:focus {
+    box-shadow: 0 0 0 0.25rem var(--checkbox-invalid-ring-color);
+}

@@ -27,6 +27,11 @@ class Button extends HtmlComponent
     ) {
         parent::__construct('button');
 
+        $this->attribute(
+            'data-redsky-component',
+            'button'
+        );
+
         if ($text !== null) {
             $this->text($text);
         }
@@ -227,5 +232,30 @@ class Button extends HtmlComponent
             'formtarget',
             $target
         );
+    }
+
+    public function size(
+        string $size
+    ): static {
+        $allowed = [
+            'small' => 'btn-sm',
+            'medium' => null,
+            'large' => 'btn-lg',
+        ];
+
+        if (!array_key_exists($size, $allowed)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'Invalid button size "%s". Allowed sizes: small, medium, large.',
+                    $size
+                )
+            );
+        }
+
+        if ($allowed[$size] !== null) {
+            $this->addClass($allowed[$size]);
+        }
+
+        return $this;
     }
 }

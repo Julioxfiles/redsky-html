@@ -26,49 +26,6 @@ use RedSky\Html\Components\HtmlComponent;
  *
  * @package RedSky\Html\Components\Feedback
  */
-#[Example(
-    title: 'Bootstrap — Dismissible Success Alert',
-    code: <<<'PHP'
-$alert = new Alert();
-
-$alert
-    ->type('success')
-    ->title('Success')
-    ->message('The customer was created successfully.')
-    ->dismissible()
-    ->class('alert alert-success alert-dismissible fade show')
-    ->style('margin-bottom', '1rem')
-    ->attribute('role', 'alert');
-
-echo $alert;
-PHP,
-    description: 'Creates a dismissible Bootstrap success alert using the Alert component and the inherited Component API for CSS classes, styles, and HTML attributes.',
-    language: 'php',
-    primary: true,
-    output: '<div data-redsky-component="alert" data-alert-type="success" data-alert-dismissible="true" class="alert alert-success alert-dismissible fade show" style="margin-bottom: 1rem;" role="alert"><div data-alert-title>Success</div><div data-alert-message>The customer was created successfully.</div><button type="button" class="btn-close" data-alert-dismiss aria-label="Close"></button></div>'
-)]
-#[Example(
-    title: 'Materialize — Dismissible Success Alert',
-    code: <<<'PHP'
-$alert = new Alert();
-
-$alert
-    ->type('success')
-    ->title('Success')
-    ->message('The customer was created successfully.')
-    ->dismissible()
-    ->class('card-panel green lighten-4')
-    ->style('margin-bottom', '1rem')
-    ->style('position', 'relative')
-    ->attribute('role', 'alert');
-
-echo $alert;
-PHP,
-    description: 'Creates a dismissible Materialize success alert using the Alert component and the inherited Component API for CSS classes, styles, and HTML attributes.',
-    language: 'php',
-    primary: false,
-    output: '<div data-redsky-component="alert" data-alert-type="success" data-alert-dismissible="true" class="card-panel green lighten-4" style="margin-bottom: 1rem; position: relative;" role="alert"><div data-alert-title>Success</div><div data-alert-message>The customer was created successfully.</div><button type="button" data-alert-dismiss aria-label="Close" style="position: absolute; top: 0.5rem; right: 0.5rem;">×</button></div>'
-)]
 class Alert extends HtmlComponent
 {
     /**
