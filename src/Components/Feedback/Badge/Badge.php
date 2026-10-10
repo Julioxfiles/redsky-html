@@ -63,6 +63,7 @@ class Badge extends HtmlComponent
         parent::__construct('span');
 
         $this->text = $text;
+       
     }
 
 

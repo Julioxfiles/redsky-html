@@ -10,11 +10,13 @@
  * - Show related panel.
  *
  * Styling is handled by CSS.
+ *
+ * @package RedSky\Html\Components\Interactive\Tabs
  */
 
 class Tabs {
 
-
+    
     constructor(element) {
 
         this.element = element;
@@ -120,29 +122,15 @@ class Tabs {
 
     }
 
-
-
     static init() {
-
-        document
-            .querySelectorAll('[data-component="tabs"]')
-            .forEach(element => {
-
-                new Tabs(element);
-
-            });
-
-    }
+    document.querySelectorAll('[data-redsky-component="tabs"]').forEach(element => {
+        new Tabs(element);
+    });
+}
 
 }
 
-
-
-document.addEventListener(
-    'DOMContentLoaded',
-    () => {
-
+document.addEventListener('DOMContentLoaded',() => {
         Tabs.init();
-
     }
 );

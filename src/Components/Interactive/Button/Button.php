@@ -27,14 +27,13 @@ class Button extends HtmlComponent
     ) {
         parent::__construct('button');
 
-        $this->addAttribute(
-            'data-redsky-component',
-            'button'
-        );
-
+        $this->addAttribute('data-redsky-component', 'button');
+     
         if ($text !== null) {
             $this->text($text);
         }
+        
+
     }
 
     /**
@@ -79,13 +78,13 @@ class Button extends HtmlComponent
      *
      * @return static
      */
-    public function disabled(
-        bool $disabled = true
-    ): static {
-        $this->addAttribute(
-            'disabled',
-            $disabled
-        );
+    public function disabled(bool $disabled = true): static
+    {
+        if ($disabled) {
+            $this->addAttribute('disabled', 'disabled');
+        } else {
+            $this->removeAttribute('disabled');
+        }
 
         return $this;
     }

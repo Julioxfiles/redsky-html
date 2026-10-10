@@ -64,6 +64,8 @@ class Tab extends HtmlComponent
         parent::__construct('button');
 
         $this->title = $title;
+
+        $this->addAttribute('data-redsky-component', 'tab');
     }
 
 

@@ -40,6 +40,7 @@ final class Progress extends HtmlComponent
     public function __construct()
     {
         parent::__construct('div');
+        
     }
 
     /**

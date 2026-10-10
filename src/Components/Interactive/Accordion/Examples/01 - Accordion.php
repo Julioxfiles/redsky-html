@@ -7,11 +7,7 @@ use RedSky\Html\Components\Interactive\Accordion\AccordionItem;
 use RedSky\Html\Components\Layout\Div\Div;
 use RedSky\Html\Components\Typography\Paragraph\Paragraph;
 
-$accordion = new Accordion();
-
-$redskyContent = new Div();
-
-$redskyContent
+$redskyContent = (new Div())
     ->addChild(
         new Paragraph(
             'RedSky is a PHP component framework designed to generate reusable and UI-library-agnostic HTML components.'
@@ -23,9 +19,7 @@ $redskyContent
         )
     );
 
-$bootstrapContent = new Div();
-
-$bootstrapContent
+$bootstrapContent = (new Div())
     ->addChild(
         new Paragraph(
             'RedSky does not require Bootstrap or any other CSS framework.'
@@ -37,9 +31,7 @@ $bootstrapContent
         )
     );
 
-$componentContent = new Div();
-
-$componentContent
+$componentContent = (new Div())
     ->addChild(
         new Paragraph(
             'An AccordionItem can contain plain text or another HtmlComponent.'
@@ -51,9 +43,7 @@ $componentContent
         )
     );
 
-$behaviorContent = new Div();
-
-$behaviorContent
+$behaviorContent = (new Div())
     ->addChild(
         new Paragraph(
             'The Accordion manages its items and generates the required identifiers and accessibility attributes.'
@@ -65,7 +55,8 @@ $behaviorContent
         )
     );
 
-$accordion
+$accordion = (new Accordion())
+    ->active(0)
     ->addItem(
         new AccordionItem(
             'What is RedSky?',
@@ -91,4 +82,4 @@ $accordion
         )
     );
 
-echo $accordion;
+echo $accordion->render();

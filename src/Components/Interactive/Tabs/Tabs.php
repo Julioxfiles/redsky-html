@@ -128,7 +128,7 @@ class Tabs extends HtmlComponent
 
 
         $container->addAttribute(
-            'data-component',
+            'data-redsky-component',
             'tabs'
         );
 

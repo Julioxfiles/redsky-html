@@ -62,6 +62,9 @@ class Accordion extends HtmlComponent
     public function __construct()
     {
         parent::__construct('div');
+
+        $this->addAttribute('data-redsky-component', 'accordion');
+        
     }
 
 

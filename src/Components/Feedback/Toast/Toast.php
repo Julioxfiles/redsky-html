@@ -6,11 +6,13 @@ namespace RedSky\Html\Components\Feedback\Toast;
 
 use RedSky\Html\Components\HtmlComponent;
 
-
 /**
- * Represents a high-level toast notification component.
+ * Represents a toast notification component.
  *
  * Toast provides temporary feedback to the user.
+ *
+ * The component is UI-library-agnostic. Styling is handled by CSS,
+ * while JavaScript manages automatic dismissal and manual closing.
  *
  * Supported toast types:
  *
@@ -19,88 +21,66 @@ use RedSky\Html\Components\HtmlComponent;
  * - warning
  * - danger
  *
- * The toast can automatically disappear after a configurable duration
- * or be dismissed manually using the close button.
- *
  * A duration of 0 disables automatic dismissal.
  *
- * @package RedSky\Html\Components\Feedback
+ * @package RedSky\Html\Components\Feedback\Toast
  */
-   #[Example(
-        title: 'Bootstrap — Success Toast',
-        code: <<<'PHP'
-$toast = new Toast();
-
-$toast
-    ->type('success')
-    ->title('Success')
-    ->message('Customer saved successfully.')
-    ->duration(3000)
-    ->class('toast show')
-    ->addAttribute('role', 'alert')
-    ->addAttribute('aria-live', 'assertive')
-    ->addAttribute('aria-atomic', 'true')
-    ->style('position', 'fixed')
-    ->style('top', '1rem')
-    ->style('right', '1rem')
-    ->style('z-index', '1080');
-
-echo $toast;
-PHP,
-        description: 'Creates a Bootstrap success toast. The type() method accepts info, success, warning, or danger. The duration() method specifies the automatic dismissal time in milliseconds; use 0 to disable automatic dismissal. The dismissible() method controls the close button.',
-        language: 'php',
-        primary: true,
-        output: '<div data-redsky-component="toast" data-toast-type="success" data-toast-duration="3000" data-toast-dismissible="true" class="toast show" role="alert" aria-live="assertive" aria-atomic="true" style="position: fixed; top: 1rem; right: 1rem; z-index: 1080;"><div data-toast-title="Success">Success</div><div data-toast-message>Customer saved successfully.</div><button type="button" data-toast-dismiss aria-label="Close" style="position: absolute; top: 0.5rem; right: 0.5rem;">×</button></div>'
-    )]
-    #[Example(
-        title: 'Materialize — Error Toast',
-        code: <<<'PHP'
-$toast = new Toast();
-
-$toast
-    ->type('danger')
-    ->title('Error')
-    ->message('Unable to delete the customer.')
-    ->duration(5000)
-    ->class('card-panel red lighten-4')
-    ->addAttribute('role', 'alert')
-    ->addAttribute('aria-live', 'assertive')
-    ->addAttribute('aria-atomic', 'true')
-    ->style('position', 'fixed')
-    ->style('top', '1rem')
-    ->style('right', '1rem')
-    ->style('z-index', '9999');
-
-echo $toast;
-PHP,
-        description: 'Creates a Materialize error toast. The type() method accepts info, success, warning, or danger. The duration() method specifies the automatic dismissal time in milliseconds; use 0 to keep the toast visible until manually closed. The dismissible() method controls the close button.',
-        language: 'php',
-        primary: false,
-        output: '<div data-redsky-component="toast" data-toast-type="danger" data-toast-duration="5000" data-toast-dismissible="true" class="card-panel red lighten-4" role="alert" aria-live="assertive" aria-atomic="true" style="position: fixed; top: 1rem; right: 1rem; z-index: 9999;"><div data-toast-title="Error">Error</div><div data-toast-message>Unable to delete the customer.</div><button type="button" data-toast-dismiss aria-label="Close" style="position: absolute; top: 0.5rem; right: 0.5rem;">×</button></div>'
- )]
 class Toast extends HtmlComponent
 {
+    /**
+     * Toast HTML tag.
+     *
+     * @var string
+     */
     protected string $tag = 'div';
 
+    /**
+     * Toast type.
+     *
+     * @var string
+     */
     protected string $type = 'info';
 
+    /**
+     * Optional toast title.
+     *
+     * @var string|null
+     */
     protected ?string $title = null;
 
+    /**
+     * Toast message.
+     *
+     * @var string
+     */
     protected string $message = '';
 
+    /**
+     * Automatic dismissal duration in milliseconds.
+     *
+     * @var int
+     */
     protected int $duration = 3000;
 
+    /**
+     * Determines whether the toast can be dismissed manually.
+     *
+     * @var bool
+     */
     protected bool $dismissible = true;
 
+    /**
+     * Creates a new Toast component.
+     */
     public function __construct()
     {
         parent::__construct('div');
     }
 
     /**
-     * Set the toast type.
+     * Sets the toast type.
      *
-     * Available values:
+     * Supported types are:
      *
      * - info
      * - success
@@ -111,7 +91,7 @@ class Toast extends HtmlComponent
      *
      * @return static
      *
-     * @throws \InvalidArgumentException
+     * @throws \InvalidArgumentException When the toast type is invalid.
      */
     public function type(string $type): static
     {
@@ -138,7 +118,7 @@ class Toast extends HtmlComponent
     }
 
     /**
-     * Get the toast type.
+     * Returns the current toast type.
      *
      * @return string
      */
@@ -148,7 +128,7 @@ class Toast extends HtmlComponent
     }
 
     /**
-     * Set the toast title.
+     * Sets the toast title.
      *
      * @param string $title
      *
@@ -162,7 +142,7 @@ class Toast extends HtmlComponent
     }
 
     /**
-     * Get the toast title.
+     * Returns the current toast title.
      *
      * @return string|null
      */
@@ -172,7 +152,7 @@ class Toast extends HtmlComponent
     }
 
     /**
-     * Set the toast message.
+     * Sets the toast message.
      *
      * @param string $message
      *
@@ -186,7 +166,7 @@ class Toast extends HtmlComponent
     }
 
     /**
-     * Get the toast message.
+     * Returns the current toast message.
      *
      * @return string
      */
@@ -196,21 +176,15 @@ class Toast extends HtmlComponent
     }
 
     /**
-     * Set the automatic dismissal duration in milliseconds.
+     * Sets the automatic dismissal duration in milliseconds.
      *
      * Use 0 to disable automatic dismissal.
-     *
-     * Examples:
-     *
-     * - 3000 = 3 seconds
-     * - 5000 = 5 seconds
-     * - 0 = no automatic dismissal
      *
      * @param int $duration
      *
      * @return static
      *
-     * @throws \InvalidArgumentException
+     * @throws \InvalidArgumentException When the duration is negative.
      */
     public function duration(int $duration): static
     {
@@ -226,7 +200,7 @@ class Toast extends HtmlComponent
     }
 
     /**
-     * Get the automatic dismissal duration.
+     * Returns the automatic dismissal duration.
      *
      * @return int
      */
@@ -236,7 +210,7 @@ class Toast extends HtmlComponent
     }
 
     /**
-     * Enable or disable the close button.
+     * Enables or disables the close button.
      *
      * @param bool $dismissible
      *
@@ -250,7 +224,7 @@ class Toast extends HtmlComponent
     }
 
     /**
-     * Determine whether the toast has a close button.
+     * Determines whether the toast can be dismissed manually.
      *
      * @return bool
      */
@@ -260,7 +234,7 @@ class Toast extends HtmlComponent
     }
 
     /**
-     * Render the toast as HTML.
+     * Renders the toast as HTML.
      *
      * @return string
      */
@@ -280,6 +254,12 @@ class Toast extends HtmlComponent
         $attributes .= sprintf(
             ' data-toast-duration="%d"',
             $this->duration
+        );
+
+        $attributes .= sprintf(
+            ' role="%s" aria-live="%s"',
+            $this->type === 'danger' ? 'alert' : 'status',
+            $this->type === 'danger' ? 'assertive' : 'polite'
         );
 
         if ($this->dismissible) {
@@ -310,13 +290,12 @@ class Toast extends HtmlComponent
 
         if ($this->dismissible) {
             $html .= <<<'HTML'
-<button
-    type="button"
-    data-toast-dismiss
-    aria-label="Close"
-    style="position: absolute; top: 0.5rem; right: 0.5rem;"
->×</button>
-HTML;
+            <button
+                type="button"
+                data-toast-dismiss
+                aria-label="Close notification"
+            >×</button>
+            HTML;
         }
 
         return sprintf(
@@ -327,5 +306,4 @@ HTML;
             $this->tag
         );
     }
-
 }

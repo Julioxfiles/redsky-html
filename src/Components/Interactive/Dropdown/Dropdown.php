@@ -28,5 +28,6 @@ class Dropdown extends HtmlComponent
         parent::__construct('div');
 
         $this->class('dropdown');
+        $this->addAttribute('data-redsky-component', 'dropdown');
     }
 }

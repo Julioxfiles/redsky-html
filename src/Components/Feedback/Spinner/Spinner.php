@@ -52,6 +52,7 @@ final class Spinner extends HtmlComponent
     public function __construct()
     {
         parent::__construct('span');
+
     }
 
     /**

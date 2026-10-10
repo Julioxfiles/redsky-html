@@ -43,6 +43,7 @@ class Collapse extends HtmlComponent
 
         $this->title = $title;
         $this->collapseContent = $content;
+        $this->addAttribute('data-redsky-component', 'collapse');
     }
 
     /**
