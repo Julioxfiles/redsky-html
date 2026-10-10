@@ -50,7 +50,7 @@ class Html extends HtmlComponent
     public function lang(
         string $language
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'lang',
             $language
         );
@@ -68,7 +68,7 @@ class Html extends HtmlComponent
     public function dir(
         string $direction
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'dir',
             $direction
         );

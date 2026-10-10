@@ -58,7 +58,7 @@ class Track extends HtmlComponent
     public function src(
         string $src
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'src',
             $src
         );
@@ -82,7 +82,7 @@ class Track extends HtmlComponent
     public function kind(
         string $kind
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'kind',
             $kind
         );
@@ -101,7 +101,7 @@ class Track extends HtmlComponent
     public function srclang(
         string $language
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'srclang',
             $language
         );
@@ -120,7 +120,7 @@ class Track extends HtmlComponent
     public function label(
         string $label
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'label',
             $label
         );
@@ -136,7 +136,7 @@ class Track extends HtmlComponent
     public function default(
         bool $default = true
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'default',
             $default
         );

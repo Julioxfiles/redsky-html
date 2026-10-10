@@ -57,7 +57,7 @@ class Audio extends HtmlComponent
     public function src(
         string $src
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'src',
             $src
         );
@@ -73,7 +73,7 @@ class Audio extends HtmlComponent
     public function controls(
         bool $controls = true
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'controls',
             $controls
         );
@@ -92,7 +92,7 @@ class Audio extends HtmlComponent
     public function autoplay(
         bool $autoplay = true
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'autoplay',
             $autoplay
         );
@@ -108,7 +108,7 @@ class Audio extends HtmlComponent
     public function muted(
         bool $muted = true
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'muted',
             $muted
         );
@@ -125,7 +125,7 @@ class Audio extends HtmlComponent
     public function loop(
         bool $loop = true
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'loop',
             $loop
         );
@@ -147,7 +147,7 @@ class Audio extends HtmlComponent
     public function preload(
         string $preload
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'preload',
             $preload
         );
@@ -163,7 +163,7 @@ class Audio extends HtmlComponent
     public function disableRemotePlayback(
         bool $disabled = true
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'disableremoteplayback',
             $disabled
         );

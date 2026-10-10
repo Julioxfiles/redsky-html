@@ -8,12 +8,12 @@ $button = new Button('Send');
 
 $button
     ->class('btn btn-sm btn-primary')
-    ->attribute('type', 'button')
-    ->attribute('id', 'save-button')
-    ->attribute('name', 'save')
-    ->attribute('value', 'save')
-    ->attribute('title', 'Save the current record')
-    ->attribute('aria-label', 'Save record');
+    ->addAttribute('type', 'button')
+    ->addAttribute('id', 'save-button')
+    ->addAttribute('name', 'save')
+    ->addAttribute('value', 'save')
+    ->addAttribute('title', 'Save the current record')
+    ->addAttribute('aria-label', 'Save record');
 
 echo $button;
 

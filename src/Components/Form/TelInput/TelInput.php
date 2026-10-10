@@ -41,5 +41,7 @@ class TelInput extends Input
             'tel',
             $name
         );
+
+        $this->addAttribute('data-redsky-component', 'tel-input');
     }
 }

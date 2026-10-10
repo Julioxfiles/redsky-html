@@ -106,7 +106,7 @@ class Select extends HtmlComponent
     public function name(
         string $name
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'name',
             $name
         );
@@ -126,7 +126,7 @@ class Select extends HtmlComponent
     public function multiple(
         bool $multiple = true
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'multiple',
             $multiple
         );
@@ -146,7 +146,7 @@ class Select extends HtmlComponent
     public function required(
         bool $required = true
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'required',
             $required
         );
@@ -223,7 +223,7 @@ class Select extends HtmlComponent
     public function selected(
         mixed $value
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'value',
             $value
         );
@@ -282,7 +282,7 @@ class Select extends HtmlComponent
     public function disabled(
         bool $disabled = true
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'disabled',
             $disabled
         );
@@ -301,7 +301,7 @@ class Select extends HtmlComponent
     public function size(
         int $size
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'size',
             $size
         );

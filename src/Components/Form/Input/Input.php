@@ -36,6 +36,8 @@ class Input extends HtmlComponent
         if ($name !== null) {
             $this->name($name);
         }
+
+        $this->addAttribute('data-component', 'input');
     }
 
 
@@ -49,7 +51,7 @@ class Input extends HtmlComponent
     public function type(
         string $type
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'type',
             $type
         );
@@ -68,7 +70,7 @@ class Input extends HtmlComponent
     public function name(
         string $name
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'name',
             $name
         );
@@ -87,7 +89,7 @@ class Input extends HtmlComponent
     public function value(
         mixed $value
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'value',
             $value
         );
@@ -106,7 +108,7 @@ class Input extends HtmlComponent
     public function placeholder(
         string $placeholder
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'placeholder',
             $placeholder
         );
@@ -125,7 +127,7 @@ class Input extends HtmlComponent
     public function required(
         bool $required = true
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'required',
             $required
         );
@@ -144,7 +146,7 @@ class Input extends HtmlComponent
     public function readonly(
         bool $readonly = true
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'readonly',
             $readonly
         );
@@ -163,7 +165,7 @@ class Input extends HtmlComponent
     public function title(
         string $title
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'title',
             $title
         );
@@ -182,7 +184,7 @@ class Input extends HtmlComponent
     public function disabled(
         bool $disabled = true
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'disabled',
             $disabled
         );
@@ -201,7 +203,7 @@ class Input extends HtmlComponent
     public function autofocus(
         bool $autofocus = true
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'autofocus',
             $autofocus
         );
@@ -220,7 +222,7 @@ class Input extends HtmlComponent
     public function checked(
         bool $checked = true
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'checked',
             $checked
         );
@@ -239,7 +241,7 @@ class Input extends HtmlComponent
     public function multiple(
         bool $multiple = true
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'multiple',
             $multiple
         );
@@ -258,7 +260,7 @@ class Input extends HtmlComponent
     public function autocomplete(
         string $autocomplete
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'autocomplete',
             $autocomplete
         );
@@ -277,7 +279,7 @@ class Input extends HtmlComponent
     public function min(
         mixed $min
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'min',
             $min
         );
@@ -296,7 +298,7 @@ class Input extends HtmlComponent
     public function max(
         mixed $max
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'max',
             $max
         );
@@ -315,7 +317,7 @@ class Input extends HtmlComponent
     public function step(
         mixed $step
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'step',
             $step
         );
@@ -334,7 +336,7 @@ class Input extends HtmlComponent
     public function minlength(
         int $length
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'minlength',
             $length
         );
@@ -353,7 +355,7 @@ class Input extends HtmlComponent
     public function maxlength(
         int $length
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'maxlength',
             $length
         );
@@ -372,7 +374,7 @@ class Input extends HtmlComponent
     public function pattern(
         string $pattern
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'pattern',
             $pattern
         );
@@ -391,7 +393,7 @@ class Input extends HtmlComponent
     public function accept(
         string $accept
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'accept',
             $accept
         );
@@ -410,7 +412,7 @@ class Input extends HtmlComponent
     public function capture(
         string|bool $capture = true
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'capture',
             $capture
         );
@@ -429,7 +431,7 @@ class Input extends HtmlComponent
     public function list(
         string $list
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'list',
             $list
         );
@@ -448,7 +450,7 @@ class Input extends HtmlComponent
     public function inputmode(
         string $inputmode
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'inputmode',
             $inputmode
         );
@@ -467,7 +469,7 @@ class Input extends HtmlComponent
     public function enterkeyhint(
         string $enterkeyhint
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'enterkeyhint',
             $enterkeyhint
         );
@@ -486,7 +488,7 @@ class Input extends HtmlComponent
     public function form(
         string $form
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'form',
             $form
         );
@@ -505,7 +507,7 @@ class Input extends HtmlComponent
     public function formaction(
         string $action
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'formaction',
             $action
         );
@@ -524,7 +526,7 @@ class Input extends HtmlComponent
     public function formenctype(
         string $enctype
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'formenctype',
             $enctype
         );
@@ -543,7 +545,7 @@ class Input extends HtmlComponent
     public function formmethod(
         string $method
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'formmethod',
             $method
         );
@@ -562,7 +564,7 @@ class Input extends HtmlComponent
     public function formnovalidate(
         bool $novalidate = true
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'formnovalidate',
             $novalidate
         );
@@ -581,7 +583,7 @@ class Input extends HtmlComponent
     public function formtarget(
         string $target
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'formtarget',
             $target
         );
@@ -599,7 +601,7 @@ class Input extends HtmlComponent
     public function size(
         int $size
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'size',
             $size
         );
@@ -617,7 +619,7 @@ class Input extends HtmlComponent
     public function spellcheck(
         bool $spellcheck = true
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'spellcheck',
             $spellcheck
         );
@@ -635,7 +637,7 @@ class Input extends HtmlComponent
     public function dirname(
         string $dirname
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'dirname',
             $dirname
         );

@@ -50,7 +50,7 @@ class DropdownToggle extends HtmlComponent
     public function type(
         string $type
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'type',
             $type
         );

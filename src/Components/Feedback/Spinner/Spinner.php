@@ -7,7 +7,6 @@ namespace RedSky\Html\Components\Feedback\Spinner;
 use InvalidArgumentException;
 use RedSky\Html\Components\HtmlComponent;
 
-
 /**
  * Represents a circular loading indicator.
  *
@@ -20,8 +19,8 @@ use RedSky\Html\Components\HtmlComponent;
  *
  * CSS provides the rotating animation. JavaScript is only required
  * when the application needs to show or hide the spinner dynamically.
- */ 
-class Spinner extends HtmlComponent
+ */
+final class Spinner extends HtmlComponent
 {
     protected string $tag = 'span';
 
@@ -59,16 +58,19 @@ class Spinner extends HtmlComponent
      * Set the spinner type.
      *
      * Supported values:
-     * info, primary, success, warning, danger.
+     * primary, secondary, info, success, warning, danger, light, dark.
      */
     public function type(string $type): static
     {
         $allowed = [
-            'info',
             'primary',
+            'secondary',
+            'info',
             'success',
             'warning',
             'danger',
+            'light',
+            'dark'
         ];
 
         if (!in_array($type, $allowed, true)) {
@@ -160,11 +162,11 @@ class Spinner extends HtmlComponent
      */
     public function render(): string
     {
-        $this->attribute('data-redsky-component', 'spinner');
-        $this->attribute('data-spinner-type', $this->type);
-        $this->attribute('data-spinner-size', $this->size);
-        $this->attribute('role', 'status');
-        $this->attribute('aria-label', $this->label);
+        $this->addAttribute('data-redsky-component', 'spinner');
+        $this->addAttribute('data-spinner-type', $this->type);
+        $this->addAttribute('data-spinner-size', $this->size);
+        $this->addAttribute('role', 'status');
+        $this->addAttribute('aria-label', $this->label);
 
         $attributes = $this->renderAttributes();
 
@@ -175,5 +177,4 @@ class Spinner extends HtmlComponent
             $this->tag
         );
     }
-
 }

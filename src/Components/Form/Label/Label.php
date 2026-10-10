@@ -45,7 +45,7 @@ class Label extends HtmlComponent
     public function for(
         string $id
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'for',
             $id
         );
@@ -62,7 +62,7 @@ class Label extends HtmlComponent
     public function title(
         string $title
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'title',
             $title
         );
@@ -79,7 +79,7 @@ class Label extends HtmlComponent
     public function accesskey(
         string $accesskey
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'accesskey',
             $accesskey
         );

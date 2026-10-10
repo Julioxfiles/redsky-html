@@ -144,7 +144,7 @@ class Heading extends HtmlComponent
 
     public function bodyAttribute(string $name, mixed $value): static
     {
-        $this->body->attribute($name, $value);
+        $this->body->addAttribute($name, $value);
 
         return $this;
     }

@@ -59,7 +59,7 @@ class Meta extends HtmlComponent
     public function charset(
         string $charset
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'charset',
             $charset
         );
@@ -78,7 +78,7 @@ class Meta extends HtmlComponent
     public function name(
         string $name
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'name',
             $name
         );
@@ -100,7 +100,7 @@ class Meta extends HtmlComponent
     public function AddContent(
         string $content
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'content',
             $content
         );
@@ -118,7 +118,7 @@ class Meta extends HtmlComponent
     public function httpEquiv(
         string $value
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'http-equiv',
             $value
         );
@@ -136,7 +136,7 @@ class Meta extends HtmlComponent
     public function media(
         string $media
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'media',
             $media
         );
@@ -154,7 +154,7 @@ class Meta extends HtmlComponent
     public function scheme(
         string $scheme
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'scheme',
             $scheme
         );

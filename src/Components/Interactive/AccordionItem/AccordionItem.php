@@ -148,7 +148,7 @@ class AccordionItem extends HtmlComponent
      */
     public function render(): string
     {
-        $this->attribute(
+        $this->addAttribute(
             'class',
             'accordion-item'
         );

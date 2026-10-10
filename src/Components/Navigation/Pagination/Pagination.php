@@ -42,7 +42,7 @@ class Pagination extends HtmlComponent
     {
         parent::__construct('nav');
 
-        $this->attribute(
+        $this->addAttribute(
             'data-redsky-component',
             'pagination'
         );

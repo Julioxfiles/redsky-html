@@ -54,7 +54,7 @@ interface HasAttributes
      *
      * @return static
      */
-    public function attribute(
+    public function addAttribute(
         string $name,
         mixed $value
     ): static;

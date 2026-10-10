@@ -63,7 +63,7 @@ class Image extends HtmlComponent
     public function src(
         string $src
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'src',
             $src
         );
@@ -82,7 +82,7 @@ class Image extends HtmlComponent
     public function alt(
         string $alt
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'alt',
             $alt
         );
@@ -98,7 +98,7 @@ class Image extends HtmlComponent
     public function width(
         int $width
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'width',
             $width
         );
@@ -114,7 +114,7 @@ class Image extends HtmlComponent
     public function height(
         int $height
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'height',
             $height
         );
@@ -133,7 +133,7 @@ class Image extends HtmlComponent
     public function srcset(
         string $srcset
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'srcset',
             $srcset
         );
@@ -152,7 +152,7 @@ class Image extends HtmlComponent
     public function sizes(
         string $sizes
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'sizes',
             $sizes
         );
@@ -173,7 +173,7 @@ class Image extends HtmlComponent
     public function loading(
         string $loading
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'loading',
             $loading
         );
@@ -215,7 +215,7 @@ class Image extends HtmlComponent
     public function decoding(
         string $decoding
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'decoding',
             $decoding
         );
@@ -231,7 +231,7 @@ class Image extends HtmlComponent
     public function crossorigin(
         string $crossorigin
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'crossorigin',
             $crossorigin
         );
@@ -247,7 +247,7 @@ class Image extends HtmlComponent
     public function referrerPolicy(
         string $policy
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'referrerpolicy',
             $policy
         );
@@ -266,7 +266,7 @@ class Image extends HtmlComponent
     public function useMap(
         string $map
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'usemap',
             $map
         );
@@ -285,7 +285,7 @@ class Image extends HtmlComponent
     public function isMap(
         bool $ismap = true
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'ismap',
             $ismap
         );
@@ -308,7 +308,7 @@ class Image extends HtmlComponent
                 'image-zoomable'
             );
 
-            $this->attribute(
+            $this->addAttribute(
                 'data-image-zoom',
                 'true'
             );

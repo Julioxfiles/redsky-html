@@ -7,12 +7,12 @@ use RedSky\Html\Components\Form\TextInput\TextInput;
 $textInput = new TextInput('username');
 
 $textInput
-    ->attribute('id', 'username')
-    ->attribute('autocomplete', 'username')
-    ->attribute('required', 'required')
-    ->attribute('maxlength', '50')
-    ->attribute('spellcheck', 'false')
-    ->attribute('aria-label', 'Username')
+    ->addAttribute('id', 'username')
+    ->addAttribute('autocomplete', 'username')
+    ->addAttribute('required', 'required')
+    ->addAttribute('maxlength', '50')
+    ->addAttribute('spellcheck', 'false')
+    ->addAttribute('aria-label', 'Username')
     ->placeholder('Enter your username')
     ->value('john.doe')
     ->class('form-control')

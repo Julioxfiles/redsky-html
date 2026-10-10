@@ -115,13 +115,13 @@ class TabPanel extends HtmlComponent
      */
     public function render(): string
     {
-        $this->attribute(
+        $this->addAttribute(
             'id',
             $this->id
         );
 
 
-        $this->attribute(
+        $this->addAttribute(
             'class',
             $this->active
                 ? 'tab-panel active'
@@ -129,19 +129,19 @@ class TabPanel extends HtmlComponent
         );
 
 
-        $this->attribute(
+        $this->addAttribute(
             'data-tab-panel',
             ''
         );
 
 
-        $this->attribute(
+        $this->addAttribute(
             'role',
             'tabpanel'
         );
 
 
-        $this->attribute(
+        $this->addAttribute(
             'hidden',
             $this->active
                 ? null

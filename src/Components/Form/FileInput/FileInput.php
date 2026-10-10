@@ -29,6 +29,8 @@ class FileInput extends Input
             'file',
             $name
         );
+
+        $this->addAttribute('data-component', 'file-input');
     }
 
 
@@ -42,7 +44,7 @@ class FileInput extends Input
     public function accept(
         string $accept
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'accept',
             $accept
         );
@@ -61,7 +63,7 @@ class FileInput extends Input
     public function multiple(
         bool $multiple = true
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'multiple',
             $multiple
         );
@@ -82,7 +84,7 @@ class FileInput extends Input
     public function capture(
         string|bool $capture = true
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'capture',
             $capture
         );

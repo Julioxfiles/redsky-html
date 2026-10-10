@@ -27,7 +27,7 @@ class Button extends HtmlComponent
     ) {
         parent::__construct('button');
 
-        $this->attribute(
+        $this->addAttribute(
             'data-redsky-component',
             'button'
         );
@@ -64,7 +64,7 @@ class Button extends HtmlComponent
     public function type(
         string $type
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'type',
             $type
         );
@@ -82,7 +82,7 @@ class Button extends HtmlComponent
     public function disabled(
         bool $disabled = true
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'disabled',
             $disabled
         );
@@ -103,7 +103,7 @@ class Button extends HtmlComponent
     public function name(
         string $name
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'name',
             $name
         );
@@ -119,7 +119,7 @@ class Button extends HtmlComponent
     public function value(
         mixed $value
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'value',
             $value
         );
@@ -137,7 +137,7 @@ class Button extends HtmlComponent
     public function form(
         string $form
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'form',
             $form
         );
@@ -155,7 +155,7 @@ class Button extends HtmlComponent
     public function formaction(
         string $action
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'formaction',
             $action
         );
@@ -173,7 +173,7 @@ class Button extends HtmlComponent
     public function formenctype(
         string $enctype
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'formenctype',
             $enctype
         );
@@ -192,7 +192,7 @@ class Button extends HtmlComponent
     public function formmethod(
         string $method
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'formmethod',
             strtoupper($method)
         );
@@ -210,7 +210,7 @@ class Button extends HtmlComponent
     public function formnovalidate(
         bool $novalidate = true
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'formnovalidate',
             $novalidate
         );
@@ -228,7 +228,7 @@ class Button extends HtmlComponent
     public function formtarget(
         string $target
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'formtarget',
             $target
         );

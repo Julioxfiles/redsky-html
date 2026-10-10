@@ -3,11 +3,6 @@
 declare(strict_types=1);
 
 use RedSky\Html\Components\Data\DataTable\DataTable;
-use RedSky\Html\Components\Table\TableBody\TableBody;
-use RedSky\Html\Components\Table\TableCell\TableCell;
-use RedSky\Html\Components\Table\TableHead\TableHead;
-use RedSky\Html\Components\Table\TableHeaderCell\TableHeaderCell;
-use RedSky\Html\Components\Table\TableRow\TableRow;
 
 class User
 {
@@ -19,7 +14,6 @@ class User
     ) {
     }
 }
-
 
 /*
  * Simulate database results.
@@ -35,45 +29,38 @@ $users = [
     new User(4, 'Emily Davis', 'emily@example.com', 'Active'),
 ];
 
+/*
+ * Convert the User objects into associative arrays
+ * because DataTable::rows() expects row data.
+ */
+
+$rows = [];
+
+foreach ($users as $user) {
+    $rows[] = [
+        'id' => $user->id,
+        'name' => $user->name,
+        'email' => $user->email,
+        'status' => $user->status,
+    ];
+}
+
+/*
+ * Build the data table.
+ */
 
 $table = new DataTable();
 
 $table
-    ->class('dark-table')
-    ->caption('Users');
-
-
-$head = new TableHead();
-
-$head->addChild(
-    (new TableRow())
-        ->addChild(new TableHeaderCell('ID'))
-        ->addChild(new TableHeaderCell('Name'))
-        ->addChild(new TableHeaderCell('Email'))
-        ->addChild(new TableHeaderCell('Status'))
-);
-
-$table->addChild($head);
-
-
-$body = new TableBody();
-
-
-foreach ($users as $user) {
-
-    $row = new TableRow();
-
-    $row
-        ->addChild(new TableCell((string) $user->id))
-        ->addChild(new TableCell($user->name))
-        ->addChild(new TableCell($user->email))
-        ->addChild(new TableCell($user->status));
-
-    $body->addChild($row);
-}
-
-
-$table->addChild($body);
-
+    ->class('datatable')
+    ->addClass('datatable-bordered')
+    ->caption('Users')
+    ->columns([
+        'id' => 'ID',
+        'name' => 'Name',
+        'email' => 'Email',
+        'status' => 'Status',
+    ])
+    ->rows($rows);
 
 echo $table->render();

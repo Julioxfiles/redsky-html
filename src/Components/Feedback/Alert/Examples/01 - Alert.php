@@ -6,6 +6,7 @@ use RedSky\Html\Components\Feedback\Alert\Alert;
 
 echo (new Alert())
     ->type('info')
+    ->title('Information')
     ->message('This is an informational alert.')
     ->dismissible()
     ->render();
@@ -18,33 +19,29 @@ echo (new Alert())
 
 echo (new Alert())
     ->type('warning')
+    ->title('Warning')
     ->message('Please review the information before continuing.')
     ->dismissible()
     ->render();
 
 echo (new Alert())
     ->type('danger')
+    ->title('Error')
     ->message('An error occurred while processing the request.')
     ->dismissible()
     ->render();
 
 echo (new Alert())
-    ->type('success')
+    ->type('dark')
     ->title('Success')
     ->message('Your changes have been saved successfully.')
     ->dismissible()
     ->render();
 
 echo (new Alert())
-    ->type('warning')
+    ->type('light')
     ->title('Warning')
     ->message('This action may affect existing data.')
     ->dismissible()
     ->render();
 
-echo (new Alert())
-    ->type('danger')
-    ->title('Error')
-    ->message('The requested operation could not be completed.')
-    ->dismissible()
-    ->render();

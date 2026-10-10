@@ -92,12 +92,12 @@ class Collapse extends HtmlComponent
         $buttonId = $this->buttonId ?? 'collapse-button';
         $panelId = $this->panelId ?? 'collapse-panel';
 
-        $this->attribute(
+        $this->addAttribute(
             'class',
             'collapse'
         );
 
-        $this->attribute(
+        $this->addAttribute(
             'data-component',
             'collapse'
         );

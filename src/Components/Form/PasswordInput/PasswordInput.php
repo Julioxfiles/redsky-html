@@ -33,5 +33,6 @@ class PasswordInput extends Input
             'password',
             $name
         );
+        $this->addAttribute('data-redsky-component', 'password-input');
     }
 }

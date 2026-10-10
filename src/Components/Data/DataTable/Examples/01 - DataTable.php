@@ -9,6 +9,8 @@ $dataTable = new DataTable();
 $dataTable
     ->class('dark-table')
     ->caption('Users')
+    ->class('datatable')
+    ->addClass('datatable-bordered')
     ->columns([
         'id' => 'ID',
         'name' => 'Name',

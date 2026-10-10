@@ -59,7 +59,7 @@ class Quote extends HtmlComponent
     public function cite(
         string $source
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'cite',
             $source
         );

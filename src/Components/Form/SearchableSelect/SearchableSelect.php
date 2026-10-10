@@ -90,9 +90,12 @@ class SearchableSelect extends HtmlComponent
 
         if (isset($config['attributes'])) {
             foreach ($config['attributes'] as $name => $value) {
-                $this->attribute($name, $value);
+                $this->addAttribute($name, $value);
             }
         }
+
+        $this->addAttribute('data-redsky-component', 'searchable-select');
+        
     }
 
     /**
@@ -277,7 +280,7 @@ class SearchableSelect extends HtmlComponent
             }
         }
 
-        $this->attribute(
+        $this->addAttribute(
             'data-disabled',
             $disabled ? 'true' : 'false'
         );
@@ -297,7 +300,7 @@ class SearchableSelect extends HtmlComponent
      */
     public function searchUrl(string $url): static
     {
-        return $this->attribute(
+        return $this->addAttribute(
             'data-search-url',
             $url
         );
@@ -313,7 +316,7 @@ class SearchableSelect extends HtmlComponent
      */
     public function minimumInputLength(int $length): static
     {
-        return $this->attribute(
+        return $this->addAttribute(
             'data-minimum-input-length',
             (string) $length
         );
@@ -331,7 +334,7 @@ class SearchableSelect extends HtmlComponent
      */
     public function delay(int $milliseconds): static
     {
-        return $this->attribute(
+        return $this->addAttribute(
             'data-delay',
             (string) $milliseconds
         );
@@ -347,7 +350,7 @@ class SearchableSelect extends HtmlComponent
      */
     public function limit(int $limit): static
     {
-        return $this->attribute(
+        return $this->addAttribute(
             'data-limit',
             (string) $limit
         );

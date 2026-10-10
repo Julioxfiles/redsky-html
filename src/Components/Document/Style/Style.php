@@ -105,7 +105,7 @@ class Style extends HtmlComponent
     public function media(
         string $media
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'media',
             $media
         );
@@ -123,7 +123,7 @@ class Style extends HtmlComponent
     public function nonce(
         string $nonce
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'nonce',
             $nonce
         );
@@ -141,7 +141,7 @@ class Style extends HtmlComponent
     public function title(
         string $title
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'title',
             $title
         );

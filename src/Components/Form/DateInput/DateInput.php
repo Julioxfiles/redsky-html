@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RedSky\Html\Components\Form\DataInput;
+namespace RedSky\Html\Components\Form\DateInput;
 
 use RedSky\Html\Components\Form\Input\Input;
 
@@ -35,6 +35,8 @@ class DateInput extends Input
             'date',
             $name
         );
+
+        $this->addAttribute('data-component', 'date-input');
     }
 
 

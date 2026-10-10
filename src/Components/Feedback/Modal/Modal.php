@@ -204,22 +204,22 @@ class Modal extends HtmlComponent
     {
         parent::__construct('div');
 
-        $this->attribute(
+        $this->addAttribute(
             'data-redsky-component',
             'modal'
         );
 
-        $this->attribute(
+        $this->addAttribute(
             'role',
             'dialog'
         );
 
-        $this->attribute(
+        $this->addAttribute(
             'aria-modal',
             'true'
         );
 
-        $this->attribute(
+        $this->addAttribute(
             'tabindex',
             '-1'
         );
@@ -934,62 +934,62 @@ class Modal extends HtmlComponent
      */
     public function render(): string
     {
-        $this->attribute(
+        $this->addAttribute(
             'data-modal-close-on-backdrop',
             $this->closeOnBackdrop ? 'true' : 'false'
         );
 
-        $this->attribute(
+        $this->addAttribute(
             'data-modal-close-on-escape',
             $this->closeOnEscape ? 'true' : 'false'
         );
 
-        $this->attribute(
+        $this->addAttribute(
             'data-modal-lock-body-scroll',
             $this->lockBodyScroll ? 'true' : 'false'
         );
 
-        $this->attribute(
+        $this->addAttribute(
             'data-modal-trap-focus',
             $this->trapFocus ? 'true' : 'false'
         );
 
-        $this->attribute(
+        $this->addAttribute(
             'data-modal-restore-focus',
             $this->restoreFocus ? 'true' : 'false'
         );
 
-        $this->attribute(
+        $this->addAttribute(
             'data-modal-position',
             $this->position
         );
 
-        $this->attribute(
+        $this->addAttribute(
             'data-modal-animation',
             $this->animation
         );
 
-        $this->attribute(
+        $this->addAttribute(
             'data-modal-size',
             $this->size
         );
 
-        $this->attribute(
+        $this->addAttribute(
             'data-modal-draggable',
             $this->draggable ? 'true' : 'false'
         );
 
-        $this->attribute(
+        $this->addAttribute(
             'data-modal-drag-boundary',
             $this->dragBoundary
         );
 
-        $this->attribute(
+        $this->addAttribute(
             'data-modal-reposition-on-resize',
             $this->repositionOnResize ? 'true' : 'false'
         );
 
-        $this->attribute(
+        $this->addAttribute(
             'data-modal-reposition-on-scroll',
             $this->repositionOnScroll ? 'true' : 'false'
         );
@@ -997,7 +997,7 @@ class Modal extends HtmlComponent
         if (
             $this->positionX !== null
         ) {
-            $this->attribute(
+            $this->addAttribute(
                 'data-modal-position-x',
                 (string) $this->positionX
             );
@@ -1006,7 +1006,7 @@ class Modal extends HtmlComponent
         if (
             $this->positionY !== null
         ) {
-            $this->attribute(
+            $this->addAttribute(
                 'data-modal-position-y',
                 (string) $this->positionY
             );

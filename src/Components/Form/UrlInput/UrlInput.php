@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RedSky\Html\Components\Form;
+namespace RedSky\Html\Components\Form\UrlInput;
 
 
 use RedSky\Html\Components\Form\Input\Input;
@@ -33,5 +33,7 @@ class UrlInput extends Input
             'url',
             $name
         );
+
+        $this->addAttribute('data-redsky-component', 'url-input');
     }
 }

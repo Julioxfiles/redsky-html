@@ -58,7 +58,7 @@ class Source extends HtmlComponent
     public function src(
         string $src
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'src',
             $src
         );
@@ -74,7 +74,7 @@ class Source extends HtmlComponent
     public function type(
         string $type
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'type',
             $type
         );
@@ -94,7 +94,7 @@ class Source extends HtmlComponent
     public function media(
         string $media
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'media',
             $media
         );
@@ -113,7 +113,7 @@ class Source extends HtmlComponent
     public function srcset(
         string $srcset
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'srcset',
             $srcset
         );
@@ -132,7 +132,7 @@ class Source extends HtmlComponent
     public function sizes(
         string $sizes
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'sizes',
             $sizes
         );
@@ -148,7 +148,7 @@ class Source extends HtmlComponent
     public function width(
         int $width
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'width',
             $width
         );
@@ -164,7 +164,7 @@ class Source extends HtmlComponent
     public function height(
         int $height
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'height',
             $height
         );

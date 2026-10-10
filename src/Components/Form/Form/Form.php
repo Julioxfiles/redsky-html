@@ -42,7 +42,7 @@ class Form extends HtmlComponent
     public function action(
         string $action
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'action',
             $action
         );
@@ -58,7 +58,7 @@ class Form extends HtmlComponent
     public function method(
         string $method
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'method',
             strtoupper($method)
         );
@@ -74,7 +74,7 @@ class Form extends HtmlComponent
     public function enctype(
         string $enctype
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'enctype',
             $enctype
         );
@@ -90,7 +90,7 @@ class Form extends HtmlComponent
     public function novalidate(
         bool $enabled = true
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'novalidate',
             $enabled
         );
@@ -106,7 +106,7 @@ class Form extends HtmlComponent
     public function target(
         string $target
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'target',
             $target
         );
@@ -122,7 +122,7 @@ class Form extends HtmlComponent
     public function autocomplete(
         string $value
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'autocomplete',
             $value
         );
@@ -176,7 +176,7 @@ class Form extends HtmlComponent
     public function name(
         string $name
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'name',
             $name
         );
@@ -193,7 +193,7 @@ class Form extends HtmlComponent
     public function autocompleteOff(
         bool $enabled = true
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'autocomplete',
             $enabled ? 'off' : 'on'
         );
@@ -210,7 +210,7 @@ class Form extends HtmlComponent
     public function acceptCharset(
         string $charset
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'accept-charset',
             $charset
         );
@@ -227,7 +227,7 @@ class Form extends HtmlComponent
     public function nameAttribute(
         string $name
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'name',
             $name
         );

@@ -36,5 +36,7 @@ class SearchInput extends Input
             'search',
             $name
         );
+        
+        $this->addAttribute('data-redsky-component', 'search-input');
     }
 }

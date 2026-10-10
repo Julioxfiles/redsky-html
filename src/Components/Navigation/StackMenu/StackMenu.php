@@ -48,7 +48,7 @@ class StackMenu extends HtmlComponent
             'stack-menu'
         );
 
-        $this->attribute(
+        $this->addAttribute(
             'data-redsky-component',
             'stack-menu'
         );

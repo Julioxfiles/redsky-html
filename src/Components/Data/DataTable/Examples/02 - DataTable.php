@@ -12,7 +12,8 @@ use RedSky\Html\Components\Table\TableRow\TableRow;
 $table = new DataTable();
 
 $table
-    ->class('dark-table')
+    ->class('datatable')
+    ->addClass('datatable-bordered')
     ->caption('Products');
 
 $head = new TableHead();

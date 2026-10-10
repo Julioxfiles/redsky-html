@@ -121,13 +121,13 @@ class Tabs extends HtmlComponent
         $container = new Div();
 
 
-        $container->attribute(
+        $container->addAttribute(
             'class',
             'tabs'
         );
 
 
-        $container->attribute(
+        $container->addAttribute(
             'data-component',
             'tabs'
         );
@@ -135,7 +135,7 @@ class Tabs extends HtmlComponent
 
         foreach ($this->attributes() as $name => $value) {
 
-            $container->attribute(
+            $container->addAttribute(
                 $name,
                 $value
             );
@@ -146,7 +146,7 @@ class Tabs extends HtmlComponent
 
         $navigation = new Div();
 
-        $navigation->attribute(
+        $navigation->addAttribute(
             'class',
             'tabs-navigation'
         );
@@ -154,7 +154,7 @@ class Tabs extends HtmlComponent
 
         $content = new Div();
 
-        $content->attribute(
+        $content->addAttribute(
             'class',
             'tabs-content'
         );

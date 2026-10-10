@@ -106,7 +106,7 @@ class OrderedList extends HtmlComponent
     public function start(
         int $start
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'start',
             $start
         );
@@ -127,7 +127,7 @@ class OrderedList extends HtmlComponent
     public function reversed(
         bool $reverse = true
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'reversed',
             $reverse
         );
@@ -153,7 +153,7 @@ class OrderedList extends HtmlComponent
     public function type(
         string $type
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'type',
             $type
         );

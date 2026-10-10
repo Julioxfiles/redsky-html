@@ -32,6 +32,8 @@ class CheckboxInput extends Input
             'checkbox',
             $name
         );
+
+        $this->addAttribute('data-component', 'checkbox-input');
     }
 
     /**
@@ -44,7 +46,7 @@ class CheckboxInput extends Input
   public function checked(
     bool $checked = true
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'checked',
             $checked
         );
@@ -59,7 +61,7 @@ class CheckboxInput extends Input
      */
     public function unchecked(): static
     {
-        $this->attribute(
+        $this->addAttribute(
             'checked',
             false
         );
@@ -77,7 +79,7 @@ class CheckboxInput extends Input
     public function indeterminate(
         bool $indeterminate = true
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'indeterminate',
             $indeterminate
         );

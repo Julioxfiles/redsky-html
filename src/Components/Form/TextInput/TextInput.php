@@ -25,6 +25,7 @@ class TextInput extends Input
      *
      * @param string|null $name Input name.
      */
+   
     public function __construct(
         ?string $name = null
     ) {
@@ -32,5 +33,11 @@ class TextInput extends Input
             'text',
             $name
         );
+
+        $this->addAttribute(
+            'data-redsky-component',
+            'text-input'
+        );
     }
+
 }

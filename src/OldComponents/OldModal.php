@@ -46,9 +46,9 @@ class Modal extends HtmlComponent
     {
         parent::__construct('div');
 
-        $this->attribute('data-redsky-component', 'modal');
-        $this->attribute('role', 'dialog');
-        $this->attribute('aria-modal', 'true');
+        $this->addAttribute('data-redsky-component', 'modal');
+        $this->addAttribute('role', 'dialog');
+        $this->addAttribute('aria-modal', 'true');
     }
 
     public function title(string $title): static
@@ -346,7 +346,7 @@ class Modal extends HtmlComponent
             $this->modalTitle !== null &&
             !$this->hasAttribute('aria-labelledby')
         ) {
-            $this->attribute(
+            $this->addAttribute(
                 'aria-labelledby',
                 $titleId
             );

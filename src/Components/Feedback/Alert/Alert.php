@@ -100,6 +100,8 @@ class Alert extends HtmlComponent
             'success',
             'warning',
             'danger',
+            'light',
+            'dark',
         ];
 
         if (!in_array($type, $allowed, true)) {

@@ -137,13 +137,13 @@ class DataGrid extends DataGridConfiguration
         if ($this->checkable) {
             $checkbox = new TableHeaderCell();
 
-            $checkbox->attribute(
+            $checkbox->addAttribute(
                 'data-datagrid-selection',
                 'select-all'
             );
 
             if (!$this->selectAll) {
-                $checkbox->attribute(
+                $checkbox->addAttribute(
                     'data-datagrid-select-all',
                     'false'
                 );
@@ -167,7 +167,7 @@ class DataGrid extends DataGridConfiguration
                 $column->getLabel()
             );
 
-            $cell->attribute(
+            $cell->addAttribute(
                 'data-column',
                 $column->getField()
             );
@@ -186,42 +186,42 @@ class DataGrid extends DataGridConfiguration
             }
 
             if ($column->isSortable()) {
-                $cell->attribute(
+                $cell->addAttribute(
                     'data-sortable',
                     'true'
                 );
             }
 
             if ($column->isResizable()) {
-                $cell->attribute(
+                $cell->addAttribute(
                     'data-resizable',
                     'true'
                 );
             }
 
             if ($column->isReorderable()) {
-                $cell->attribute(
+                $cell->addAttribute(
                     'data-reorderable',
                     'true'
                 );
             }
 
             if ($column->isFrozen()) {
-                $cell->attribute(
+                $cell->addAttribute(
                     'data-frozen',
                     'true'
                 );
             }
 
             if ($column->getAlign() !== null) {
-                $cell->attribute(
+                $cell->addAttribute(
                     'data-align',
                     $column->getAlign()
                 );
             }
 
             if ($column->getVerticalAlign() !== null) {
-                $cell->attribute(
+                $cell->addAttribute(
                     'data-vertical-align',
                     $column->getVerticalAlign()
                 );
@@ -266,7 +266,7 @@ class DataGrid extends DataGridConfiguration
                 $this->emptyMessage
             );
 
-            $cell->attribute(
+            $cell->addAttribute(
                 'data-datagrid-empty',
                 'true'
             );
@@ -297,26 +297,26 @@ class DataGrid extends DataGridConfiguration
         );
 
         if ($rowId !== null) {
-            $row->attribute(
+            $row->addAttribute(
                 'data-row-id',
                 (string) $rowId
             );
         }
 
-        $row->attribute(
+        $row->addAttribute(
             'data-row-index',
             (string) $index
         );
 
         if ($this->rowHover) {
-            $row->attribute(
+            $row->addAttribute(
                 'data-row-hover',
                 'true'
             );
         }
 
         if ($this->expandable) {
-            $row->attribute(
+            $row->addAttribute(
                 'data-expandable',
                 'true'
             );
@@ -344,7 +344,7 @@ class DataGrid extends DataGridConfiguration
 
             if (is_array($attributes)) {
                 foreach ($attributes as $name => $value) {
-                    $row->attribute(
+                    $row->addAttribute(
                         (string) $name,
                         $value
                     );
@@ -355,7 +355,7 @@ class DataGrid extends DataGridConfiguration
         if ($this->checkable) {
             $cell = new TableCell();
 
-            $cell->attribute(
+            $cell->addAttribute(
                 'data-datagrid-selection',
                 'checkbox'
             );
@@ -401,19 +401,19 @@ class DataGrid extends DataGridConfiguration
 
             $cell = new TableCell();
 
-            $cell->attribute(
+            $cell->addAttribute(
                 'data-column',
                 $field
             );
 
             if ($column->isEditable()) {
-                $cell->attribute(
+                $cell->addAttribute(
                     'data-editable',
                     'true'
                 );
 
                 if ($column->getEditor() !== null) {
-                    $cell->attribute(
+                    $cell->addAttribute(
                         'data-editor',
                         $column->getEditor()
                     );
@@ -421,14 +421,14 @@ class DataGrid extends DataGridConfiguration
             }
 
             if ($column->getAlign() !== null) {
-                $cell->attribute(
+                $cell->addAttribute(
                     'data-align',
                     $column->getAlign()
                 );
             }
 
             if ($column->getVerticalAlign() !== null) {
-                $cell->attribute(
+                $cell->addAttribute(
                     'data-vertical-align',
                     $column->getVerticalAlign()
                 );
@@ -481,7 +481,7 @@ class DataGrid extends DataGridConfiguration
         if ($this->rowActions !== []) {
             $cell = new TableCell();
 
-            $cell->attribute(
+            $cell->addAttribute(
                 'data-datagrid-actions',
                 'true'
             );

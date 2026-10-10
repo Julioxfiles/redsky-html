@@ -30,10 +30,10 @@ class SwitchInput extends Input
         $this->class('form-switch');
 
         if ($name !== null) {
-            $this->attribute('name', $name);
+            $this->addAttribute('name', $name);
         }
 
-        $this->attribute('role', 'switch');
+        $this->addAttribute('role', 'switch');
     }
 
     /**
@@ -46,7 +46,7 @@ class SwitchInput extends Input
     public function checked(bool $checked = true): static
     {
         if ($checked) {
-            $this->attribute('checked', 'checked');
+            $this->addAttribute('checked', 'checked');
         } else {
             $this->removeAttribute('checked');
         }
@@ -64,7 +64,7 @@ class SwitchInput extends Input
     public function disabled(bool $disabled = true): static
     {
         if ($disabled) {
-            $this->attribute('disabled', 'disabled');
+            $this->addAttribute('disabled', 'disabled');
         } else {
             $this->removeAttribute('disabled');
         }

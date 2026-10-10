@@ -60,7 +60,7 @@ class TableCell extends HtmlComponent
     public function colspan(
         int $columns
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'colspan',
             $columns
         );
@@ -79,7 +79,7 @@ class TableCell extends HtmlComponent
     public function rowspan(
         int $rows
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'rowspan',
             $rows
         );

@@ -27,7 +27,7 @@ final class Row extends HtmlComponent
     {
         parent::__construct('div');
 
-        $this->attribute('data-redsky-component', 'row');
+        $this->addAttribute('data-redsky-component', 'row');
     }
 
     /**

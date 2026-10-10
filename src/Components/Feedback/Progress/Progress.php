@@ -32,6 +32,7 @@ final class Progress extends HtmlComponent
     protected int|float $max = 100;
 
     protected string $label = 'Progress';
+    protected string $type = 'primary';
 
     /**
      * Create a Progress component.
@@ -131,18 +132,57 @@ final class Progress extends HtmlComponent
     }
 
     /**
+     * Set the semantic progress type.
+     */
+    public function type(string $type): static
+    {
+        $allowedTypes = [
+            'primary',
+            'success',
+            'warning',
+            'danger',
+            'info',
+            'light',
+            'dark'
+        ];
+
+        if (!in_array($type, $allowedTypes, true)) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Invalid progress type "%s". Allowed types are: %s.',
+                    $type,
+                    implode(', ', $allowedTypes)
+                )
+            );
+        }
+
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get the semantic progress type.
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    /**
      * Render the progress component.
      */
     public function render(): string
     {
-        $this->attribute('data-redsky-component', 'progress');
-        $this->attribute('data-progress-value', (string) $this->value);
-        $this->attribute('data-progress-max', (string) $this->max);
-        $this->attribute('role', 'progressbar');
-        $this->attribute('aria-valuenow', (string) $this->value);
-        $this->attribute('aria-valuemin', '0');
-        $this->attribute('aria-valuemax', (string) $this->max);
-        $this->attribute('aria-label', $this->label);
+        $this->addAttribute('data-redsky-component', 'progress');
+        $this->addAttribute('data-progress-value', (string) $this->value);
+        $this->addAttribute('data-progress-max', (string) $this->max);
+        $this->addAttribute('role', 'progressbar');
+        $this->addAttribute('aria-valuenow', (string) $this->value);
+        $this->addAttribute('aria-valuemin', '0');
+        $this->addAttribute('aria-valuemax', (string) $this->max);
+        $this->addAttribute('data-progress-type', $this->type);
+        $this->addAttribute('aria-label', $this->label);
 
         $percentage = ($this->value / $this->max) * 100;
 

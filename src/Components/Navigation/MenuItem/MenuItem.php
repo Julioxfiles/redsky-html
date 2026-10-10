@@ -182,7 +182,7 @@ class MenuItem extends HtmlComponent
             'menu-item has-submenu'
         );
 
-        $this->attribute(
+        $this->addAttribute(
             'tabindex',
             '0'
         );
@@ -277,7 +277,7 @@ class MenuItem extends HtmlComponent
 
         if ($this->navigation !== null) {
 
-            $this->attribute(
+            $this->addAttribute(
                 'data-menu-href',
                 $this->navigation
             );
@@ -293,7 +293,7 @@ class MenuItem extends HtmlComponent
 
         if ($this->clickScript !== null) {
 
-            $this->attribute(
+            $this->addAttribute(
                 'data-menu-onclick',
                 $this->clickScript
             );

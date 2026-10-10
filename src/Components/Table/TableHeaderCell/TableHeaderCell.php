@@ -72,7 +72,7 @@ class TableHeaderCell extends HtmlComponent
     public function scope(
         string $scope
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'scope',
             $scope
         );
@@ -90,7 +90,7 @@ class TableHeaderCell extends HtmlComponent
     public function colspan(
         int $columns
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'colspan',
             $columns
         );
@@ -108,7 +108,7 @@ class TableHeaderCell extends HtmlComponent
     public function rowspan(
         int $rows
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'rowspan',
             $rows
         );

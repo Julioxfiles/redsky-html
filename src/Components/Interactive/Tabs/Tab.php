@@ -112,13 +112,13 @@ class Tab extends HtmlComponent
      */
     public function render(): string
     {
-        $this->attribute(
+        $this->addAttribute(
             'type',
             'button'
         );
 
 
-        $this->attribute(
+        $this->addAttribute(
             'class',
             $this->active
                 ? 'tab active'
@@ -128,7 +128,7 @@ class Tab extends HtmlComponent
 
         if ($this->target !== null) {
 
-            $this->attribute(
+            $this->addAttribute(
                 'data-tab-target',
                 $this->target
             );
@@ -136,13 +136,13 @@ class Tab extends HtmlComponent
         }
 
 
-        $this->attribute(
+        $this->addAttribute(
             'role',
             'tab'
         );
 
 
-        $this->attribute(
+        $this->addAttribute(
             'aria-selected',
             $this->active
                 ? 'true'

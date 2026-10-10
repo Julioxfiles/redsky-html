@@ -76,7 +76,7 @@ class SearchableSelectOption extends HtmlComponent
     public function selected(
         bool $selected = true
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'aria-selected',
             $selected ? 'true' : 'false'
         );
@@ -93,7 +93,7 @@ class SearchableSelectOption extends HtmlComponent
     public function disabled(
         bool $disabled = true
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'aria-disabled',
             $disabled ? 'true' : 'false'
         );

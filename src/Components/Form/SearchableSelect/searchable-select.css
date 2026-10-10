@@ -1,166 +1,156 @@
+
 /**
  * SearchableSelect component
  *
- * Bootstrap-compatible class names without a Bootstrap dependency.
+ * UI-library agnostic styles with Bootstrap-compatible class names.
  */
 
 :root {
-    --searchable-select-bg: #ffffff;
-    --searchable-select-color: #212529;
-    --searchable-select-border-color: #ced4da;
-    --searchable-select-focus-border-color: #86b7fe;
-    --searchable-select-focus-shadow: rgba(13, 110, 253, 0.25);
-    --searchable-select-hover-bg: #f8f9fa;
-    --searchable-select-selected-bg: #0d6efd;
+    --searchable-select-width: 100%;
+    --searchable-select-background: #ffffff;
+    --searchable-select-color: #111827;
+    --searchable-select-border-color: #d1d5db;
+    --searchable-select-focus-border-color: #3b82f6;
+    --searchable-select-hover-background: #f3f4f6;
+    --searchable-select-selected-background: #3b82f6;
     --searchable-select-selected-color: #ffffff;
-    --searchable-select-disabled-bg: #e9ecef;
-    --searchable-select-disabled-color: #6c757d;
-    --searchable-select-placeholder-color: #6c757d;
+    --searchable-select-disabled-background: #f3f4f6;
+    --searchable-select-disabled-color: #6b7280;
+    --searchable-select-placeholder-color: #6b7280;
     --searchable-select-border-radius: 0.375rem;
+    --searchable-select-padding: 0.5rem 0.75rem;
+    --searchable-select-font-size: 1rem;
+    --searchable-select-line-height: 1.5;
+    --searchable-select-menu-max-height: 15rem;
+    --searchable-select-menu-z-index: 1000;
+    --searchable-select-disabled-opacity: 0.65;
 }
 
 html.dark {
-    --searchable-select-bg: #212529;
-    --searchable-select-color: #f8f9fa;
-    --searchable-select-border-color: #495057;
-    --searchable-select-focus-border-color: #86b7fe;
-    --searchable-select-focus-shadow: rgba(13, 110, 253, 0.25);
-    --searchable-select-hover-bg: #343a40;
-    --searchable-select-selected-bg: #0d6efd;
+    --searchable-select-background: #1f2937;
+    --searchable-select-color: #f9fafb;
+    --searchable-select-border-color: #4b5563;
+    --searchable-select-focus-border-color: #60a5fa;
+    --searchable-select-hover-background: #374151;
+    --searchable-select-selected-background: #2563eb;
     --searchable-select-selected-color: #ffffff;
-    --searchable-select-disabled-bg: #343a40;
-    --searchable-select-disabled-color: #6c757d;
-    --searchable-select-placeholder-color: #adb5bd;
+    --searchable-select-disabled-background: #374151;
+    --searchable-select-disabled-color: #9ca3af;
+    --searchable-select-placeholder-color: #9ca3af;
 }
-
 
 /* Container */
 
-.searchable-select {
+[data-redsky-component="searchable-select"] {
     position: relative;
-    width: 100%;
+    width: var(--searchable-select-width);
+    min-width: 0;
 }
-
 
 /* Search field */
 
-.searchable-select .form-control {
+[data-redsky-component="searchable-select"] .form-control {
     display: block;
+    box-sizing: border-box;
     width: 100%;
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
-    line-height: 1.5;
+    min-width: 0;
+    padding: var(--searchable-select-padding);
+    font-family: inherit;
+    font-size: var(--searchable-select-font-size);
+    line-height: var(--searchable-select-line-height);
     color: var(--searchable-select-color);
-    background-color: var(--searchable-select-bg);
+    background-color: var(--searchable-select-background);
     border: 1px solid var(--searchable-select-border-color);
     border-radius: var(--searchable-select-border-radius);
     outline: none;
-    box-sizing: border-box;
 }
 
-.searchable-select .form-control:focus {
+[data-redsky-component="searchable-select"] .form-control:focus {
     border-color: var(--searchable-select-focus-border-color);
-    box-shadow: 0 0 0 0.25rem var(--searchable-select-focus-shadow);
+    box-shadow: none;
 }
 
-
-/* Placeholder */
-
-.searchable-select .form-control::placeholder {
+[data-redsky-component="searchable-select"] .form-control::placeholder {
     color: var(--searchable-select-placeholder-color);
+    opacity: 1;
 }
 
+[data-redsky-component="searchable-select"] .form-control:disabled {
+    color: var(--searchable-select-disabled-color);
+    background-color: var(--searchable-select-disabled-background);
+    cursor: not-allowed;
+}
 
-/* Options container */
+/* Options menu */
 
-.searchable-select-menu {
+[data-redsky-component="searchable-select"] .searchable-select-menu {
     position: absolute;
     top: 100%;
-    left: 0;
     right: 0;
-    z-index: 1000;
+    left: 0;
+    z-index: var(--searchable-select-menu-z-index);
     display: none;
-    max-height: 15rem;
-    overflow-y: auto;
+    box-sizing: border-box;
+    max-height: var(--searchable-select-menu-max-height);
     margin-top: 0.125rem;
     padding: 0;
-    background-color: var(--searchable-select-bg);
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: var(--searchable-select-background);
     border: 1px solid var(--searchable-select-border-color);
     border-radius: var(--searchable-select-border-radius);
-    box-sizing: border-box;
 }
-
 
 /* Open state */
 
-.searchable-select.open .searchable-select-menu {
+[data-redsky-component="searchable-select"].open .searchable-select-menu {
     display: block;
 }
 
+/* Options */
 
-/* Option */
-
-.searchable-select-option {
+[data-redsky-component="searchable-select"] .searchable-select-option {
     display: block;
-    width: 100%;
-    padding: 0.5rem 0.75rem;
-    color: var(--searchable-select-color);
-    background-color: var(--searchable-select-bg);
-    cursor: pointer;
     box-sizing: border-box;
+    width: 100%;
+    padding: var(--searchable-select-padding);
+    color: var(--searchable-select-color);
+    background-color: var(--searchable-select-background);
+    cursor: pointer;
 }
 
-
-/* Option hover */
-
-.searchable-select-option:hover {
-    background-color: var(--searchable-select-hover-bg);
+[data-redsky-component="searchable-select"] .searchable-select-option:hover,
+[data-redsky-component="searchable-select"] .searchable-select-option.active {
+    background-color: var(--searchable-select-hover-background);
 }
 
-
-/* Selected option */
-
-.searchable-select-option[aria-selected="true"] {
-    background-color: var(--searchable-select-selected-bg);
+[data-redsky-component="searchable-select"] .searchable-select-option[aria-selected="true"] {
     color: var(--searchable-select-selected-color);
+    background-color: var(--searchable-select-selected-background);
 }
 
-
-/* Disabled option */
-
-.searchable-select-option[aria-disabled="true"] {
+[data-redsky-component="searchable-select"] .searchable-select-option[aria-disabled="true"] {
     color: var(--searchable-select-disabled-color);
-    background-color: var(--searchable-select-disabled-bg);
+    background-color: var(--searchable-select-disabled-background);
     cursor: not-allowed;
     pointer-events: none;
 }
 
+[data-redsky-component="searchable-select"] .searchable-select-option[hidden] {
+    display: none;
+}
 
 /* Disabled component */
 
-.searchable-select[data-disabled="true"] {
-    opacity: 0.65;
+[data-redsky-component="searchable-select"][data-disabled="true"] {
+    opacity: var(--searchable-select-disabled-opacity);
     pointer-events: none;
 }
 
-.searchable-select-option[hidden] {
-    display: none;
-}
-
-.searchable-select-option {
-    display: block;
-    width: 100%;
-    padding: 0.5rem 0.75rem;
-    color: var(--searchable-select-color);
-    background-color: var(--searchable-select-bg);
-    cursor: pointer;
-    box-sizing: border-box;
-}
-
-.searchable-select-option[hidden] {
-    display: none;
-}
-
-.searchable-select-option.active {
-    background-color: var(--searchable-select-hover-bg);
+@media (prefers-reduced-motion: reduce) {
+    [data-redsky-component="searchable-select"] *,
+    [data-redsky-component="searchable-select"] *::before,
+    [data-redsky-component="searchable-select"] *::after {
+        scroll-behavior: auto;
+    }
 }

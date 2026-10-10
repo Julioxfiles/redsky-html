@@ -47,6 +47,19 @@ class DataTable extends HtmlComponent
     protected array $rows = [];
 
     /**
+     * Creates a new DataTable component.
+     */
+    public function __construct()
+    {
+        parent::__construct('table');
+        
+        $this->addAttribute(
+            'data-redsky-component',
+            'datatable'
+        );
+    }
+
+    /**
      * Sets the table caption.
      *
      * Accepts either a TableCaption component or a string value.
@@ -138,7 +151,7 @@ class DataTable extends HtmlComponent
         $table = new Table();
 
         foreach ($this->attributes() as $name => $value) {
-            $table->attribute($name, $value);
+            $table->addAttribute($name, $value);
         }
 
         foreach ($this->children() as $child) {

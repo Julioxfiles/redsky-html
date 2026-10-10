@@ -2,8 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RedSky\Html\Components\Form\TimeInput\UrlInput;
-
+namespace RedSky\Html\Components\Form\TimeInput;
 
 use RedSky\Html\Components\Form\Input\Input;
 
@@ -32,6 +31,8 @@ class TimeInput extends Input
             'time',
             $name
         );
+
+        $this->addAttribute('data-redsky-component', 'time-input');
     }
 
     /**

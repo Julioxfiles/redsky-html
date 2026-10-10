@@ -39,6 +39,8 @@ class RangeInput extends Input
             'range',
             $name
         );
+        
+        $this->addAttribute('data-redsky-component', 'range-input');
     }
 
 

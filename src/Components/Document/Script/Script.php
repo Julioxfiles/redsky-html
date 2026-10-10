@@ -38,7 +38,7 @@ use RedSky\Html\Components\HtmlComponent;
  * echo (new Script())
  *     ->src('/js/app.js')
  *     ->defer()
- *     ->attribute('id', 'app-script')
+ *     ->addAttribute('id', 'app-script')
  *     ->render();
  * ```
  *
@@ -56,7 +56,7 @@ use RedSky\Html\Components\HtmlComponent;
     echo (new Script())
         ->src('/js/app.js')
         ->defer()
-        ->attribute('id', 'app-script')
+        ->addAttribute('id', 'app-script')
         ->render();
     PHP,
     description: 'The Script component generates a semantic HTML
@@ -90,7 +90,7 @@ class Script extends HtmlComponent
     public function src(
         string $src
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'src',
             $src
         );
@@ -108,7 +108,7 @@ class Script extends HtmlComponent
     public function type(
         string $type
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'type',
             $type
         );
@@ -126,7 +126,7 @@ class Script extends HtmlComponent
     public function nonce(
         string $nonce
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'nonce',
             $nonce
         );
@@ -141,7 +141,7 @@ class Script extends HtmlComponent
      */
     public function async(): static
     {
-        return $this->attribute(
+        return $this->addAttribute(
             'async',
             true
         );
@@ -156,7 +156,7 @@ class Script extends HtmlComponent
      */
     public function defer(): static
     {
-        return $this->attribute(
+        return $this->addAttribute(
             'defer',
             true
         );
@@ -174,7 +174,7 @@ class Script extends HtmlComponent
     public function crossorigin(
         string $value = 'anonymous'
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'crossorigin',
             $value
         );
@@ -192,7 +192,7 @@ class Script extends HtmlComponent
     public function integrity(
         string $hash
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'integrity',
             $hash
         );
@@ -210,7 +210,7 @@ class Script extends HtmlComponent
     public function referrerPolicy(
         string $policy
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'referrerpolicy',
             $policy
         );

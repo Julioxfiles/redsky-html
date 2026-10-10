@@ -27,5 +27,6 @@ class HiddenInput extends Input
         parent::__construct();
 
         $this->type('hidden');
+        $this->addAttribute('data-component', 'hidden-input');   
     }
 }

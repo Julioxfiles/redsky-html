@@ -69,7 +69,7 @@ class Link extends HtmlComponent
     public function href(
         string $href
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'href',
             $href
         );
@@ -92,7 +92,7 @@ class Link extends HtmlComponent
     public function target(
         string $target
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'target',
             $target
         );
@@ -114,7 +114,7 @@ class Link extends HtmlComponent
     public function download(
         string|bool $download = true
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'download',
             $download
         );
@@ -135,7 +135,7 @@ class Link extends HtmlComponent
     public function rel(
         string $rel
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'rel',
             $rel
         );
@@ -152,7 +152,7 @@ class Link extends HtmlComponent
     public function hreflang(
         string $hreflang
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'hreflang',
             $hreflang
         );
@@ -169,7 +169,7 @@ class Link extends HtmlComponent
     public function type(
         string $type
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'type',
             $type
         );
@@ -186,7 +186,7 @@ class Link extends HtmlComponent
     public function referrerPolicy(
         string $policy
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'referrerpolicy',
             $policy
         );
@@ -203,7 +203,7 @@ class Link extends HtmlComponent
     public function title(
         string $title
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'title',
             $title
         );
@@ -223,7 +223,7 @@ class Link extends HtmlComponent
     public function ariaLabel(
         string $label
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'aria-label',
             $label
         );

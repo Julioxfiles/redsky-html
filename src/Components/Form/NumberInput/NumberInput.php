@@ -33,6 +33,7 @@ class NumberInput extends Input
             'number',
             $name
         );
+        $this->addAttribute('data-redsky-component', 'number-input');
     }
 
 

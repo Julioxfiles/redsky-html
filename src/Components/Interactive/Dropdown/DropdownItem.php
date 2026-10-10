@@ -115,7 +115,7 @@ class DropdownItem extends Component
 
         $this->action
             ->class('dropdown-item')
-            ->attribute('onclick', $script);
+            ->addAttribute('onclick', $script);
 
         return $this;
     }

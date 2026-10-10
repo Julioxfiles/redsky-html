@@ -39,6 +39,8 @@ class RadioInput extends Input
             'radio',
             $name
         );
+
+        $this->addAttribute('data-component', 'radio-input');
     }
 
 
@@ -55,7 +57,7 @@ class RadioInput extends Input
     public function checked(
         bool $checked = true
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'checked',
             $checked
         );
@@ -74,7 +76,7 @@ class RadioInput extends Input
      */
     public function unchecked(): static
     {
-        $this->attribute(
+        $this->addAttribute(
             'checked',
             false
         );

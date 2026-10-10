@@ -29,6 +29,8 @@ class MonthInput extends Input
             'month',
             $name
         );
+
+        $this->addAttribute('data-redsky-component', 'month-input');
     }
 
     /**

@@ -183,7 +183,7 @@ $button = new Button(
 
 $button->class('btn btn-sm btn-primary');
 
-$button->attribute(
+$button->addAttribute(
     'data-modal-target',
     'stack-menu-demo'
 );

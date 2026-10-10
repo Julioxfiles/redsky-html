@@ -62,7 +62,7 @@ class Link extends HtmlComponent
     public function href(
         string $href
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'href',
             $href
         );
@@ -81,7 +81,7 @@ class Link extends HtmlComponent
     public function rel(
         string $rel
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'rel',
             $rel
         );
@@ -99,7 +99,7 @@ class Link extends HtmlComponent
     public function media(
         string $media
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'media',
             $media
         );
@@ -117,7 +117,7 @@ class Link extends HtmlComponent
     public function type(
         string $type
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'type',
             $type
         );
@@ -135,7 +135,7 @@ class Link extends HtmlComponent
     public function sizes(
         string $sizes
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'sizes',
             $sizes
         );
@@ -153,7 +153,7 @@ class Link extends HtmlComponent
     public function hreflang(
         string $language
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'hreflang',
             $language
         );
@@ -171,7 +171,7 @@ class Link extends HtmlComponent
     public function crossorigin(
         string $value = 'anonymous'
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'crossorigin',
             $value
         );
@@ -189,7 +189,7 @@ class Link extends HtmlComponent
     public function integrity(
         string $hash
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'integrity',
             $hash
         );

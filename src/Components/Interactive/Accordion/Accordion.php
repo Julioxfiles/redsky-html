@@ -133,17 +133,17 @@ class Accordion extends HtmlComponent
     {
         $container = new Div();
 
-        $container->attribute(
+        $container->addAttribute(
             'class',
             'accordion'
         );
 
-        $container->attribute(
+        $container->addAttribute(
             'data-component',
             'accordion'
         );
 
-        $container->attribute(
+        $container->addAttribute(
             'data-multiple',
             $this->multiple
                 ? 'true'
@@ -152,7 +152,7 @@ class Accordion extends HtmlComponent
 
         foreach ($this->attributes() as $name => $value) {
 
-            $container->attribute(
+            $container->addAttribute(
                 $name,
                 $value
             );

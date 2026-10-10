@@ -111,7 +111,7 @@ class Card extends HtmlComponent
 
         if (array_key_exists('attributes', $config)) {
             foreach ($config['attributes'] as $name => $value) {
-                $this->attribute($name, $value);
+                $this->addAttribute($name, $value);
             }
         }
     }

@@ -74,7 +74,7 @@ abstract class Component implements
     public function id(
         string $id
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'id',
             $id
         );
@@ -111,7 +111,7 @@ abstract class Component implements
      *
      * @return static
      */
-    public function attribute(
+    public function addAttribute(
         string $name,
         mixed $value
     ): static {
@@ -184,7 +184,7 @@ abstract class Component implements
     public function class(
         string $class
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'class',
             $class
         );
@@ -359,7 +359,7 @@ abstract class Component implements
                 $style['value'];
         }
 
-        return $this->attribute(
+        return $this->addAttribute(
             'style',
             implode(
                 ';',
@@ -595,7 +595,7 @@ abstract class Component implements
     public function title(
         string $title
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'title',
             $title
         );
@@ -612,7 +612,7 @@ abstract class Component implements
     public function role(
         string $role
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'role',
             $role
         );
@@ -629,7 +629,7 @@ abstract class Component implements
     public function hidden(
         bool $hidden = true
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'hidden',
             $hidden
         );
@@ -648,7 +648,7 @@ abstract class Component implements
         string $name,
         mixed $value
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'data-' . $name,
             $value
         );
@@ -678,7 +678,7 @@ abstract class Component implements
         string $name,
         mixed $value
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'aria-' . $name,
             $value
         );

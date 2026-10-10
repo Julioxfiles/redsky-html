@@ -24,7 +24,7 @@ class Column extends HtmlComponent
     {
         parent::__construct('div');
 
-        $this->attribute(
+        $this->addAttribute(
             'data-redsky-component',
             'column'
         );

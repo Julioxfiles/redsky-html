@@ -41,6 +41,8 @@ class WeekInput extends Input
             'week',
             $name
         );
+
+        $this->addAttribute('data-redsky-component', 'week-input');
     }
 
 

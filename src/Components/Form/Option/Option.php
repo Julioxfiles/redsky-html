@@ -61,7 +61,7 @@ class Option extends HtmlComponent
     public function value(
         mixed $value
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'value',
             $value
         );
@@ -84,7 +84,7 @@ class Option extends HtmlComponent
     public function selected(
         bool $selected = true
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'selected',
             $selected
         );
@@ -103,7 +103,7 @@ class Option extends HtmlComponent
     public function disabled(
         bool $disabled = true
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'disabled',
             $disabled
         );
@@ -124,7 +124,7 @@ class Option extends HtmlComponent
     public function label(
         string $label
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'label',
             $label
         );

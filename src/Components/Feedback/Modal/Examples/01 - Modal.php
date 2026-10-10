@@ -10,7 +10,7 @@ $openModalButton = (new Button())
     ->text('Abrir Modal')
     ->class('btn btn-primary')
     ->size('small')
-    ->attribute('data-modal-target', '#example-modal');
+    ->addAttribute('data-modal-target', '#example-modal');
 
 $modalBody = (new Div())
     ->style('height', '300px')
@@ -20,7 +20,7 @@ $modalBody = (new Div())
     ->setContent('Aquí va el formulario');
 
 $modal = (new Modal())
-    ->attribute('id', 'example-modal')
+    ->addAttribute('id', 'example-modal')
     ->title('User Information')
     ->description('This modal is large enough for a future form.')
     ->size('large')

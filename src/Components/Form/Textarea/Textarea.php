@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RedSky\Html\Components\Form\Textarea;
+namespace RedSky\Html\Components\Form\TextArea;
 
 use RedSky\Html\Components\HtmlComponent;
 
@@ -21,7 +21,7 @@ use RedSky\Html\Components\Form\Input\Input;
  *
  * @package RedSky\Html\Components\Form
  */
-class Textarea extends HtmlComponent
+class TextArea extends HtmlComponent
 {
     /**
      * Creates a new textarea component.
@@ -39,6 +39,8 @@ class Textarea extends HtmlComponent
         if ($content !== null) {
             $this->text($content);
         }
+
+        $this->addAttribute('data-redsky-component', 'text-area');
     }
 
     /**
@@ -53,7 +55,7 @@ class Textarea extends HtmlComponent
     public function rows(
         int $rows
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'rows',
             $rows
         );
@@ -73,7 +75,7 @@ class Textarea extends HtmlComponent
     public function cols(
         int $cols
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'cols',
             $cols
         );
@@ -93,7 +95,7 @@ class Textarea extends HtmlComponent
     public function wrap(
         string $wrap
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'wrap',
             $wrap
         );
@@ -113,7 +115,7 @@ class Textarea extends HtmlComponent
     public function placeholder(
         string $placeholder
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'placeholder',
             $placeholder
         );
@@ -133,7 +135,7 @@ class Textarea extends HtmlComponent
     public function name(
         string $name
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'name',
             $name
         );
@@ -154,7 +156,7 @@ class Textarea extends HtmlComponent
     public function readonly(
         bool $readonly = true
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'readonly',
             $readonly
         );
@@ -175,7 +177,7 @@ class Textarea extends HtmlComponent
     public function disabled(
         bool $disabled = true
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'disabled',
             $disabled
         );
@@ -196,7 +198,7 @@ class Textarea extends HtmlComponent
     public function required(
         bool $required = true
     ): static {
-        $this->attribute(
+        $this->addAttribute(
             'required',
             $required
         );

@@ -32,5 +32,6 @@ class EmailInput extends Input
             'email',
             $name
         );
+        $this->addAttribute('data-component', 'email-input');
     }
 }

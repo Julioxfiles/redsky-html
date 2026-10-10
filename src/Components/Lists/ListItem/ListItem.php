@@ -58,7 +58,7 @@ class ListItem extends HtmlComponent
     public function value(
         int $value
     ): static {
-        return $this->attribute(
+        return $this->addAttribute(
             'value',
             $value
         );

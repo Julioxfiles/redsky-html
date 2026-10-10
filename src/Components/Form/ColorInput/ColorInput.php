@@ -33,6 +33,8 @@ class ColorInput extends Input
             'color',
             $name
         );
+
+        $this->addAttribute('data-component', 'color-input');
     }
 
 
