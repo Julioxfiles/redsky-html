@@ -34,6 +34,7 @@ class SwitchInput extends Input
         }
 
         $this->addAttribute('role', 'switch');
+        $this->addAttribute('data-redsky-component', 'switch-input');
     }
 
     /**
