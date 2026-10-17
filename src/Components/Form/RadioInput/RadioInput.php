@@ -40,7 +40,7 @@ class RadioInput extends Input
             $name
         );
 
-        $this->addAttribute('data-component', 'radio-input');
+        $this->addAttribute('data-redsky-component', 'radio-input');
     }
 
 

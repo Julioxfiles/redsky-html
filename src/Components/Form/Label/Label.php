@@ -33,6 +33,7 @@ class Label extends HtmlComponent
         if ($text !== null) {
             $this->text($text);
         }
+        $this->addAttribute('data-redsky-component', 'label');
     }
 
     /**

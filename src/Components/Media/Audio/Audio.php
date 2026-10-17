@@ -45,6 +45,8 @@ class Audio extends HtmlComponent
         if ($src !== null) {
             $this->src($src);
         }
+
+        $this->addAttribute('data-redsky-component', 'audio');
     }
 
     /**

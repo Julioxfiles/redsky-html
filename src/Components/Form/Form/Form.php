@@ -30,6 +30,7 @@ class Form extends HtmlComponent
     public function __construct()
     {
         parent::__construct('form');
+        $this->addAttribute('data-redsky-component', 'form');
     }
 
     /**
@@ -141,6 +142,7 @@ class Form extends HtmlComponent
         $this->addChild(
             (new Button())
                 ->type('submit')
+                ->class('btn btn-sm btn-primary')
                 ->text($text)
         );
 

@@ -30,7 +30,7 @@ class FileInput extends Input
             $name
         );
 
-        $this->addAttribute('data-component', 'file-input');
+        $this->addAttribute('data-redsky-component', 'file-input');
     }
 
 

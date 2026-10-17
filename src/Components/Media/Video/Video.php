@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace RedSky\Html\Components\Media\Track;
+namespace RedSky\Html\Components\Media\Video;
 
 use RedSky\Html\Components\HtmlComponent;
-
 use RedSky\Html\Components\Media\Source\Source;
+use RedSky\Html\Components\Media\Track\Track;
 
 /**
  * Represents an HTML video component.
@@ -53,6 +53,8 @@ class Video extends HtmlComponent
         if ($src !== null) {
             $this->src($src);
         }
+
+        $this->addAttribute('data-redsky-component', 'video');
     }
 
 

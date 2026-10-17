@@ -37,7 +37,7 @@ class Input extends HtmlComponent
             $this->name($name);
         }
 
-        $this->addAttribute('data-component', 'input');
+        $this->addAttribute('data-redsky-component', 'input');
     }
 
 

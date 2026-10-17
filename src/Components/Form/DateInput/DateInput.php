@@ -36,7 +36,7 @@ class DateInput extends Input
             $name
         );
 
-        $this->addAttribute('data-component', 'date-input');
+        $this->addAttribute('data-redsky-component', 'date-input');
     }
 
 

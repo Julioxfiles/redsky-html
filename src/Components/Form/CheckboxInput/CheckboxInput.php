@@ -33,7 +33,7 @@ class CheckboxInput extends Input
             $name
         );
 
-        $this->addAttribute('data-component', 'checkbox-input');
+        $this->addAttribute('data-redsky-component', 'checkbox-input');
     }
 
     /**

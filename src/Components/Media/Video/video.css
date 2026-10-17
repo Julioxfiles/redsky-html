@@ -1,0 +1,47 @@
+/**
+ * Video component styles.
+ *
+ * Defines sizing, aspect ratio, and presentation
+ * for the native HTML video element.
+ *
+ * @package RedSky\Html\Components\Media\Video
+ */
+
+:root {
+    --video-width: 100%;
+    --video-max-width: 100%;
+    --video-aspect-ratio: 16 / 9;
+    --video-object-fit: contain;
+    --video-background: #000000;
+    --video-border-radius: 0.375rem;
+    --video-focus-color: #3b82f6;
+    --video-focus-width: 2px;
+    --video-focus-offset: 3px;
+}
+
+html.dark {
+    --video-background: #000000;
+    --video-focus-color: #60a5fa;
+}
+
+[data-redsky-component="video"] {
+    display: block;
+    width: var(--video-width);
+    max-width: var(--video-max-width);
+    aspect-ratio: var(--video-aspect-ratio);
+    object-fit: var(--video-object-fit);
+    background-color: var(--video-background);
+    border-radius: var(--video-border-radius);
+}
+
+[data-redsky-component="video"]:focus-visible {
+    outline: var(--video-focus-width) solid var(--video-focus-color);
+    outline-offset: var(--video-focus-offset);
+}
+
+@media (max-width: 576px) {
+    [data-redsky-component="video"] {
+        width: 100%;
+        max-width: 100%;
+    }
+}

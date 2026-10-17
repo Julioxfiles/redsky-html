@@ -34,7 +34,7 @@ class ColorInput extends Input
             $name
         );
 
-        $this->addAttribute('data-component', 'color-input');
+        $this->addAttribute('data-redsky-component', 'color-input');
     }
 
 

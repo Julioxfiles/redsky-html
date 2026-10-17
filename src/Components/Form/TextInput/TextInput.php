@@ -34,10 +34,7 @@ class TextInput extends Input
             $name
         );
 
-        $this->addAttribute(
-            'data-redsky-component',
-            'text-input'
-        );
+        $this->addAttribute('data-redsky-component','text-input');
     }
 
 }
