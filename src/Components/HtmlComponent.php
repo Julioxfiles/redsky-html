@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace RedSky\Html\Components;
@@ -15,15 +14,36 @@ namespace RedSky\Html\Components;
  *
  * @package RedSky\Html\Components
  */
-abstract class HtmlComponent extends Component
+class HtmlComponent extends Component
 {
+    /**
+     * HTML tags that do not require closing tags.
+     *
+     * @var array<string>
+     */
+    protected const SELF_CLOSING_TAGS = [
+        'area',
+        'base',
+        'br',
+        'col',
+        'embed',
+        'hr',
+        'img',
+        'input',
+        'link',
+        'meta',
+        'param',
+        'source',
+        'track',
+        'wbr',
+    ];
+
     /**
      * HTML tag name.
      *
      * @var string
      */
     protected string $tag;
-
 
     /**
      * Indicates if element is self closing.
@@ -32,22 +52,31 @@ abstract class HtmlComponent extends Component
      */
     protected bool $selfClosing = false;
 
-
     /**
      * Creates a new HTML component.
      *
-     * @param string|null $tag
+     * @param string $tag
      */
-    public function __construct(
-        ?string $tag = null
-    ) {
+    public function __construct(string $tag)
+    {
         parent::__construct();
 
-        if ($tag !== null) {
-            $this->tag = $tag;
-        }
-    }
+        $tag = strtolower(trim($tag));
 
+        if ($tag === '' || !preg_match('/^[a-z][a-z0-9-]*$/', $tag)) {
+            throw new \InvalidArgumentException(
+                'Invalid HTML tag name: ' . $tag
+            );
+        }
+
+        $this->tag = $tag;
+
+        $this->selfClosing = in_array(
+            $tag,
+            self::SELF_CLOSING_TAGS,
+            true
+        );
+    }
 
     /**
      * Returns HTML tag name.
@@ -58,7 +87,6 @@ abstract class HtmlComponent extends Component
     {
         return $this->tag;
     }
-
 
     /**
      * Renders component HTML.
@@ -111,7 +139,6 @@ abstract class HtmlComponent extends Component
         return ' ' . $this->attributes->renderAttributes();
     }
 
-
     /**
      * Renders component content.
      *
@@ -125,7 +152,6 @@ abstract class HtmlComponent extends Component
 
         return (string) $this->content();
     }
-
 
     /**
      * Renders child components.

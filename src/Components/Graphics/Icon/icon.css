@@ -1,0 +1,32 @@
+/**
+ * RedSky Icon Component
+ *
+ * Provides default sizing and display behavior
+ * for inline SVG icons.
+ */
+
+/* Light theme */
+:root {
+    --icon-color: currentColor;
+    --icon-stroke-width: 2;
+}
+
+/* Dark theme */
+html.dark {
+    --icon-color: currentColor;
+    --icon-stroke-width: 2;
+}
+
+/* Icon */
+.icon {
+    display: inline-block;
+
+    color: var(--icon-color);
+
+    flex-shrink: 0;
+    vertical-align: middle;
+
+    stroke-width: var(--icon-stroke-width);
+
+    overflow: visible;
+}

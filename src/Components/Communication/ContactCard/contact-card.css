@@ -1,0 +1,145 @@
+
+/**
+ * ContactCard component.
+ *
+ * @package RedSky\Html\Components\Communication\ContactCard
+ */
+
+:root {
+    --contact-card-bg: #ffffff;
+    --contact-card-color: #212529;
+    --contact-card-muted: #6c757d;
+    --contact-card-border: #e9ecef;
+    --contact-card-hover: #f5f6f6;
+    --contact-card-avatar-bg: #dfe5e7;
+    --contact-card-avatar-color: #495057;
+    --contact-card-online: #25d366;
+    --contact-card-unread-bg: #25d366;
+    --contact-card-unread-color: #ffffff;
+}
+
+html.dark {
+    --contact-card-bg: #202c33;
+    --contact-card-color: #e9edef;
+    --contact-card-muted: #8696a0;
+    --contact-card-border: #374045;
+    --contact-card-hover: #2a3942;
+    --contact-card-avatar-bg: #37474f;
+    --contact-card-avatar-color: #e9edef;
+    --contact-card-online: #25d366;
+    --contact-card-unread-bg: #25d366;
+    --contact-card-unread-color: #ffffff;
+}
+
+.contact-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    min-height: 76px;
+    padding: 10px 14px;
+    box-sizing: border-box;
+    background: var(--contact-card-bg);
+    color: var(--contact-card-color);
+    border-bottom: 1px solid var(--contact-card-border);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.contact-card:hover {
+    background: var(--contact-card-hover);
+}
+
+.contact-card-avatar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 52px;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    overflow: visible;
+    background: var(--contact-card-avatar-bg);
+    color: var(--contact-card-avatar-color);
+}
+
+.contact-card-avatar img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.contact-card-avatar-placeholder {
+    font-size: 21px;
+    font-weight: 600;
+}
+
+.contact-card-online {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 12px;
+    height: 12px;
+    border: 2px solid var(--contact-card-bg);
+    border-radius: 50%;
+    background: var(--contact-card-online);
+}
+
+.contact-card-information {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+    gap: 5px;
+}
+
+.contact-card-name {
+    overflow: hidden;
+    color: var(--contact-card-color);
+    font-size: 15px;
+    font-weight: 600;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.contact-card-message {
+    overflow: hidden;
+    color: var(--contact-card-muted);
+    font-size: 13px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.contact-card-metadata {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 7px;
+}
+
+.contact-card-time {
+    color: var(--contact-card-muted);
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.contact-card-unread {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 19px;
+    height: 19px;
+    padding: 0 5px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    background: var(--contact-card-unread-bg);
+    color: var(--contact-card-unread-color);
+    font-size: 11px;
+    font-weight: 600;
+}
