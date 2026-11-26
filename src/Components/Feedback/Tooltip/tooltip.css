@@ -1,0 +1,123 @@
+
+/**
+ * Tooltip component styles.
+ *
+ * @package RedSky\Html\Components\Feedback\Tooltip
+ */
+
+/* -------------------------------------------------
+   Variables
+------------------------------------------------- */
+
+:root {
+    --tooltip-bg: #252525;
+    --tooltip-color: #ffffff;
+    --tooltip-border-radius: 5px;
+    --tooltip-padding: 6px 10px;
+    --tooltip-font-size: 12px;
+    --tooltip-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
+    --tooltip-offset: 8px;
+    --tooltip-z-index: 1000;
+}
+
+html.dark {
+    --tooltip-bg: #f1f1f1;
+    --tooltip-color: #202020;
+    --tooltip-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
+}
+
+/* -------------------------------------------------
+   Base
+------------------------------------------------- */
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: help;
+}
+
+/* -------------------------------------------------
+   Tooltip content
+------------------------------------------------- */
+
+.tooltip::after {
+    position: absolute;
+    z-index: var(--tooltip-z-index);
+    width: max-content;
+    max-width: 250px;
+    padding: var(--tooltip-padding);
+    border-radius: var(--tooltip-border-radius);
+    background: var(--tooltip-bg);
+    color: var(--tooltip-color);
+    box-shadow: var(--tooltip-shadow);
+    font-size: var(--tooltip-font-size);
+    font-weight: 400;
+    line-height: 1.4;
+    text-align: center;
+    white-space: normal;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+        opacity 0.2s ease,
+        visibility 0.2s ease;
+    content: attr(data-tooltip);
+}
+
+/* -------------------------------------------------
+   Visibility
+------------------------------------------------- */
+
+.tooltip:hover::after,
+.tooltip:focus-visible::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* -------------------------------------------------
+   Positions
+------------------------------------------------- */
+
+.tooltip[data-tooltip-position="top"]::after {
+    bottom: calc(100% + var(--tooltip-offset));
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.tooltip[data-tooltip-position="bottom"]::after {
+    top: calc(100% + var(--tooltip-offset));
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.tooltip[data-tooltip-position="left"]::after {
+    top: 50%;
+    right: calc(100% + var(--tooltip-offset));
+    transform: translateY(-50%);
+}
+
+.tooltip[data-tooltip-position="right"]::after {
+    top: 50%;
+    left: calc(100% + var(--tooltip-offset));
+    transform: translateY(-50%);
+}
+
+/* -------------------------------------------------
+   Default position
+------------------------------------------------- */
+
+.tooltip:not([data-tooltip-position])::after {
+    bottom: calc(100% + var(--tooltip-offset));
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* -------------------------------------------------
+   Reduced motion
+------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+    .tooltip::after {
+        transition: none;
+    }
+}

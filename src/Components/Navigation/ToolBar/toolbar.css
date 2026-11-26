@@ -1,0 +1,250 @@
+
+/**
+ * ToolBar component styles.
+ *
+ * Provides a reusable toolbar with five size variations,
+ * horizontal and vertical orientations, and dark theme support.
+ *
+ * @package RedSky\Html\Components\Navigation\ToolBar
+ */
+
+/* ============================================================
+   Theme variables
+   ============================================================ */
+
+:root {
+    --toolbar-bg: #f5f5f5;
+    --toolbar-border: #dddddd;
+    --toolbar-radius: 6px;
+
+    --toolbar-padding: 2px;
+    --toolbar-gap: 2px;
+
+    --toolbar-item-size: 28px;
+    --toolbar-icon-size: 18px;
+
+    --toolbar-item-color: #444444;
+    --toolbar-item-bg-hover: #e8e8e8;
+    --toolbar-item-bg-active: #dddddd;
+    --toolbar-item-border-radius: 5px;
+
+    --toolbar-focus-color: #3498db;
+
+    /* Tiny */
+    --toolbar-tiny-padding: 1px;
+    --toolbar-tiny-gap: 1px;
+    --toolbar-tiny-item-size: 18px;
+    --toolbar-tiny-icon-size: 11px;
+
+    /* Small */
+    --toolbar-small-padding: 1px;
+    --toolbar-small-gap: 2px;
+    --toolbar-small-item-size: 22px;
+    --toolbar-small-icon-size: 14px;
+
+    /* Medium */
+    --toolbar-medium-padding: 2px;
+    --toolbar-medium-gap: 2px;
+    --toolbar-medium-item-size: 28px;
+    --toolbar-medium-icon-size: 18px;
+
+    /* Large */
+    --toolbar-large-padding: 3px;
+    --toolbar-large-gap: 3px;
+    --toolbar-large-item-size: 36px;
+    --toolbar-large-icon-size: 24px;
+
+    /* Extra Large */
+    --toolbar-xl-padding: 4px;
+    --toolbar-xl-gap: 4px;
+    --toolbar-xl-item-size: 44px;
+    --toolbar-xl-icon-size: 30px;
+}
+
+/* ============================================================
+   Dark theme
+   ============================================================ */
+
+html.dark {
+    --toolbar-bg: #252525;
+    --toolbar-border: #444444;
+
+    --toolbar-item-color: #eeeeee;
+    --toolbar-item-bg-hover: #383838;
+    --toolbar-item-bg-active: #454545;
+
+    --toolbar-focus-color: #5dade2;
+}
+
+/* ============================================================
+   Main toolbar
+   ============================================================ */
+
+.toolbar {
+    display: inline-flex;
+    align-items: center;
+
+    gap: var(--toolbar-gap);
+    padding: var(--toolbar-padding);
+
+    background: var(--toolbar-bg);
+    border: 1px solid var(--toolbar-border);
+    border-radius: var(--toolbar-radius);
+
+    color: var(--toolbar-item-color);
+
+    box-sizing: border-box;
+}
+
+/* ============================================================
+   Orientation
+   ============================================================ */
+
+.toolbar[data-toolbar-orientation="horizontal"] {
+    flex-direction: row;
+}
+
+.toolbar[data-toolbar-orientation="vertical"] {
+    flex-direction: column;
+    align-items: stretch;
+}
+
+/* ============================================================
+   Toolbar items
+   ============================================================ */
+
+.toolbar .toolbar-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: var(--toolbar-item-size);
+    height: var(--toolbar-item-size);
+
+    min-width: var(--toolbar-item-size);
+    min-height: var(--toolbar-item-size);
+
+    padding: 2px;
+
+    color: var(--toolbar-item-color);
+    background: transparent;
+
+    border: none;
+    border-radius: var(--toolbar-item-border-radius);
+
+    cursor: pointer;
+
+    box-sizing: border-box;
+
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease;
+}
+
+/* Hover */
+
+.toolbar .toolbar-item:hover:not(:disabled):not([aria-disabled="true"]) {
+    background: var(--toolbar-item-bg-hover);
+}
+
+/* Active */
+
+.toolbar .toolbar-item.active {
+    background: var(--toolbar-item-bg-active);
+}
+
+/* Focus */
+
+.toolbar .toolbar-item:focus-visible {
+    outline: 2px solid var(--toolbar-focus-color);
+    outline-offset: 1px;
+}
+
+/* Disabled */
+
+.toolbar .toolbar-item:disabled,
+.toolbar .toolbar-item[aria-disabled="true"] {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+/* Icons */
+
+.toolbar .toolbar-item .icon {
+    display: block;
+
+    width: var(--toolbar-icon-size);
+    height: var(--toolbar-icon-size);
+
+    flex-shrink: 0;
+}
+
+/* ============================================================
+   Tiny
+   ============================================================ */
+
+.toolbar.toolbar-tiny {
+    padding: var(--toolbar-tiny-padding);
+    gap: var(--toolbar-tiny-gap);
+
+    --toolbar-item-size: var(--toolbar-tiny-item-size);
+    --toolbar-icon-size: var(--toolbar-tiny-icon-size);
+}
+
+/* ============================================================
+   Small
+   ============================================================ */
+
+.toolbar.toolbar-small {
+    padding: var(--toolbar-small-padding);
+    gap: var(--toolbar-small-gap);
+
+    --toolbar-item-size: var(--toolbar-small-item-size);
+    --toolbar-icon-size: var(--toolbar-small-icon-size);
+}
+
+/* ============================================================
+   Medium
+   ============================================================ */
+
+.toolbar.toolbar-medium {
+    padding: var(--toolbar-medium-padding);
+    gap: var(--toolbar-medium-gap);
+
+    --toolbar-item-size: var(--toolbar-medium-item-size);
+    --toolbar-icon-size: var(--toolbar-medium-icon-size);
+}
+
+/* ============================================================
+   Large
+   ============================================================ */
+
+.toolbar.toolbar-large {
+    padding: var(--toolbar-large-padding);
+    gap: var(--toolbar-large-gap);
+
+    --toolbar-item-size: var(--toolbar-large-item-size);
+    --toolbar-icon-size: var(--toolbar-large-icon-size);
+}
+
+/* ============================================================
+   Extra Large
+   ============================================================ */
+
+.toolbar.toolbar-xl {
+    padding: var(--toolbar-xl-padding);
+    gap: var(--toolbar-xl-gap);
+
+    --toolbar-item-size: var(--toolbar-xl-item-size);
+    --toolbar-icon-size: var(--toolbar-xl-icon-size);
+}
+
+/* ============================================================
+   Reduced motion
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    .toolbar .toolbar-item {
+        transition: none;
+    }
+}
